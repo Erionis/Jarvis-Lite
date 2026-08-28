@@ -39,12 +39,20 @@ class StarterContractTest(unittest.TestCase):
         contract = self.read("jarvis/JARVIS.md")
         for phrase in [
             "Read `jarvis/PROFILE.md`",
-            "jarvis:onboarding-required",
+            MARKER,
             "one question at a time",
             "Do not overwrite",
             "jarvis/skills/",
         ]:
             self.assertIn(phrase, contract)
+
+    def test_canonical_guardrails_name_protected_sources(self):
+        contract = self.read("jarvis/JARVIS.md")
+        self.assertIn(
+            "Identity, durable memory, and local customizations", contract
+        )
+        self.assertIn("require explicit approval", contract)
+        self.assertIn("before overwriting them", contract)
 
 
 if __name__ == "__main__":

@@ -15,8 +15,8 @@ Before responding or acting:
 
 ## First run
 
-First run is required when the identity source is missing or
-`jarvis:onboarding-required` appears in the profile. Load
+First run is required when the identity source is missing or the exact marker
+`<!-- jarvis:onboarding-required -->` appears in the profile. Load
 `jarvis/skills/first-run/SKILL.md` and read it in full before acting. During
 first run, ask one question at a time, learn only what is needed, and preserve
 existing content.
@@ -34,8 +34,10 @@ source. Update the appropriate declared source instead of creating a duplicate.
 
 ## Guardrails
 
-Do not overwrite protected user sources. Confirm destructive or semantic
-changes before making them. Never expose credentials, secrets, or private keys.
+Identity, durable memory, and local customizations require explicit approval
+before overwriting them. Do not overwrite protected user sources. Confirm
+destructive or semantic changes before making them. Never expose credentials,
+secrets, or private keys.
 
 ## Git
 
