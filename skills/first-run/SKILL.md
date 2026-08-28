@@ -46,11 +46,7 @@ from a vague signal.
 
 Render Soul and personal content in the preferred language only when that text
 is newly created or newly added. Only newly created or newly added personal text is rendered in the preferred language. Record only direct answers or
-confirmed candidates: patch the explicit Preferred language and Main focus
-fields in the existing profile, add the stated focus to the existing memory and
-future-work sections when it is not already present, and leave every other line
-intact. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the
-starter.
+confirmed candidates. If `Preferred language:` or `Main focus:` is absent, show the smallest exact proposed addition under an existing `## Current context`; if that section is absent, propose adding `## Current context` at the end with only the missing field lines. For example, under an existing section propose only `- Preferred language: <confirmed language>` and/or `- Main focus: <confirmed focus>`; without that section, propose exactly that heading followed by only those missing lines. Apply it only after explicit approval. Preserve every existing line. Patch an existing explicit field only with the same care, then add the stated focus to the existing memory and future-work sections when it is not already present. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the starter.
 
 Create the resolved Identity capability source only when it is absent, using
 the Soul template with the confirmed name and language. Never replace an
@@ -72,42 +68,41 @@ asks to “clean up” or because an existing Soul looks complete.
 
 After personal setup, offer the local checkpoint and wait for explicit acceptance before any Git mutation: `git init -b main, author configuration, staging, or commit`. A declined or deferred checkpoint adds `<!-- jarvis:git-pending -->`, performs no Git mutation, and permits normal work. If the user intentionally defers Git, treat it as a deferred checkpoint. `git --version` is only a read-only availability check after acceptance.
 
-On any Git failure, report the exact failed command, preserve personal setup,
-and restore or retain `<!-- jarvis:git-pending -->`.
+Classify Git results exactly; do not treat every nonzero result as permission to
+initialize or reconfigure:
+
+- `git --version`: exit 0 means Git is available; command-not-found means Git is missing. Any other execution error enters Git failure recovery.
+- `git rev-parse --is-inside-work-tree`: exit 0 with output `true` means existing worktree. Only exit 128 whose error explicitly says `not a git repository` is the expected not-a-repository result; only the expected not-a-repository result may lead to `git init -b main`. Any other output or error enters Git failure recovery.
+- `git config --get user.name` / `git config --get user.email`: exit 0 with nonempty output means configured. Exit 1 with empty output and no error is the expected missing-value state; the expected missing-value state means ask before repository-local configuration. Any other error enters Git failure recovery.
+- `git diff --cached --quiet`: exit 0 means empty; exit 1 means changes. Any other exit code enters Git failure recovery.
+
 For a Git-unavailable or declined checkpoint, retain or add `<!-- jarvis:git-pending -->`.
 
-- If Git is available, run `git rev-parse --is-inside-work-tree`. Only when it
-  fails, initialize the local folder with `git init -b main`. Do not recreate
-  or replace an existing repository. If `git init -b main` fails, report the
-  exact failed command, restore or retain `<!-- jarvis:git-pending -->`, and
-  stop Git work without undoing personal setup.
+- For the expected not-a-repository result only, initialize the local folder
+  with `git init -b main`. Do not recreate or replace an existing repository.
 - Reuse an existing author returned by `git config --get user.name` and
-  `git config --get user.email`. If either is absent, ask for the author name
-  and then the author email, one question at a time, before setting only the
-  missing repository-local values with `git config --local user.name` or
-  `git config --local user.email`. On an author-config failure, report the
-  exact failed command, restore or retain `<!-- jarvis:git-pending -->`, and
-  stop Git work without undoing personal setup.
+  `git config --get user.email`. For only an expected missing value, ask for
+  the author name and then the author email, one question at a time, before
+  setting only the missing repository-local values with `git config --local
+  user.name` or `git config --local user.email`.
 - A successful `git init -b main` makes this a freshly initialized Jarvis directory. Run `git status --short`, display its complete scope, and use
   `git add -A` only after the user explicitly approves the displayed full baseline. Withheld or declined baseline approval means no `git add -A` and no commit; retain or add Git-pending and continue normal work.
 - In an existing repository, do not use `git add -A`; stage only explicitly approved onboarding sources or defer checkpointing. Before staging, display
   `git status --short` and obtain the same source-specific approval.
-- After either staging approval, do the following. Remove the Git-pending marker before staging,
-  so the successful checkpoint contains the clean profile state. Run
-  `git diff --cached --quiet` after staging. Only a non-empty staged diff may
-  create the baseline checkpoint with `git commit -m "chore: initialize my Jarvis"`.
-  If staging, the staged-diff check, or the commit fails, report the exact
-  failed command, restore or retain `<!-- jarvis:git-pending -->`, and stop
-  Git work without undoing personal setup.
+- After either staging approval, stage the approved scope while Git-pending remains, then run `git diff --cached --quiet`. If the staged diff is empty, retain Git-pending, report that no checkpoint was made, and continue normal work. If it has changes, remove the Git-pending marker, re-stage the resolved Profile, recheck, then commit with `git commit -m "chore: initialize my Jarvis"`. Remove the Git-pending marker before staging that resolved Profile, so the successful checkpoint contains the clean profile state and leaves no marker-removal change afterward. Only a non-empty rechecked staged diff may create the checkpoint.
+
+Git failure recovery applies to `git init -b main`, either repository-local author configuration command, staging, either staged-diff check, and commit. On failure, report the exact failed command and preserve completed personal setup. Immediately run and display `git status --short`. Preserve the existing index; never blindly unstage, and stop further Git mutations. Failure handling must restore or retain `<!-- jarvis:git-pending -->` without staging it; when restoration changes the worktree, display `git status --short` again. The report must explain the exact staged and unstaged state, and offer only an explicit user-approved recovery step. Normal Jarvis work may continue.
 
 Never create a remote, authenticate with GitHub, or push. A local commit is a
 recovery checkpoint, not a remote backup.
 
 ## Git unavailable
 
-Git is optional for beginning work. If `git --version` fails, report the exact
-failed command, add `<!-- jarvis:git-pending -->` to the profile without
-changing any non-marker line, then continue with Jarvis normally. If the user
+Git is optional for beginning work. If `git --version` is command-not-found,
+report the exact failed command, add `<!-- jarvis:git-pending -->` to the
+profile without changing any non-marker line, then continue with Jarvis
+normally. Any other `git --version` execution error follows Git failure
+recovery. If the user
 does not answer the operating-system question, keep the Git-pending marker,
 complete personal onboarding, and do not block on a follow-up question. Offer operating-system guidance later only on request. When the user requests it,
 ask the operating system if unknown and provide only the matching official

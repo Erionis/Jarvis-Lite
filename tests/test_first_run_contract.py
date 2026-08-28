@@ -128,6 +128,49 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.text)
 
+    def test_git_exit_codes_distinguish_expected_states_from_failures(self):
+        for phrase in [
+            "`git --version`: exit 0 means Git is available",
+            "command-not-found means Git is missing",
+            "`git rev-parse --is-inside-work-tree`: exit 0 with output `true` means existing worktree",
+            "only the expected not-a-repository result may lead to `git init -b main`",
+            "`git config --get user.name` / `git config --get user.email`: exit 0 with nonempty output means configured",
+            "expected missing-value state means ask before repository-local configuration",
+            "`git diff --cached --quiet`: exit 0 means empty; exit 1 means changes",
+            "Any other exit code enters Git failure recovery",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_empty_staging_retains_marker_and_success_commits_marker_removal(self):
+        for phrase in [
+            "stage the approved scope while Git-pending remains",
+            "If the staged diff is empty, retain Git-pending, report that no checkpoint was made, and continue normal work",
+            "remove the Git-pending marker, re-stage the resolved Profile, recheck, then commit",
+            "leaves no marker-removal change afterward",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_partial_git_failure_preserves_index_and_requires_approved_recovery(self):
+        for phrase in [
+            "Immediately run and display `git status --short`",
+            "Preserve the existing index; never blindly unstage",
+            "stop further Git mutations",
+            "explain the exact staged and unstaged state",
+            "offer only an explicit user-approved recovery step",
+            "Normal Jarvis work may continue",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_missing_profile_fields_use_an_approved_smallest_addition(self):
+        for phrase in [
+            "If `Preferred language:` or `Main focus:` is absent",
+            "show the smallest exact proposed addition under an existing `## Current context`",
+            "propose adding `## Current context` at the end",
+            "Apply it only after explicit approval",
+            "Preserve every existing line",
+        ]:
+            self.assertIn(phrase, self.text)
+
     def test_scenarios_exist(self):
         for name in ["new-user.md", "second-run.md", "git-missing.md"]:
             self.assertTrue((ROOT / "tests/scenarios" / name).is_file(), name)
