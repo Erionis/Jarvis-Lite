@@ -16,10 +16,10 @@ human gate remains pending.
 
 ## Disposable assembly audit
 
-The public starter and skills were assembled at
-`/private/tmp/jarvis-lite-foundation-task6.vNFCWO`. The resulting 23-file tree
-matched exactly the files from `starter/.` plus `skills/.` installed under
-`jarvis/skills/`; it contained no `.git` directory.
+The public starter and skills were assembled in a fresh task-specific temporary
+directory outside the repository. The resulting 23-file tree matched exactly
+the files from `starter/.` plus `skills/.` installed under `jarvis/skills/`; it
+contained no `.git` directory.
 
 The audit read the assembled `START-HERE.md`, root adapters, canonical contract,
 profile, all six adoption cards, and all six skill contracts. It found:
@@ -29,8 +29,7 @@ profile, all six adoption cards, and all six skill contracts. It found:
   behavior.
 - Public product prose is English.
 - No internal path, host, domain, email, repository, or private identity leak
-  was found. The public copyright owner `Erion Islamay` appears only in
-  `LICENSE`, as expected.
+  was found. The public copyright owner appears only in `LICENSE`, as expected.
 - Each adoption card names a semantic capability and uses the five stable
   headings: Purpose, Use it when, Dependencies, Files it may change, and
   Adopting it into an existing Jarvis.
@@ -53,4 +52,4 @@ not to exist.
 
 This evidence applies only to the local Foundation branch. No release artifact,
 download, GitHub repository, remote, or publication exists yet. Release
-engineering starts only after Erion's gate review.
+engineering starts only after the maintainer's gate review.
