@@ -19,12 +19,12 @@ create another manifest or substitute starter paths.
    it as a second identity or to decide onboarding is complete. For the default
    starter this means: If `jarvis/identity/SOUL.md` already exists, do not replace it.
 2. First run applies when the resolved identity source is absent or the exact
-   `<!-- jarvis:onboarding-required -->` marker is in the profile. Treat semantic equivalents of `Start Jarvis` in any language as the same trigger. A
-   `<!-- jarvis:git-pending -->` marker resumes only the Git checkpoint.
-3. If the identity exists and both markers are absent, onboarding is complete.
-   Exit without writes, staging, commits, or Git configuration. If only the
-   Git-pending marker remains, skip personal questions and go to Local Git
-   checkpoint.
+   `<!-- jarvis:onboarding-required -->` marker is in the profile. Treat semantic equivalents of `Start Jarvis` in any language as the same trigger. If the resolved Identity source is absent, run personal onboarding first even when a Git-pending marker exists. Git-only resume applies only when the resolved Identity source exists and the onboarding marker is absent.
+3. If the resolved Identity source exists and both markers are absent,
+   onboarding is complete. Exit without writes, staging, commits, or Git
+   configuration. If the resolved Identity source exists, the onboarding marker
+   is absent, and only Git-pending remains, skip personal questions and go to
+   Local Git checkpoint.
 4. If the onboarding marker remains, reconcile rather than guessing. Read all
    existing personal content first and preserve its wording and customizations.
    Candidate values are only non-placeholder `Preferred language:` and `Main focus:` profile fields, plus a recognized identity name field in the
@@ -44,19 +44,23 @@ from a vague signal.
 2. Ask for the user's name.
 3. Ask for their immediate focus.
 
-Render Soul and personal content in the preferred language. Record only direct
-answers or confirmed candidates: patch the explicit Preferred language and Main
-focus fields in the existing profile, add the stated focus to the existing
-memory and future-work sections when it is not already present, and leave every
-other line intact. Do not rewrite a file to make it look like the starter.
+Render Soul and personal content in the preferred language only when that text
+is newly created or newly added. Only newly created or newly added personal text is rendered in the preferred language. Record only direct answers or
+confirmed candidates: patch the explicit Preferred language and Main focus
+fields in the existing profile, add the stated focus to the existing memory and
+future-work sections when it is not already present, and leave every other line
+intact. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the
+starter.
 
 Create the resolved Identity capability source only when it is absent, using
 the Soul template with the confirmed name and language. Never replace an
 existing identity. When an existing identity has a recognized identity name
 field and the user directly supplies a name, request explicit approval to patch only that field before writing it. When it has no recognized identity name
-field, explain that the name cannot be recorded safely, make no identity write,
-and keep onboarding pending. Never overwrite identity, durable memory, or local
-customizations without the user's explicit approval.
+field, show a narrow proposed patch in the identity's existing style and location: one added owner-name line or one identified identity sentence, never a
+replacement document. Require explicit approval before applying it. If the user
+declines, make no identity write, keep onboarding pending, and state that
+ordinary Jarvis work may continue. Never overwrite identity, durable memory, or
+local customizations without the user's explicit approval.
 
 Remove `<!-- jarvis:onboarding-required -->` only after the resolved identity,
 durable-memory, and future-work sources are readable and the confirmed personal
@@ -66,33 +70,35 @@ asks to “clean up” or because an existing Soul looks complete.
 
 ## Local Git checkpoint
 
-After personal setup, offer the local checkpoint and check Git with
-`git --version`. If the user intentionally defers Git, add
-`<!-- jarvis:git-pending -->`, preserve completed personal setup, and let
-Jarvis begin work without a checkpoint.
+After personal setup, offer the local checkpoint and wait for explicit acceptance before any Git mutation: `git init -b main, author configuration, staging, or commit`. A declined or deferred checkpoint adds `<!-- jarvis:git-pending -->`, performs no Git mutation, and permits normal work. If the user intentionally defers Git, treat it as a deferred checkpoint. `git --version` is only a read-only availability check after acceptance.
+
+On any Git failure, report the exact failed command, preserve personal setup,
+and restore or retain `<!-- jarvis:git-pending -->`.
+For a Git-unavailable or declined checkpoint, retain or add `<!-- jarvis:git-pending -->`.
 
 - If Git is available, run `git rev-parse --is-inside-work-tree`. Only when it
   fails, initialize the local folder with `git init -b main`. Do not recreate
   or replace an existing repository. If `git init -b main` fails, report the
-  exact failed command, retain or add `<!-- jarvis:git-pending -->`, and stop
-  Git work without undoing personal setup.
+  exact failed command, restore or retain `<!-- jarvis:git-pending -->`, and
+  stop Git work without undoing personal setup.
 - Reuse an existing author returned by `git config --get user.name` and
   `git config --get user.email`. If either is absent, ask for the author name
   and then the author email, one question at a time, before setting only the
   missing repository-local values with `git config --local user.name` or
   `git config --local user.email`. On an author-config failure, report the
-  exact failed command, retain or add `<!-- jarvis:git-pending -->`, and stop
-  Git work without undoing personal setup.
+  exact failed command, restore or retain `<!-- jarvis:git-pending -->`, and
+  stop Git work without undoing personal setup.
 - A successful `git init -b main` makes this a freshly initialized Jarvis directory. Run `git status --short`, display its complete scope, and use
-  `git add -A` only after the user explicitly approves the displayed full baseline. If approval is absent, retain or add the Git-pending marker.
+  `git add -A` only after the user explicitly approves the displayed full baseline. Withheld or declined baseline approval means no `git add -A` and no commit; retain or add Git-pending and continue normal work.
 - In an existing repository, do not use `git add -A`; stage only explicitly approved onboarding sources or defer checkpointing. Before staging, display
   `git status --short` and obtain the same source-specific approval.
-- After either permitted staging branch, run `git diff --cached --quiet`. Only
-  a non-empty staged diff may create the baseline checkpoint with
-  `git commit -m "chore: initialize my Jarvis"`. If staging, the staged-diff
-  check, or the commit fails, report the exact failed command, retain or add
-  `<!-- jarvis:git-pending -->`, and stop Git work without undoing personal
-  setup. Remove the Git-pending marker only after that successful checkpoint.
+- After either staging approval, do the following. Remove the Git-pending marker before staging,
+  so the successful checkpoint contains the clean profile state. Run
+  `git diff --cached --quiet` after staging. Only a non-empty staged diff may
+  create the baseline checkpoint with `git commit -m "chore: initialize my Jarvis"`.
+  If staging, the staged-diff check, or the commit fails, report the exact
+  failed command, restore or retain `<!-- jarvis:git-pending -->`, and stop
+  Git work without undoing personal setup.
 
 Never create a remote, authenticate with GitHub, or push. A local commit is a
 recovery checkpoint, not a remote backup.

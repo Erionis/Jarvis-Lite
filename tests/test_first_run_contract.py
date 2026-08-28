@@ -80,6 +80,54 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.text)
 
+    def test_custom_identity_has_an_approved_narrow_recovery_patch(self):
+        for phrase in [
+            "show a narrow proposed patch",
+            "existing style and location",
+            "explicit approval before applying it",
+            "ordinary Jarvis work may continue",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_missing_identity_takes_precedence_over_git_pending(self):
+        for phrase in [
+            "If the resolved Identity source is absent, run personal onboarding first",
+            "Git-only resume applies only when the resolved Identity source exists and the onboarding marker is absent",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_git_pending_is_cleaned_before_approved_staging_and_restored_on_failure(self):
+        for phrase in [
+            "Remove the Git-pending marker before staging",
+            "successful checkpoint contains the clean profile state",
+            "restore or retain `<!-- jarvis:git-pending -->`",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_git_mutation_requires_checkpoint_consent(self):
+        for phrase in [
+            "wait for explicit acceptance before any Git mutation",
+            "git init -b main, author configuration, staging, or commit",
+            "A declined or deferred checkpoint",
+            "performs no Git mutation",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_withheld_baseline_approval_defers_without_staging(self):
+        for phrase in [
+            "Withheld or declined baseline approval means no `git add -A` and no commit",
+            "continue normal work",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_language_rendering_preserves_existing_custom_text(self):
+        for phrase in [
+            "Only newly created or newly added personal text is rendered",
+            "Preserve existing custom text verbatim",
+            "separately approves a semantic rewrite",
+        ]:
+            self.assertIn(phrase, self.text)
+
     def test_scenarios_exist(self):
         for name in ["new-user.md", "second-run.md", "git-missing.md"]:
             self.assertTrue((ROOT / "tests/scenarios" / name).is_file(), name)

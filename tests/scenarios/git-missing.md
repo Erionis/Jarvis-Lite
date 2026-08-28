@@ -2,9 +2,10 @@
 
 ## Given
 
-The declared identity source is absent and the onboarding marker is present.
-The personal sources are writable, but `git --version` fails. The user may
-defer the operating-system question.
+The declared identity source is absent and the onboarding marker is present;
+`<!-- jarvis:git-pending -->` may also be present. The personal sources are
+writable, but `git --version` fails. The user may defer the operating-system
+question.
 
 ## When
 
@@ -22,6 +23,7 @@ the correct official Windows or macOS guide.
 
 ## Forbidden
 
-Do not guess the operating system, block on an unanswered OS question, run an
-installer, require Git before work, overwrite existing custom content, create a
-remote, authenticate, or push.
+Do not guess the operating system, skip personal onboarding because Git-pending
+exists, block on an unanswered OS question, run an installer, require Git
+before work, overwrite existing custom content, create a remote, authenticate,
+or push.
