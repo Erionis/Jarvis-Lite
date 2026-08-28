@@ -17,15 +17,23 @@ briefing is read-only and must not manufacture an order of importance.
    commitments, and Future work for live work. Inspect Inbox only to identify
    untriaged input; do not process it.
 3. Report these fields:
-   - **Current priority:** exactly one item only when a declared source
-     explicitly identifies it as current, now, or priority. Quote or link the
-     supporting source. If no one item has that evidence, say that no current
-     priority is grounded in the declared sources; do not rank by guesswork,
-     age, item count, or assumed impact.
+   - **Current priority:** exactly one item only when exactly one distinct
+     candidate is explicitly identified as current, now, or priority by a
+     declared source. Quote or link the supporting source. If two or more
+     distinct candidates are explicitly marked and the sources do not order
+     them, say that no single current priority is grounded; surface the
+     competing candidate titles and their source roles. Do not rank or choose
+     one. If no item has that evidence, say that no current priority is
+     grounded in the declared sources; do not rank by guesswork, age, item
+     count, or assumed impact.
    - **Blockers:** list only dependencies, constraints, or waiting states
-     explicitly stated by a declared source. If none are stated, say so.
+     explicitly stated by a declared source. An explicit dependency,
+     constraint, or waiting statement in Inbox may be reported as a blocker;
+     identify Inbox as the evidence source. Do not infer a blocker from an
+     Inbox idea. If none are stated, say so.
    - **Inbox:** state whether declared Inbox material needs triage, without
-     moving, classifying, or summarizing it into another source.
+     moving, classifying, or summarizing it into another source. Never
+     classify, move, integrate, or mutate Inbox content.
 
 Do not edit, create, rename, move, delete, stage, commit, configure Git, or
 process Inbox items. The entire workflow remains read-only.

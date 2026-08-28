@@ -42,6 +42,26 @@ class LifecycleSkillsTest(unittest.TestCase):
             ],
         )
 
+    def test_briefing_does_not_choose_between_unordered_candidates(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "If two or more distinct candidates are explicitly marked",
+            "no single current priority is grounded",
+            "surface the competing candidate titles and their source roles",
+            "Do not rank or choose one",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_can_report_explicit_inbox_blocker_evidence(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "An explicit dependency, constraint, or waiting statement in Inbox may be reported",
+            "identify Inbox as the evidence source",
+            "Do not infer a blocker from an Inbox idea",
+            "Never classify, move, integrate, or mutate Inbox content",
+        ]:
+            self.assertIn(phrase, text)
+
 
 if __name__ == "__main__":
     unittest.main()
