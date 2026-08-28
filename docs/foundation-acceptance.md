@@ -6,13 +6,25 @@ human gate remains pending.
 ## Tested product
 
 - Tested product commit:
-  `f092b43ea77833e7102b405c613385142b8a97c4`.
+  `2e1fb769fd8ec52bd38aef038b5d37d1fc8fa39f`.
 - Full-suite command:
   `python3 -m unittest discover -s tests -p 'test_*.py' -v`.
-- Full-suite result: 85 tests passed.
+- Full-suite result: 95 tests passed.
 - `git diff --check` completed cleanly.
 - The initial `git status --short` was clean.
 - `git remote` returned no configured remote.
+
+The automated suite is static contract evidence: it checks the public Markdown
+interfaces, safety rules, scenarios, and structural invariants. It does not
+execute an AI agent or prove runtime behavior on macOS or Windows.
+
+Independent forward-only contract simulations also passed for:
+
+- new-user focus ownership, stable-signal routing, second-run idempotency, and
+  the separate Git command-not-found and recovery branches;
+- immutable adoption provenance for commits, tags, moving branches, and
+  assembled releases, including zero-write conflict handling and both approval
+  gates.
 
 ## Disposable assembly audit
 
@@ -53,3 +65,11 @@ not to exist.
 This evidence applies only to the local Foundation branch. No release artifact,
 download, GitHub repository, remote, or publication exists yet. Release
 engineering starts only after the maintainer's gate review.
+
+Before publication, release engineering must still provide real macOS and
+Windows acceptance for new-user onboarding, second-run behavior, missing Git,
+and capability adoption. It must also build and verify the release package,
+manifest, checksum, documentation, and CI. The unpublished branch history must
+be rewritten into publication-safe commits and audited again so superseded
+unsafe contracts and temporary process details are not reachable from the
+public repository.
