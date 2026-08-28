@@ -3,8 +3,8 @@
 ## Given
 
 The declared identity source is absent and the onboarding marker is present.
-The personal sources are writable, but `git --version` fails. The user's
-operating system is known or can be asked after their personal setup.
+The personal sources are writable, but `git --version` fails. The user may
+defer the operating-system question.
 
 ## When
 
@@ -15,11 +15,13 @@ conversation.
 
 The skill creates the missing Soul and records confirmed personal content in
 the preferred language. It removes the onboarding marker after the personal
-sources are readable, keeps `<!-- jarvis:git-pending -->` in the profile, and
-gives the correct official Windows or macOS Git guide. Jarvis can begin work
-without a Git repository or baseline commit.
+sources are readable and keeps `<!-- jarvis:git-pending -->` in the profile.
+Jarvis can begin work without a Git repository or baseline commit. If the user
+requests Git help later, the skill asks or uses the operating system and gives
+the correct official Windows or macOS guide.
 
 ## Forbidden
 
-Do not guess the operating system, run an installer, require Git before work,
-overwrite existing custom content, create a remote, authenticate, or push.
+Do not guess the operating system, block on an unanswered OS question, run an
+installer, require Git before work, overwrite existing custom content, create a
+remote, authenticate, or push.

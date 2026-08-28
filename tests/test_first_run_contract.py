@@ -41,6 +41,45 @@ class FirstRunContractTest(unittest.TestCase):
         self.assertIn("https://git-scm.com/download/mac", self.text)
         self.assertIn("<!-- jarvis:git-pending -->", self.text)
 
+    def test_fresh_baseline_requires_scope_review_and_approval(self):
+        for phrase in [
+            "git status --short",
+            "freshly initialized Jarvis directory",
+            "explicitly approves the displayed full baseline",
+            "do not use `git add -A`",
+            "stage only explicitly approved onboarding sources or defer checkpointing",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_existing_identity_uses_resolved_path_and_safe_name_reconciliation(self):
+        for phrase in [
+            "resolved Identity capability source",
+            "non-authoritative starter Soul is legacy content",
+            "recognized identity name field",
+            "explicit approval to patch only that field",
+            "keep onboarding pending",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_existing_candidates_need_confirmation_but_direct_answers_do_not(self):
+        for phrase in [
+            "Preferred language:",
+            "Main focus:",
+            "Ask one explicit confirmation for each candidate read from files",
+            "A direct answer needs no duplicate confirmation",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_git_can_be_deferred_and_failures_are_recoverable(self):
+        for phrase in [
+            "intentionally defers Git",
+            "does not answer the operating-system question",
+            "Offer operating-system guidance later only on request",
+            "report the exact failed command",
+            "retain or add `<!-- jarvis:git-pending -->`",
+        ]:
+            self.assertIn(phrase, self.text)
+
     def test_scenarios_exist(self):
         for name in ["new-user.md", "second-run.md", "git-missing.md"]:
             self.assertTrue((ROOT / "tests/scenarios" / name).is_file(), name)
