@@ -51,6 +51,21 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.text)
 
+    def test_existing_repository_index_isolated_before_checkpoint(self):
+        for phrase in [
+            "Before any onboarding staging or commit in an existing repository, run `git diff --cached --name-only`",
+            "If the initial staged-path output contains any entry",
+            "display every staged path, do not alter the index, do not stage, and do not commit",
+            "retain or add exactly one `<!-- jarvis:git-pending -->` marker",
+            "defer the checkpoint and permit normal Jarvis work",
+            "Only when the initial staged-path output is empty may you stage the exact explicitly approved onboarding source paths",
+            "After staging, run `git diff --cached --name-only` again",
+            "contains no path outside the explicitly approved onboarding source paths",
+            "Repeat this staged-path comparison after re-staging the resolved Profile and before commit",
+            "do not automatically unstage or commit",
+        ]:
+            self.assertIn(phrase, self.text)
+
     def test_existing_identity_uses_resolved_path_and_safe_name_reconciliation(self):
         for phrase in [
             "resolved Identity capability source",
