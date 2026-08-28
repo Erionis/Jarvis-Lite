@@ -62,6 +62,65 @@ class LifecycleSkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
+    def test_briefing_reads_starter_active_sections_as_candidate_sources(self):
+        future_work = (ROOT / "starter/jarvis/open-loops.md").read_text(
+            encoding="utf-8"
+        )
+        durable_memory = (ROOT / "starter/jarvis/memory/MEMORY.md").read_text(
+            encoding="utf-8"
+        )
+        self.assertIn("\n## Active\n", future_work)
+        self.assertIn("\n## Active Memory\n", durable_memory)
+
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "A non-placeholder work or focus item under the declared `Future work` source's `## Active` section is an active candidate",
+            "A non-placeholder work or focus item under `Durable memory`'s `## Active Memory` section is an active candidate",
+            "Stable preferences, references, and facts that do not describe work, focus, or a commitment are not priority candidates",
+            "Empty placeholders such as `- [ ]` are not candidates",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_deduplicates_active_candidates_before_selecting_priority(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "The same semantic focus repeated in both sources is one distinct candidate",
+            "Exactly one distinct grounded candidate may be reported as the current priority",
+            "Two or more distinct unordered candidates produce no single current priority",
+            "surface them without ranking",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_reports_every_unresolved_capability_without_fallback(self):
+        text = " ".join(self.skill("briefing").split())
+        for role in ["Identity", "Durable memory", "Future work", "Inbox"]:
+            self.assertIn(role, text)
+        for phrase in [
+            "missing, ambiguous, or points to a missing source",
+            "name that role and report it as unresolved",
+            "Do not use filesystem discovery",
+            "do not substitute another location or silently omit the role",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_unresolved_candidate_source_prevents_unique_priority(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "Durable memory and Future work are candidate-bearing sources",
+            "If either role is unresolved, do not claim a unique current priority",
+            "uniqueness cannot be verified",
+            "only as partial evidence",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_unresolved_inbox_prevents_complete_blocker_coverage(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "Inbox status is unverifiable",
+            "do not claim that blocker coverage is complete",
+        ]:
+            self.assertIn(phrase, text)
+
     def test_memory_has_one_authoritative_home(self):
         text = self.skill("jarvis-memory")
         for phrase in [
@@ -192,6 +251,17 @@ class LifecycleSkillsTest(unittest.TestCase):
             self.assertIn(phrase, text)
         self.assertNotIn("starter/", text)
 
+    def test_save_session_keeps_completed_chronology_response_only(self):
+        text = " ".join(self.skill("save-session").split())
+        for phrase in [
+            "Completed chronology is response-only",
+            "Never write or mutate a chronology or history source",
+            "even if the consumer declares one",
+            "A consumer's existing chronology workflow is a separate local extension outside this skill's mutation scope",
+        ]:
+            self.assertIn(phrase, text)
+        self.assertNotIn("Persist chronology only when", text)
+
     def test_save_session_inventory_and_future_work_are_evidence_scoped(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
@@ -256,6 +326,20 @@ class LifecycleSkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, card)
         self.assertNotIn("starter/", card)
+
+    def test_save_session_card_closes_history_mutation_scope(self):
+        card = " ".join(
+            (ROOT / "skills/save-session/README.md")
+            .read_text(encoding="utf-8")
+            .split()
+        )
+        for phrase in [
+            "Completed chronology is response-only",
+            "must not change any history source",
+            "separate local extension outside this skill's mutation scope",
+        ]:
+            self.assertIn(phrase, card)
+        self.assertNotIn("Preserve any existing chronology convention", card)
 
 
 if __name__ == "__main__":

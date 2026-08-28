@@ -21,11 +21,13 @@ assuming that Git or a remote is available.
    files actually changed in the session, and the current Git boundary. Do not
    manufacture decisions, infer follow-ups that were not stated, or claim
    completion without evidence.
-3. **Report completed work and preserve chronology only when declared.**
-   Present the completed outcome in the checkpoint response. Persist
-   chronology only when the consumer explicitly declares an appropriate,
-   existing capability for it. Do not invent `Session Log`, daily notes, or
-   any other history file when that capability is absent or unresolved.
+3. **Keep completed chronology response-only.** Completed chronology is
+   response-only. Present the evidenced completed outcome in the checkpoint
+   response. Never write or mutate a chronology or history source as part of
+   this skill, even if the consumer declares one. Do not invent `Session Log`,
+   daily notes, or any other history file, and never mutate one. A consumer's
+   existing chronology workflow is a separate local extension outside this
+   skill's mutation scope.
 4. **Route future work narrowly.** Deduplicate and route only explicit
    unresolved follow-ups to the declared `Future work` source. A direct
    save-session request authorizes a narrow append or update of session-owned

@@ -23,15 +23,15 @@ The skill may narrowly append or update session-owned items in the declared
 `jarvis-memory`, which owns any change to `Durable memory`, and may create a
 safe local Git commit containing only verified session-owned paths.
 
-It must not write an undeclared history source, mutate unrelated files or index
-entries, or absorb pre-existing user changes. It must never push, create a
-remote, or change Git configuration.
+Completed chronology is response-only: the skill must not change any history
+source, mutate unrelated files or index entries, or absorb pre-existing user
+changes. It must not write an undeclared history source. It must never push,
+create a remote, or change Git configuration.
 
 ## Adopting it into an existing Jarvis
 
 Map the semantic `Future work` and `Durable memory` roles to the consumer's
-already-declared capabilities. Preserve any existing chronology convention
-only when an appropriate semantic capability is explicitly declared and its
-source already exists. Reconcile an existing same-purpose skill deliberately;
-do not introduce path assumptions, duplicate authoritative sources, or a new
-history file.
+already-declared capabilities. Treat any existing chronology workflow as a
+separate local extension outside this skill's mutation scope. Reconcile an
+existing same-purpose skill deliberately; do not introduce path assumptions,
+duplicate authoritative sources, or a new history file.
