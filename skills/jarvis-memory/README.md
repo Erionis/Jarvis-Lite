@@ -24,7 +24,8 @@ Consultation is read-only. Approved curation may change only the declared
 
 ## Adopting it into an existing Jarvis
 
-Use the eventual semantic adoption workflow to reconcile this contract with
-the consumer's declared capability map and any existing same-purpose skill. Do
-not blindly copy it over an existing memory skill; compare behavior, preserve
-local extensions, and adopt the resolved semantic contract deliberately.
+Use the `adopt-capability` semantic adoption workflow to reconcile this
+contract with the consumer's declared capability map and any existing
+same-purpose skill. Do not blindly copy it over an existing memory skill;
+compare behavior, preserve local extensions, and adopt the resolved semantic
+contract deliberately.

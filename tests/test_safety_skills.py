@@ -344,6 +344,32 @@ class SafetySkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, card)
 
+    def test_adoption_card_handles_missing_and_ambiguous_provenance(self):
+        card = " ".join(self.read_card("adopt-capability").split())
+        for phrase in [
+            "inspection of the consumer's established provenance or changelog convention when one exists",
+            "If no provenance or changelog source exists",
+            "propose one new source with an exact path and minimal entry",
+            "create it only inside the second explicitly approved patch",
+            "Multiple plausible sources with unclear authority remain a conflict",
+        ]:
+            self.assertIn(phrase, card)
+        self.assertNotIn(
+            "and its existing provenance or changelog authority.", card
+        )
+
+    def test_memory_card_names_the_current_adoption_workflow(self):
+        card = " ".join(self.read_card("jarvis-memory").split())
+        for phrase in [
+            "`adopt-capability`",
+            "consumer's declared capability map",
+            "existing same-purpose skill",
+            "Do not blindly copy",
+            "preserve local extensions",
+        ]:
+            self.assertIn(phrase, card)
+        self.assertNotIn("eventual semantic adoption workflow", card)
+
     def test_existing_jarvis_scenario_proves_all_three_terminal_states(self):
         scenario = " ".join(self.read_scenario("existing-jarvis").split())
         for phrase in [
