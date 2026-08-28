@@ -4,8 +4,8 @@
 
 The declared identity source is absent and the onboarding marker is present;
 `<!-- jarvis:git-pending -->` may also be present. The personal sources are
-writable, but `git --version` fails. The user may defer the operating-system
-question.
+writable, but `git --version` is command-not-found. The user may defer the
+operating-system question.
 
 ## When
 

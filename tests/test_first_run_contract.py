@@ -6,6 +6,8 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 SKILL = ROOT / "skills/first-run/SKILL.md"
+CARD = ROOT / "skills/first-run/README.md"
+SCENARIOS = ROOT / "tests/scenarios"
 
 
 class FirstRunContractTest(unittest.TestCase):
@@ -206,6 +208,104 @@ class FirstRunContractTest(unittest.TestCase):
             "Preserve every existing line",
         ]:
             self.assertIn(phrase, self.text)
+
+    def test_immediate_focus_has_one_live_home_outside_durable_memory(self):
+        text = " ".join(self.text.split())
+        for phrase in [
+            "Record the confirmed `Main focus` in the Profile's `## Current context`",
+            "add or deduplicate the actionable focus in the declared `Future work` active section",
+            "one live authoritative home",
+            "Do not write the immediate focus to `Durable memory`",
+            "Never copy live state into `Durable memory`",
+        ]:
+            self.assertIn(phrase, text)
+        self.assertNotIn(
+            "add the stated focus to the existing memory and future-work sections",
+            text,
+        )
+
+    def test_stable_onboarding_signals_delegate_to_memory_workflow(self):
+        text = " ".join(self.text.split())
+        for phrase in [
+            "distinct genuinely stable preference, constraint, or long-lived model",
+            "route it through `jarvis-memory` as a separate candidate",
+            "obey that skill's conflict and approval rules",
+            "not a condition for first-run completion",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_first_run_frontmatter_has_a_trigger_only_description(self):
+        frontmatter = self.text.split("---", 2)[1].strip().splitlines()
+        fields = dict(line.split(": ", 1) for line in frontmatter)
+
+        self.assertEqual(set(fields), {"name", "description"})
+        self.assertEqual(fields["name"], "first-run")
+        self.assertTrue(fields["description"].startswith("Use when"))
+        for workflow_word in [
+            "read",
+            "resolve",
+            "inspect",
+            "write",
+            "patch",
+            "stage",
+            "commit",
+        ]:
+            self.assertNotIn(workflow_word, fields["description"].lower())
+
+    def test_first_run_card_has_the_exact_adoption_headings(self):
+        card = CARD.read_text(encoding="utf-8")
+        headings = [line[3:] for line in card.splitlines() if line.startswith("## ")]
+
+        self.assertEqual(
+            headings,
+            [
+                "Purpose",
+                "Use it when",
+                "Dependencies",
+                "Files it may change",
+                "Adopting it into an existing Jarvis",
+            ],
+        )
+
+    def test_first_run_card_does_not_promise_direct_memory_writes(self):
+        card = " ".join(CARD.read_text(encoding="utf-8").split())
+        self.assertIn("declared `Future work` active section", card)
+        self.assertIn("does not write `Durable memory` directly", card)
+        self.assertNotIn("profile/memory/future-work fields", card)
+
+    def test_scenarios_have_the_exact_contract_headings(self):
+        for name in ["new-user.md", "second-run.md", "git-missing.md"]:
+            scenario = (SCENARIOS / name).read_text(encoding="utf-8")
+            headings = [
+                line[3:] for line in scenario.splitlines() if line.startswith("## ")
+            ]
+            self.assertEqual(headings, ["Given", "When", "Then", "Forbidden"], name)
+
+    def test_new_user_scenario_keeps_focus_out_of_durable_memory(self):
+        scenario = " ".join(
+            (SCENARIOS / "new-user.md").read_text(encoding="utf-8").split()
+        )
+        for phrase in [
+            "records the confirmed Main focus in the Profile's current context",
+            "adds or deduplicates the actionable focus in the declared Future work active section",
+            "does not write the immediate focus to Durable memory",
+        ]:
+            self.assertIn(phrase, scenario)
+        self.assertNotIn("profile/memory/future-work content", scenario)
+
+    def test_second_run_excludes_both_resume_markers(self):
+        scenario = " ".join(
+            (SCENARIOS / "second-run.md").read_text(encoding="utf-8").split()
+        )
+        self.assertIn(
+            "has neither `<!-- jarvis:onboarding-required -->` nor "
+            "`<!-- jarvis:git-pending -->` markers",
+            scenario,
+        )
+
+    def test_git_missing_scenario_is_command_not_found(self):
+        scenario = (SCENARIOS / "git-missing.md").read_text(encoding="utf-8")
+        self.assertIn("`git --version` is command-not-found", scenario)
 
     def test_scenarios_exist(self):
         for name in ["new-user.md", "second-run.md", "git-missing.md"]:

@@ -12,13 +12,17 @@ workflow.
 ## Source and evidence boundary
 
 The user supplies or selects the Jarvis Lite repository or release. Resolve an
-immutable source release identifier before proposing adoption: use a release
-or tag identifier for an assembled release, or a clean Git commit SHA for a
-local repository. A branch name may locate a revision, but a moving branch name
-is not the recorded identifier.
+immutable source release identifier before proposing adoption. A clean local
+Git source records the full resolved commit SHA. A selected Git tag or release
+records its human-readable label and its resolved commit or object SHA. A tag
+name alone is insufficient. An assembled release records its version, manifest
+identity, and artifact checksum such as SHA-256. A branch name may locate a
+revision, but a moving branch name is not the recorded identifier.
 
 A dirty source tree, moving branch name without a resolved commit, missing
 identifier, or unverifiable source card blocks adoption and produces no write.
+If any required assembled-release identity or checksum is missing or
+unverifiable, classify adoption as `conflict` and perform no write.
 Do not require a remote or GitHub account. A clean local repository at a
 resolved commit is sufficient.
 
@@ -66,6 +70,7 @@ For every candidate, display all of these fields before asking for selection:
 
 - `Semantic capability and exact label`
 - `Source release or commit`
+- `Immutable source identifier(s)`
 - `Consumer equivalent, regardless of path`
 - `Benefit`
 - `Dependencies and whether each is satisfied`
@@ -73,6 +78,9 @@ For every candidate, display all of these fields before asking for selection:
 - `Local extensions to preserve`
 - `Conflicts or unresolved evidence`
 - `Intended provenance action`
+
+For the source and provenance action, display the immutable identifier or
+identifiers, not only a human-readable label.
 
 ## Approval gates
 
@@ -121,8 +129,11 @@ work. Do not stage, commit, push, create a remote, or change Git configuration.
 
 For an applied `add` or `adapt`, record the immutable source release or commit
 and semantic capability in the consumer's one clearly established existing
-provenance or changelog source. The provenance entry is part of the exact patch
-shown at the second gate.
+provenance or changelog source. The provenance entry must record the displayed
+immutable identifier or identifiers, alongside any human-readable version,
+tag, or release label. The provenance entry is part of the exact patch shown
+at the second gate, so the user sees those immutable identifiers before
+approval.
 
 Do not claim source adoption for independently equivalent `already present`
 behavior.

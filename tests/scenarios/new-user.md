@@ -20,10 +20,13 @@ marker.
 ## Then
 
 The skill creates the declared Soul from the template in the preferred
-language, records only the confirmed personal profile/memory/future-work
-content, and removes only the onboarding marker after all personal files are
-readable. It initializes the local repository, stages the approved complete
-baseline while the exactly one Git-pending marker remains, and checks that the
+language, records the confirmed Main focus in the Profile's current context,
+adds or deduplicates the actionable focus in the declared Future work active
+section, and does not write the immediate focus to Durable memory. It removes
+only the onboarding marker after all declared personal files, including the
+existing Durable memory source, are readable. It initializes the local
+repository, stages the approved complete baseline while the exactly one
+Git-pending marker remains, and checks that the
 staged diff is non-empty. It then removes the marker, re-stages the resolved Profile,
 rechecks the staged diff, and creates one `chore: initialize my Jarvis` baseline
 commit containing the clean profile with no remaining marker-removal change.

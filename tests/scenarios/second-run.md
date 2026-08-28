@@ -3,8 +3,9 @@
 ## Given
 
 The declared identity source and custom durable memory already exist, the
-profile has no `<!-- jarvis:onboarding-required -->` marker, and the folder may
-already have a Git history.
+profile has neither `<!-- jarvis:onboarding-required -->` nor
+`<!-- jarvis:git-pending -->` markers, and the folder may already have a Git
+history.
 
 ## When
 

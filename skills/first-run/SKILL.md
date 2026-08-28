@@ -46,7 +46,13 @@ from a vague signal.
 
 Render Soul and personal content in the preferred language only when that text
 is newly created or newly added. Only newly created or newly added personal text is rendered in the preferred language. Record only direct answers or
-confirmed candidates. If `Preferred language:` or `Main focus:` is absent, show the smallest exact proposed addition under an existing `## Current context`; if that section is absent, propose adding `## Current context` at the end with only the missing field lines. For example, under an existing section propose only `- Preferred language: <confirmed language>` and/or `- Main focus: <confirmed focus>`; without that section, propose exactly that heading followed by only those missing lines. Apply it only after explicit approval. Preserve every existing line. Patch an existing explicit field only with the same care, then add the stated focus to the existing memory and future-work sections when it is not already present. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the starter.
+confirmed candidates. If `Preferred language:` or `Main focus:` is absent, show the smallest exact proposed addition under an existing `## Current context`; if that section is absent, propose adding `## Current context` at the end with only the missing field lines. For example, under an existing section propose only `- Preferred language: <confirmed language>` and/or `- Main focus: <confirmed focus>`; without that section, propose exactly that heading followed by only those missing lines. Apply it only after explicit approval. Preserve every existing line. Patch an existing explicit field only with the same care. Record the confirmed `Main focus` in the Profile's `## Current context`, then add or deduplicate the actionable focus in the declared `Future work` active section as its one live authoritative home. Do not write the immediate focus to `Durable memory`. Never copy live state into `Durable memory`. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the starter.
+
+If onboarding reveals a distinct genuinely stable preference, constraint, or
+long-lived model that should guide future sessions, route it through
+`jarvis-memory` as a separate candidate and obey that skill's conflict and
+approval rules. This delegation is not a condition for first-run completion
+and must never be used to copy the immediate focus or other live state.
 
 Create the resolved Identity capability source only when it is absent, using
 the Soul template with the confirmed name and language. Never replace an

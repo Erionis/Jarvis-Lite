@@ -231,8 +231,13 @@ class SafetySkillsTest(unittest.TestCase):
         for phrase in [
             "The user supplies or selects the Jarvis Lite repository or release",
             "Resolve an immutable source release identifier before proposing adoption",
-            "release or tag identifier for an assembled release",
-            "clean Git commit SHA for a local repository",
+            "clean local Git source records the full resolved commit SHA",
+            "selected Git tag or release records its human-readable label and its resolved commit or object SHA",
+            "A tag name alone is insufficient",
+            "assembled release records its version, manifest identity, and artifact checksum",
+            "SHA-256",
+            "missing or unverifiable",
+            "classify adoption as `conflict` and perform no write",
             "dirty source tree",
             "moving branch name",
             "missing identifier",
@@ -242,6 +247,15 @@ class SafetySkillsTest(unittest.TestCase):
             "complete `SKILL.md` and human adoption card",
             "Do not import private files or history",
             "public license and provenance obligations",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_adoption_displays_and_records_immutable_source_identity(self):
+        text = " ".join(self.read("adopt-capability").split())
+        for phrase in [
+            "`Immutable source identifier(s)`",
+            "display the immutable identifier or identifiers, not only a human-readable label",
+            "record the displayed immutable identifier or identifiers",
         ]:
             self.assertIn(phrase, text)
 
@@ -335,7 +349,9 @@ class SafetySkillsTest(unittest.TestCase):
         card = " ".join(self.read_card("adopt-capability").split())
         for phrase in [
             "semantic capability inputs",
-            "immutable source release or commit",
+            "full resolved commit SHA",
+            "tag or release label plus its resolved commit or object SHA",
+            "version, manifest identity, and artifact checksum",
             "capability selection",
             "exact patch approval",
             "existing provenance or changelog authority",
