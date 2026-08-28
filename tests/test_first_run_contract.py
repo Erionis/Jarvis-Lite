@@ -150,6 +150,27 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, self.text)
 
+    def test_checkpoint_acceptance_materializes_one_marker_before_git_scope(self):
+        for phrase in [
+            "Explicit checkpoint acceptance authorizes adding or retaining exactly one `<!-- jarvis:git-pending -->` marker",
+            "before `git --version`, every other Git probe or mutation, and the displayed `git status --short` inventory",
+            "The approved scope therefore already includes that marker",
+            "Decline, an empty staged diff, or any Git failure retains or restores exactly one Git-pending marker",
+        ]:
+            self.assertIn(phrase, self.text)
+
+    def test_successful_commit_discloses_final_git_state(self):
+        for phrase in [
+            "After a successful commit, run and display `git status --short`",
+            "Only empty output is evidence of a clean checkpoint",
+            "report the exact remaining state",
+            "make no automatic cleanup or extra commit",
+            "do not claim a clean checkpoint",
+            "require explicit approval before any recovery",
+            "If this status command errors, enter Git failure recovery",
+        ]:
+            self.assertIn(phrase, self.text)
+
     def test_partial_git_failure_preserves_index_and_requires_approved_recovery(self):
         for phrase in [
             "Immediately run and display `git status --short`",
