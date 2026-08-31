@@ -1,0 +1,35 @@
+#!/bin/sh
+set -eu
+
+# Keep local Jarvis history text-first. Heavy attachments may remain in the
+# workspace, but they must not enter a checkpoint silently.
+limit_bytes="${JARVIS_GIT_MAX_FILE_BYTES:-5242880}"
+
+if [ "${ALLOW_LARGE_FILES:-}" = "1" ]; then
+  exit 0
+fi
+
+oversized_file="$(mktemp "${TMPDIR:-/tmp}/jarvis-size-guard.XXXXXX")"
+trap 'rm -f "$oversized_file"' EXIT
+
+git diff --cached --name-only --diff-filter=ACMRT |
+while IFS= read -r path; do
+  if ! size="$(git cat-file -s ":$path" 2>/dev/null)"; then
+    continue
+  fi
+
+  if [ "$size" -gt "$limit_bytes" ]; then
+    mib=$(( (size + 524287) / 1048576 ))
+    printf '  - %s (%s MiB)\n' "$path" "$mib" >> "$oversized_file"
+  fi
+done
+
+if [ -s "$oversized_file" ]; then
+  limit_mib=$(( (limit_bytes + 524287) / 1048576 ))
+  echo "Jarvis: checkpoint stopped because files exceed ${limit_mib} MiB:"
+  cat "$oversized_file"
+  echo
+  echo "Keep heavy attachments in the workspace but outside local history, or run:"
+  echo "  ALLOW_LARGE_FILES=1 git commit ..."
+  exit 1
+fi

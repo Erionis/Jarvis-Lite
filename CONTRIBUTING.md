@@ -72,6 +72,20 @@ git diff --check main...HEAD
 
 Record exact commands and results in the pull request.
 
+## Building the starter
+
+The repository keeps one canonical skill catalog under `skills/`. Build a
+portable starter with physical runtime copies by running:
+
+```bash
+python3 scripts/build_starter.py --output dist
+```
+
+The command creates `dist/Jarvis-Lite/` and installs the selected skills into
+both `.claude/skills/` and `.agents/skills/`. Do not edit those generated
+mirrors directly. The builder rejects symlinks so normal ZIP extraction works
+on Windows and macOS.
+
 ## Documentation impact
 
 Update durable documentation only when understanding or behavior changes.
