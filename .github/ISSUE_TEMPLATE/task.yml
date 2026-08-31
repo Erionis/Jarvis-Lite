@@ -1,0 +1,57 @@
+name: Task
+description: Propose non-trivial, reviewable work for Jarvis-Lite.
+title: ""
+body:
+  - type: markdown
+    attributes:
+      value: Thanks for helping Jarvis-Lite evolve. Keep this issue public and self-contained.
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Expected outcome
+      description: Describe the observable result, not only files to edit.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope and target paths
+    validations:
+      required: true
+  - type: textarea
+    id: acceptance
+    attributes:
+      label: Acceptance criteria
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Validation plan
+      description: List exact automated and manual checks.
+    validations:
+      required: true
+  - type: textarea
+    id: documentation
+    attributes:
+      label: Documentation impact
+    validations:
+      required: true
+  - type: dropdown
+    id: release
+    attributes:
+      label: Release impact
+      options:
+        - None
+        - User-visible behavior
+        - Package composition or installation
+        - Incompatible contract or migration
+    validations:
+      required: true
+  - type: textarea
+    id: provenance
+    attributes:
+      label: Provenance and public-content check
+      description: Identify reused material and confirm that no private content is included.
+    validations:
+      required: true

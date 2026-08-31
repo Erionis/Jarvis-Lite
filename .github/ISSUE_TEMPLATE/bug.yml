@@ -1,0 +1,57 @@
+name: Bug report
+description: Report a reproducible Jarvis-Lite defect.
+title: "fix: "
+body:
+  - type: markdown
+    attributes:
+      value: Share only public, sanitized reproduction material.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Observed problem
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Provide the smallest repeatable sequence.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, AI runtime, Jarvis-Lite version, and relevant optional dependencies.
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: Proposed validation
+    validations:
+      required: true
+  - type: dropdown
+    id: release
+    attributes:
+      label: Release impact
+      options:
+        - None
+        - User-visible behavior
+        - Package composition or installation
+        - Incompatible contract or migration
+    validations:
+      required: true
+  - type: checkboxes
+    id: public_content
+    attributes:
+      label: Public-content check
+      options:
+        - label: I removed credentials, personal data, customer material, and private system details.
+          required: true
