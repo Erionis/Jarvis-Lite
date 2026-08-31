@@ -19,7 +19,7 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "Ask one question at a time",
             "Treat semantic equivalents of `Start Jarvis` in any language as the same trigger",
-            "If `jarvis/identity/SOUL.md` already exists, do not replace it",
+            "For the default starter, if `99 - Jarvis/memory/soul.md` already exists, do not replace it",
             "Remove `<!-- jarvis:onboarding-required -->` only after",
             "Preserve every non-marker line",
             "Render Soul and personal content in the preferred language",
@@ -27,16 +27,30 @@ class FirstRunContractTest(unittest.TestCase):
             self.assertIn(phrase, self.text)
 
     def test_git_happy_path_is_complete(self):
+        text = " ".join(self.text.split())
         for command in [
             "git --version",
             "git rev-parse --is-inside-work-tree",
             "git init -b main",
             "git config --get user.name",
             "git config --get user.email",
+            "git config --get core.hooksPath",
+            "git config --local core.hooksPath .githooks",
             "git add -A",
             'git commit -m "chore: initialize my Jarvis"',
         ]:
-            self.assertIn(command, self.text)
+            self.assertIn(command, text)
+
+    def test_git_hook_activation_preserves_existing_custom_configuration(self):
+        text = " ".join(self.text.split())
+        for phrase in [
+            "include local hook-path configuration in the displayed checkpoint scope",
+            "Reuse `.githooks` when it is already configured",
+            "If another nonempty hook path is configured, preserve it",
+            "do not overwrite custom Git configuration",
+            "Report that the Lite large-file guard was not activated",
+        ]:
+            self.assertIn(phrase, text)
 
     def test_git_missing_path_is_platform_specific(self):
         self.assertIn("https://git-scm.com/download/win", self.text)
@@ -63,7 +77,7 @@ class FirstRunContractTest(unittest.TestCase):
             "Only when the initial staged-path output is empty may you stage the exact explicitly approved onboarding source paths",
             "After staging, run `git diff --cached --name-only` again",
             "contains no path outside the explicitly approved onboarding source paths",
-            "Repeat this staged-path comparison after re-staging the resolved Profile and before commit",
+            "Repeat this staged-path comparison after re-staging the local profile and before commit",
             "do not automatically unstage or commit",
         ]:
             self.assertIn(phrase, self.text)
@@ -162,7 +176,7 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "stage the approved scope while Git-pending remains",
             "If the staged diff is empty, retain Git-pending, report that no checkpoint was made, and continue normal work",
-            "remove the Git-pending marker, re-stage the resolved Profile, recheck, then commit",
+            "remove the Git-pending marker, re-stage the local profile, recheck, then commit",
             "leaves no marker-removal change afterward",
         ]:
             self.assertIn(phrase, self.text)
@@ -212,7 +226,7 @@ class FirstRunContractTest(unittest.TestCase):
     def test_immediate_focus_has_one_live_home_outside_durable_memory(self):
         text = " ".join(self.text.split())
         for phrase in [
-            "Record the confirmed `Main focus` in the Profile's `## Current context`",
+            "Record the confirmed `Main focus` in the local profile's `## Current context`",
             "add or deduplicate the actionable focus in the declared `Future work` active section",
             "one live authoritative home",
             "Do not write the immediate focus to `Durable memory`",
@@ -273,6 +287,10 @@ class FirstRunContractTest(unittest.TestCase):
         self.assertIn("does not write `Durable memory` directly", card)
         self.assertNotIn("profile/memory/future-work fields", card)
 
+    def test_first_run_has_no_rejected_legacy_paths(self):
+        for rejected in ["jarvis/PROFILE.md", "jarvis/identity/SOUL.md"]:
+            self.assertNotIn(rejected, self.text)
+
     def test_scenarios_have_the_exact_contract_headings(self):
         for name in ["new-user.md", "second-run.md", "git-missing.md"]:
             scenario = (SCENARIOS / name).read_text(encoding="utf-8")
@@ -286,7 +304,7 @@ class FirstRunContractTest(unittest.TestCase):
             (SCENARIOS / "new-user.md").read_text(encoding="utf-8").split()
         )
         for phrase in [
-            "records the confirmed Main focus in the Profile's current context",
+            "records the confirmed Main focus in the local profile's current context",
             "adds or deduplicates the actionable focus in the declared Future work active section",
             "does not write the immediate focus to Durable memory",
         ]:

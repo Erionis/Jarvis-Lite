@@ -10,8 +10,9 @@ briefing is read-only and must not manufacture an order of importance.
 
 ## Workflow
 
-1. Read `PROFILE.md` and resolve the declared Identity, Durable memory, Future
-   work, and Inbox capability paths by semantic role. Do not use filesystem
+1. Read the consumer's local capability map (`CLAUDE.md` in the default
+   starter) and resolve the declared Identity, Durable memory, Future work, and
+   Inbox paths by semantic role. Do not use filesystem
    discovery, substitute a starter or other location, or invent a fallback.
    For every role whose declaration is missing, ambiguous, or points to a
    missing source, name that role and report it as unresolved; do not

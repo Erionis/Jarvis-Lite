@@ -11,23 +11,26 @@ assuming that Git or a remote is available.
 ## Workflow
 
 1. **Resolve persistence capabilities.** Read the consumer capability map.
-   Resolve `Future work` and `Durable memory` through the consumer's declared
-   capability map, by semantic role rather than by a familiar path. Do not
-   hard-code a starter path or create a fallback file. A missing or ambiguous
-   role disables only that persistence channel; report the limitation and
-   continue every other part of the checkpoint that remains safe.
+   Resolve `Daily history`, `Future work`, and `Durable memory` through the
+   consumer's declared capability map, by semantic role rather than by a
+   familiar path. Do not hard-code a starter path or create a fallback file.
+   A missing or ambiguous role disables only that persistence channel; report
+   the limitation and continue every other part of the checkpoint that remains
+   safe. Do not invent a second history source.
 2. **Build the checkpoint inventory.** Use evidence from the current session
    to identify completed outcomes, explicit future items, stable signals,
    files actually changed in the session, and the current Git boundary. Do not
    manufacture decisions, infer follow-ups that were not stated, or claim
    completion without evidence.
-3. **Keep completed chronology response-only.** Completed chronology is
-   response-only. Present the evidenced completed outcome in the checkpoint
-   response. Never write or mutate a chronology or history source as part of
-   this skill, even if the consumer declares one. Do not invent `Session Log`,
-   daily notes, or any other history file, and never mutate one. A consumer's
-   existing chronology workflow is a separate local extension outside this
-   skill's mutation scope.
+3. **Write the daily checkpoint.** Persist completed chronology only in the
+   declared `Daily history` source. Unless that source declares another local
+   convention, use one file per local calendar day at
+   `YYYY/MM/YYYY-MM-DD.md`. Create only the required year and month directories
+   and the current day's file. Re-read the target immediately before writing,
+   then append or update one compact session entry without overwriting
+   unrelated entries. Include only evidenced outcomes, decisions, and the
+   next explicit step. Do not invent a second history source or copy the full
+   conversation.
 4. **Route future work narrowly.** Deduplicate and route only explicit
    unresolved follow-ups to the declared `Future work` source. A direct
    save-session request authorizes a narrow append or update of session-owned
@@ -70,7 +73,7 @@ assuming that Git or a remote is available.
 
 ## Checkpoint response
 
-Report the evidenced completed outcome, any `Future work` update or limitation,
-the result of `jarvis-memory` routing, and the final Git state. Name every
-source or path changed and explicitly distinguish a content checkpoint from a
-local Git checkpoint.
+Report the evidenced completed outcome, the `Daily history` path or limitation,
+any `Future work` update or limitation, the result of `jarvis-memory` routing,
+and the final Git state. Name every source or path changed and explicitly
+distinguish a content checkpoint from a local Git checkpoint.

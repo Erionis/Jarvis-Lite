@@ -63,10 +63,10 @@ class LifecycleSkillsTest(unittest.TestCase):
             self.assertIn(phrase, text)
 
     def test_briefing_reads_starter_active_sections_as_candidate_sources(self):
-        future_work = (ROOT / "starter/jarvis/open-loops.md").read_text(
+        future_work = (ROOT / "starter/To Do.md").read_text(
             encoding="utf-8"
         )
-        durable_memory = (ROOT / "starter/jarvis/memory/MEMORY.md").read_text(
+        durable_memory = (ROOT / "starter/99 - Jarvis/memory/MEMORY.md").read_text(
             encoding="utf-8"
         )
         self.assertIn("\n## Active\n", future_work)
@@ -241,26 +241,26 @@ class LifecycleSkillsTest(unittest.TestCase):
             ],
         )
 
-    def test_save_session_resolves_semantic_roles_without_history_fallbacks(self):
+    def test_save_session_resolves_semantic_roles_including_daily_history(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Resolve `Future work` and `Durable memory` through the consumer's declared capability map",
+            "Resolve `Daily history`, `Future work`, and `Durable memory` through the consumer's declared capability map",
             "A missing or ambiguous role disables only that persistence channel",
-            "Do not invent `Session Log`, daily notes, or any other history file",
+            "Do not invent a second history source",
         ]:
             self.assertIn(phrase, text)
         self.assertNotIn("starter/", text)
 
-    def test_save_session_keeps_completed_chronology_response_only(self):
+    def test_save_session_persists_completed_chronology_to_declared_daily_history(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Completed chronology is response-only",
-            "Never write or mutate a chronology or history source",
-            "even if the consumer declares one",
-            "A consumer's existing chronology workflow is a separate local extension outside this skill's mutation scope",
+            "Persist completed chronology only in the declared `Daily history` source",
+            "one file per local calendar day",
+            "`YYYY/MM/YYYY-MM-DD.md`",
+            "append or update one compact session entry without overwriting unrelated entries",
         ]:
             self.assertIn(phrase, text)
-        self.assertNotIn("Persist chronology only when", text)
+        self.assertNotIn("Completed chronology is response-only", text)
 
     def test_save_session_inventory_and_future_work_are_evidence_scoped(self):
         text = " ".join(self.skill("save-session").split())
@@ -316,10 +316,11 @@ class LifecycleSkillsTest(unittest.TestCase):
             .split()
         )
         for phrase in [
+            "declared `Daily history` source",
             "declared `Future work` source",
             "through `jarvis-memory`",
             "safe local Git commit",
-            "must not write an undeclared history source",
+            "must not write a second or undeclared history source",
             "mutate unrelated files or index entries",
             "must never push",
             "Git is optional",
@@ -327,19 +328,46 @@ class LifecycleSkillsTest(unittest.TestCase):
             self.assertIn(phrase, card)
         self.assertNotIn("starter/", card)
 
-    def test_save_session_card_closes_history_mutation_scope(self):
+    def test_save_session_card_bounds_daily_history_mutation_scope(self):
         card = " ".join(
             (ROOT / "skills/save-session/README.md")
             .read_text(encoding="utf-8")
             .split()
         )
         for phrase in [
-            "Completed chronology is response-only",
-            "must not change any history source",
-            "separate local extension outside this skill's mutation scope",
+            "Completed chronology goes only to the declared `Daily history` source",
+            "one local-day file",
+            "preserves unrelated entries",
         ]:
             self.assertIn(phrase, card)
-        self.assertNotIn("Preserve any existing chronology convention", card)
+        self.assertNotIn("Completed chronology is response-only", card)
+
+    def test_ingest_is_report_only_and_resolves_declared_inbox(self):
+        text = " ".join(self.skill("ingest").split())
+        for phrase in [
+            "Resolve `Inbox` through the consumer's declared capability map",
+            "report-only",
+            "Do not create, modify, move, rename, or delete any file",
+            "relative Markdown links",
+            "confidence",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_handoff_is_scoped_to_the_declared_source(self):
+        text = " ".join(self.skill("handoff").split())
+        for phrase in [
+            "Resolve `Handoff` through the consumer's declared capability map",
+            "Do not create a fallback directory",
+            "status: active",
+            "status: resumed",
+            "Never delete a handoff as a side effect",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_new_lifecycle_cards_and_scenarios_exist(self):
+        for name in ["ingest", "handoff"]:
+            self.assertTrue((ROOT / f"skills/{name}/README.md").is_file(), name)
+            self.assertTrue((ROOT / f"tests/scenarios/{name}.md").is_file(), name)
 
 
 if __name__ == "__main__":

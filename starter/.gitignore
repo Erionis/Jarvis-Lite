@@ -1,15 +1,39 @@
 .DS_Store
 Thumbs.db
 
-# Agent-local settings
-.claude/
+# Local runtime state. Project skills and shared settings remain tracked.
+.claude/settings.local.json
 .codex/
 .cursor/
 .vscode/
 
-# Caches and temporary files
+# Heavy personal attachments stay in the workspace but outside local history.
+*.pptx
+*.ppt
+*.pdf
+*.docx
+*.xlsx
+*.xls
+*.zip
+*.gz
+*.db
+*.sqlite
+*.sqlite3
+*.gif
+*.mp4
+*.mov
+*.ttf
+*.otf
+*.node
+
+# Rebuildable output, caches, and temporary files.
 __pycache__/
 .cache/
+node_modules/
+.next/
+dist/
+build/
+coverage/
 *.tmp
 *.temp
 *~
