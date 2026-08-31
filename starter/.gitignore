@@ -1,0 +1,15 @@
+.DS_Store
+Thumbs.db
+
+# Agent-local settings
+.claude/
+.codex/
+.cursor/
+.vscode/
+
+# Caches and temporary files
+__pycache__/
+.cache/
+*.tmp
+*.temp
+*~
