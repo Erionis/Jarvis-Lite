@@ -48,6 +48,12 @@ class BuildStarterTest(unittest.TestCase):
                     digest(first_run_reference),
                     digest(ROOT / "skills/first-run/interview.md"),
                 )
+                git_reference = mirror / "first-run" / "git-checkpoint.md"
+                self.assertTrue(git_reference.is_file())
+                self.assertEqual(
+                    digest(git_reference),
+                    digest(ROOT / "skills/first-run/git-checkpoint.md"),
+                )
 
             self.assertTrue((package / ".claude/settings.json").is_file())
             self.assertTrue((package / "01 - Diary/README.md").is_file())

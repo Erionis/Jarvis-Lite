@@ -8,7 +8,8 @@ This project uses Semantic Versioning.
   `01 - Diary`, `99 - Jarvis`, and `To Do.md`.
 - Added one canonical capability contract with thin runtime adapters.
 - Restored the guided first-run journey with progressive or full-map setup,
-  one authoritative home per fact, verified resume, and a detailed Soul.
+  one authoritative home per fact, verified resume, a detailed Soul, a compact
+  approval recap, and Git details loaded only after personal setup.
 - Added automatic Git and platform preflight, separately approved installation
   help, and an optional scoped local checkpoint that never creates a remote.
 - Added the initial seven dependency-free installed skills, including

@@ -9,14 +9,20 @@ four decision moments and no more than two free-form answers. A progressive
 path is a complete onboarding result, not an unfinished questionnaire.
 
 Use the user's evident language. If it is genuinely unclear, ask for the
-preferred language before the identity moment. Do not mention Soul, memory,
-skills, frontmatter, or Git during the personal interview.
+preferred language before the identity moment. Before the approval card, keep
+Soul, memory, skills, frontmatter, and Git out of the personal interview.
+
+Use one visible-response shape throughout the personal interview. It contains
+only a short user-relevant orientation or factual reflection, followed by the
+single current question or decision. Keep runtime process, skill selection,
+preflight, marker, and no-write status out of the personal journey.
 
 ## Opening
 
 Explain that Jarvis needs four things to prepare the workspace: where it will
 be used, who the user is, where to start, and how to collaborate. Say that the
-setup can stay light. Do not combine this opening with the next question.
+setup can stay light. The first user-facing response combines this opening with
+the Use domain question below so setup begins with one useful decision.
 
 ## Use domain
 
@@ -106,23 +112,32 @@ explicit differences. Do not turn the five dimensions into separate questions.
 
 ## Recap and structure approval
 
-Start by saying that Jarvis will reflect what it understood before preparing
-anything. Show four short blocks:
+Use a compact approval card. Start by saying that Jarvis will reflect what it
+understood before preparing anything. Show four short blocks:
 
 - **Where Jarvis will be used** — selected domains and useful separation.
 - **Who the user is** — name and only the relevant stable context.
 - **Where to start** — priorities, known areas, or a progressive start.
 - **How Jarvis will collaborate** — default plus explicit differences only.
 
-Then show the exact proposed personal writes and visible structure:
+Then show the approved-change list. Its Identity line names the standard Soul
+template, confirmed name, confirmed language, and explicit collaboration
+differences. The complete rendered Soul appears only after an explicit preview
+request; after showing it, ask for approval again. The default card does not
+repeat unchanged standard template text.
 
-- the missing Identity source rendered from the Soul template;
-- the stable local-context sections to replace in `CLAUDE.md`;
-- the current-priority lines to add to `To Do.md`, if supplied;
-- `98 - Archive/README.md`, always;
-- no more than three or four numbered domain folders, each with a concrete
-  reason and a short README, only when the supplied context motivates them;
-- templates only for recurring outputs the user explicitly described.
+The list names every other exact path and action:
+
+- the literal stable local-context values to replace in `CLAUDE.md`;
+- the literal current-priority lines to add to `To Do.md`, if supplied;
+- `98 - Archive/README.md`, always, with its one-sentence purpose;
+- no more than three or four numbered domain folders, each with its concrete
+  reason and one-sentence README purpose, only when the context motivates it;
+- each template only when the user explicitly described a recurring output.
+
+State `No change` for an authoritative personal source that will remain
+untouched. This card is the complete approval scope: path, action, personalized
+content, and purpose, without dumping unchanged boilerplate.
 
 For **Learn while working**, propose no domain folder and no template. For a
 combination, keep domains separate only when separation improves clarity.
