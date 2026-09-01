@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import os
+import re
 import unittest
 from pathlib import Path
 
@@ -52,7 +53,7 @@ class StarterContractTest(unittest.TestCase):
 
     def test_local_profile_declares_visible_capabilities(self):
         profile = self.read("CLAUDE.md")
-        self.assertIn(MARKER, profile)
+        self.assertEqual(profile.count(MARKER), 1)
         for role, path in {
             "Identity": "99 - Jarvis/memory/soul.md",
             "Durable memory": "99 - Jarvis/memory/MEMORY.md",
@@ -63,6 +64,38 @@ class StarterContractTest(unittest.TestCase):
         }.items():
             self.assertIn(f"| {role} | `{path}` |", profile)
 
+    def test_local_profile_owns_stable_context_without_identity_or_future_work(self):
+        profile = self.read("CLAUDE.md")
+        normalized = " ".join(profile.split())
+        for heading in [
+            "## Use domains",
+            "## Stable context",
+            "## Sources and tools",
+            "## Local heuristics",
+            "## Rituals",
+            "## Local assets",
+            "## Overrides",
+        ]:
+            self.assertIn(heading, profile)
+
+        for rejected in ["Name:", "Preferred language:", "Main focus:"]:
+            self.assertNotIn(rejected, profile)
+
+        self.assertIn(
+            "Current priorities and next actions belong in `To Do.md`", normalized
+        )
+        self.assertIn(
+            "Identity and collaboration preferences belong in the declared `Identity` source",
+            normalized,
+        )
+
+    def test_local_overrides_do_not_duplicate_identity_preferences(self):
+        profile = " ".join(self.read("CLAUDE.md").split())
+        self.assertIn(
+            "Overrides are workspace-specific operational exceptions, not cross-domain collaboration preferences",
+            profile,
+        )
+
     def test_identity_is_absent_until_first_run(self):
         self.assertFalse(
             (STARTER / "99 - Jarvis/memory/soul.md").exists()
@@ -70,6 +103,38 @@ class StarterContractTest(unittest.TestCase):
         self.assertTrue(
             (STARTER / "99 - Jarvis/system/soul-template.md").is_file()
         )
+
+    def test_detailed_soul_template_renders_only_confirmed_identity_values(self):
+        template = self.read("99 - Jarvis/system/soul-template.md")
+        tokens = set(re.findall(r"\[[A-Z_]+\]", template))
+        self.assertEqual(tokens, {"[NAME]", "[LANGUAGE]"})
+
+        rendered = template.replace("[NAME]", "Giulia").replace(
+            "[LANGUAGE]", "Italian"
+        )
+        self.assertFalse(re.search(r"\[[A-Z_]+\]", rendered))
+        for heading in [
+            "## Who I am",
+            "## How I collaborate",
+            "## How I communicate",
+            "## Decision altitude",
+            "## How I write",
+            "## What matters",
+            "## How I evolve",
+        ]:
+            self.assertIn(heading, rendered)
+        self.assertIn("Giulia", rendered)
+        self.assertIn("Italian", rendered)
+        self.assertNotIn("Main focus", rendered)
+
+    def test_core_assigns_stable_context_to_profile_and_nonduplicated_knowledge_to_memory(self):
+        contract = self.read("99 - Jarvis/system/core-instructions.md")
+        self.assertIn("stable local context in `CLAUDE.md`", contract)
+        self.assertIn(
+            "durable knowledge with no other authoritative home in `Durable memory`",
+            contract,
+        )
+        self.assertIn("current priorities and next actions in `Future work`", contract)
 
     def test_canonical_contract_owns_bootstrap(self):
         contract = self.read("99 - Jarvis/system/core-instructions.md")

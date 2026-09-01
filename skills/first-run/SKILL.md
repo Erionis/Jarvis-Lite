@@ -5,138 +5,304 @@ description: Use when the declared identity source is missing, an onboarding or 
 
 # First run
 
-Complete only the minimum personal setup needed to start safely. The local
-profile's capability table is authoritative: resolve its paths before acting and do not
-create another manifest or substitute starter paths.
+Complete the smallest useful personal setup, verify it, and leave the consumer
+ready for ordinary work. The capability map in the local profile is
+authoritative. Never create a second manifest or substitute starter paths.
 
-## Preflight and completion check
+## Read-only preflight
 
-1. Read the consumer's local profile (`CLAUDE.md` in the default starter),
-   resolve the Identity, Durable memory, Future work, and Inbox paths from its
-   capability table, then read the Soul template declared by the consumer
-   contract. Read each
-   declared personal source that exists and inspect the declared Inbox. The
-   resolved Identity capability source is the only authoritative identity. A
-   non-authoritative starter Soul is legacy content: preserve it, but never use
-   it as a second identity or to decide onboarding is complete. For the default starter, if `99 - Jarvis/memory/soul.md` already exists, do not replace it.
-2. First run applies when the resolved identity source is absent or the exact
-   `<!-- jarvis:onboarding-required -->` marker is in the local profile. Treat semantic equivalents of `Start Jarvis` in any language as the same trigger. If the resolved Identity source is absent, run personal onboarding first even when a Git-pending marker exists. Git-only resume applies only when the resolved Identity source exists and the onboarding marker is absent.
-3. If the resolved Identity source exists and both markers are absent,
-   onboarding is complete. Exit without writes, staging, commits, or Git
-   configuration. If the resolved Identity source exists, the onboarding marker
-   is absent, and only Git-pending remains, skip personal questions and go to
-   Local Git checkpoint.
-4. If the onboarding marker remains, reconcile rather than guessing. Read all
-   existing personal content first and preserve its wording and customizations.
-   Candidate values are only non-placeholder `Preferred language:` and `Main focus:` local-profile fields, plus a recognized identity name field in the
-   resolved Identity capability source. A recognized identity name field is a
-   `user_name:` YAML field or the template's owner-name sentence in `## Who I
-   am`; free-form memory, future-work, and legacy content are never candidates.
-   Ask one explicit confirmation for each candidate read from files before
-   using it. A direct answer needs no duplicate confirmation.
+Before the interview, inspect the consumer without changing it:
 
-## Conversational setup
+1. Read the local profile (`CLAUDE.md` in the default starter) and resolve the
+   Identity, Durable memory, Future work, Inbox, and Soul template paths from
+   the consumer contract.
+2. Read every resolved source that exists, inspect the declared Inbox, and
+   count the exact onboarding and Git-pending markers.
+3. Before asking any interview question, run `git --version`. Detect the
+   operating system automatically from runtime platform metadata or a safe
+   read-only system query. Do not ask the user which operating system they use
+   when it can be detected. These preflight checks are read-only and require no
+   consent. They do not authorize installation, Git configuration, staging, or
+   a commit.
 
-Ask one question at a time. Do not batch questions or infer a personal value
-from a vague signal.
+If the capability map is missing or ambiguous, stop and report the exact
+problem. Do not fall back to a conventional path.
 
-1. Infer the preferred language only from an unambiguous user choice; otherwise
-   ask which language they prefer. Confirm an inferred choice before using it.
-2. Ask for the user's name.
-3. Ask for their immediate focus.
+## Resolve first-run state
 
-Render Soul and personal content in the preferred language only when that text
-is newly created or newly added. Only newly created or newly added personal text is rendered in the preferred language. Record only direct answers or
-confirmed candidates. If `Preferred language:` or `Main focus:` is absent, show the smallest exact proposed addition under an existing `## Current context`; if that section is absent, propose adding `## Current context` at the end with only the missing field lines. For example, under an existing section propose only `- Preferred language: <confirmed language>` and/or `- Main focus: <confirmed focus>`; without that section, propose exactly that heading followed by only those missing lines. Apply it only after explicit approval. Preserve every existing line. Patch an existing explicit field only with the same care. Record the confirmed `Main focus` in the local profile's `## Current context`, then add or deduplicate the actionable focus in the declared `Future work` active section as its one live authoritative home. Do not write the immediate focus to `Durable memory`. Never copy live state into `Durable memory`. Preserve existing custom text verbatim unless the user separately approves a semantic rewrite. Do not rewrite a file to make it look like the starter.
+- If Identity exists and neither marker exists, onboarding is complete. Exit
+  with zero questions, zero writes, zero staged changes, and zero commits.
+- If Identity exists, onboarding-required is absent, and Git-pending exists,
+  skip the personal interview and resume only Local Git checkpoint.
+- If Identity is absent or onboarding-required exists, complete or reconcile
+  personal onboarding first, even when Git-pending also exists.
 
-If onboarding reveals a distinct genuinely stable preference, constraint, or
-long-lived model that should guide future sessions, route it through
-`jarvis-memory` as a separate candidate and obey that skill's conflict and
-approval rules. This delegation is not a condition for first-run completion
-and must never be used to copy the immediate focus or other live state.
+Treat semantic equivalents of `Start Jarvis` in any language as the same
+trigger. For the default starter, if `99 - Jarvis/memory/soul.md` already
+exists, do not replace it.
 
-Create the resolved Identity capability source only when it is absent, using
-the Soul template with the confirmed name and language. Never replace an
-existing identity. When an existing identity has a recognized identity name
-field and the user directly supplies a name, request explicit approval to patch only that field before writing it. When it has no recognized identity name
-field, show a narrow proposed patch in the identity's existing style and location: one added owner-name line or one identified identity sentence, never a
-replacement document. Require explicit approval before applying it. If the user
-declines, make no identity write, keep onboarding pending, and state that
-ordinary Jarvis work may continue. Never overwrite identity, durable memory, or
-local customizations without the user's explicit approval.
+## Personal interview
 
-Remove `<!-- jarvis:onboarding-required -->` only after the resolved identity,
-durable-memory, and future-work sources are readable and the confirmed personal
-values have been recorded from direct answers or confirmed candidates. Preserve every non-marker line in the local profile and every non-marker/custom user line in
-the other personal sources. Do not remove the marker merely because the user
-asks to “clean up” or because an existing Soul looks complete.
+Read and follow [interview.md](interview.md) for the full visible journey. Ask
+one question at a time and present one decision at a time. Use only direct
+answers or explicitly confirmed choices; never infer personal facts from vague
+signals, free-form memory, or unrelated notes.
+
+Make no personalized filesystem write before the user approves the final
+visible recap. Approval covers only the literal personal paths, content
+summary, folders, and templates displayed in that recap. A request to change
+the recap invalidates the previous proposal; revise it and ask again.
+
+## One authoritative home per fact
+
+Route name, preferred language, and explicit collaboration preferences only to
+Identity. Route stable role, use domains, sources, tools, and recurring local
+context only to `CLAUDE.md`. Route current priorities and next actions only to
+the declared `Future work` source.
+
+Do not populate `Durable memory` merely to make onboarding look complete. It
+may remain nearly empty. If first run reveals a distinct durable preference,
+constraint, or long-lived model with no better home, present it separately as a
+`jarvis-memory` candidate. That optional memory proposal is not part of
+first-run completion and never receives live state.
+
+## Apply the approved personal setup
+
+Apply the recap as one approved unit. Preserve all existing custom text unless
+the recap explicitly identifies a narrow addition.
+
+### Identity
+
+If Identity is absent, render the complete Soul template in the confirmed
+language, replace `[NAME]` and `[LANGUAGE]`, and apply only explicit
+collaboration differences approved in the recap. Do not leave template tokens
+or shorten the template into a profile card.
+
+Never replace or patch an existing Soul during first run. Its current bytes are
+authoritative even when onboarding-required remains. Later Identity evolution
+belongs to `jarvis-memory`.
+
+### Local context and future work
+
+Replace only approved placeholder entries in the stable-context sections of
+`CLAUDE.md`; preserve the capability map and all non-placeholder text. For a
+progressive start, use plain final statements such as `To be learned
+progressively`, `None declared`, or `No active overrides` instead of bracketed
+placeholders.
+
+Write approved current priorities and next actions to the active section of
+the declared Future work source. Deduplicate an existing matching item. A
+progressive start must not invent a task merely to fill the file.
+
+### Visible structure
+
+Create `98 - Archive/README.md` in every approved path. Create at most four
+approved numbered domain folders. Every created folder receives a short
+`README.md` that states its purpose without inventing user facts. Create a
+template only for an explicitly recurring output. A progressive start creates
+no domain folder and no template.
+
+Never create `PROFILE.md`, `JARVIS.md`, a second Soul, or a second capability
+manifest.
+
+## Reconciliation and resume
+
+When onboarding-required remains, reconcile against the filesystem instead of
+starting over:
+
+- If Identity exists, preserve it byte for byte and complete only the missing
+  approved scope. Do not mine it or another file for unconfirmed answers.
+- If interruption happened before recap approval, no partial answers were
+  persisted; restart the interview from the first unresolved decision.
+- If interruption happened after approved writes began, re-read the actual
+  files, show a missing-only recap, and require approval for that remaining
+  literal scope. Do not rewrite completed items.
+
+The acceptance behavior is a missing-only resume: existing Soul bytes stay
+unchanged, completed items are not rewritten, and any failed verification
+keeps onboarding visibly pending.
+
+## Verify personal completion
+
+Re-read every approved personal file and every created README or template.
+Verify that Identity, Durable memory, and Future work resolve and are readable;
+that the capability map is intact; that the approved visible structure matches
+the recap; and verify that no onboarding placeholder remains.
+
+Remove `<!-- jarvis:onboarding-required -->` only after every verification
+passes. Preserve every non-marker line. Re-read `CLAUDE.md` and prove that the
+onboarding marker count is zero before reporting completion.
+
+A failed or incomplete verification retains exactly one onboarding marker.
+Report the exact missing or mismatched path and make no blind rewrite. Do not
+claim that the workspace is ready.
+
+## Close personal setup
+
+Only after verification, say that personal setup is ready. State that Git is
+optional and does not block ordinary Jarvis work. Continue to Local Git
+checkpoint before offering the First trial.
 
 ## Local Git checkpoint
 
-After personal setup, offer the local checkpoint and wait for explicit acceptance before any Git mutation: `git init -b main, author configuration, staging, or commit`. Also include local hook-path configuration in the displayed checkpoint scope. Explicit checkpoint acceptance authorizes adding or retaining exactly one `<!-- jarvis:git-pending -->` marker before `git --version`, every other Git probe or mutation, and the displayed `git status --short` inventory. Preserve every non-marker local-profile line when making the marker count exactly one. The approved scope therefore already includes that marker. A declined or deferred checkpoint adds or retains exactly one `<!-- jarvis:git-pending -->` marker, performs no Git mutation, and permits normal work. If the user intentionally defers Git, treat it as a deferred checkpoint. `git --version` is only a read-only availability check after acceptance.
+Git is optional. The checkpoint is a local recovery point, not a remote backup.
+Never create a remote, authenticate with GitHub, or push.
 
-Classify Git results exactly; do not treat every nonzero result as permission to
-initialize or reconfigure:
+### If Git is missing
 
-- `git --version`: exit 0 means Git is available; command-not-found means Git is missing. Any other execution error enters Git failure recovery.
-- `git rev-parse --is-inside-work-tree`: exit 0 with output `true` means existing worktree. Only exit 128 whose error explicitly says `not a git repository` is the expected not-a-repository result; only the expected not-a-repository result may lead to `git init -b main`. Any other output or error enters Git failure recovery.
-- `git config --get user.name` / `git config --get user.email`: exit 0 with nonempty output means configured. Exit 1 with empty output and no error is the expected missing-value state; the expected missing-value state means ask before repository-local configuration. Any other error enters Git failure recovery.
-- `git config --get core.hooksPath`: exit 0 with nonempty output means a hook
-  path is configured. Exit 1 with empty output and no error is the expected
-  missing-value state. Any other error enters Git failure recovery.
-- `git diff --cached --name-only`: exit 0 means the command produced the
-  complete staged-path list, which may be empty. Any nonzero exit enters Git
-  failure recovery.
-- `git diff --cached --quiet`: exit 0 means empty; exit 1 means changes. Any other exit code enters Git failure recovery.
+`git --version`: exit 0 means Git is available; command-not-found means Git is
+missing. Any other execution error enters Git failure recovery. Missing Git
+never blocks personal onboarding or ordinary Jarvis work.
 
-For a Git-unavailable or declined checkpoint, retain or add `<!-- jarvis:git-pending -->`.
+After verified personal setup, explain the detected platform and show exactly
+one matching installation command from the official Git guidance:
 
-- For the expected not-a-repository result only, initialize the local folder
-  with `git init -b main`. Do not recreate or replace an existing repository.
-- Reuse an existing author returned by `git config --get user.name` and
-  `git config --get user.email`. For only an expected missing value, ask for
-  the author name and then the author email, one question at a time, before
-  setting only the missing repository-local values with `git config --local
-  user.name` or `git config --local user.email`.
-- If `.githooks/pre-commit` exists and the hook path is in the expected missing
-  state, set only the repository-local value with `git config --local
-  core.hooksPath .githooks`. Reuse `.githooks` when it is already configured.
-  If another nonempty hook path is configured, preserve it: do not overwrite
-  custom Git configuration. Report that the Lite large-file guard was not
-  activated and continue without claiming otherwise. If the shipped hook is
-  missing, do not configure a nonexistent path; report the discrepancy.
-- A successful `git init -b main` makes this a freshly initialized Jarvis directory. Run `git status --short`, display its complete scope, and use
-  `git add -A` only after the user explicitly approves the displayed full baseline. Withheld or declined baseline approval means no `git add -A` and no commit; retain or add Git-pending and continue normal work.
-- In an existing repository, do not use `git add -A`; stage only explicitly approved onboarding sources or defer checkpointing. Before any onboarding staging or commit in an existing repository, run `git diff --cached --name-only`
-  and display its complete output separately from `git status --short`. If the initial staged-path output contains any entry, display every staged path, do not alter the index, do not stage, and do not commit. Instead, retain or add exactly one `<!-- jarvis:git-pending -->` marker without staging it, defer the checkpoint and permit normal Jarvis work. Only when the initial staged-path output is empty may you stage the exact explicitly approved onboarding source paths. First display `git status --short`, obtain source-specific approval for a literal path list, and use only explicit path arguments such as `git add -- <approved-path>...`; never derive paths automatically from status output. After staging, run `git diff --cached --name-only` again, display it, and verify that the staged path set contains no path outside the explicitly approved onboarding source paths. A staged-path mismatch enters the index-preserving Git failure recovery/defer path: do not automatically unstage or commit, retain or restore exactly one Git-pending marker without staging it, defer the checkpoint, and permit normal Jarvis work.
-- The shared staging rule is to stage the approved scope while Git-pending remains exactly once: use the accepted `git add -A` only for the fresh baseline,
-  or the verified explicit path arguments only for the existing repository. Then run `git diff --cached
-  --quiet`. If the staged diff is empty, retain Git-pending, report that no checkpoint was made, and continue normal work. If it has changes, remove the Git-pending marker and re-stage the local profile. Repeat this staged-path comparison after re-staging the local profile and before commit in an existing repository; this comparison is the first part of the recheck, and any mismatch follows the same recovery/defer path. Finish the recheck with `git diff --cached --quiet`; only its non-empty result may authorize `git commit -m "chore: initialize my Jarvis"`. This is the required sequence: remove the Git-pending marker, re-stage the local profile, recheck, then commit. Remove the Git-pending marker before staging that local profile, so the successful checkpoint contains the clean profile state and leaves no marker-removal change afterward. Only a non-empty rechecked staged diff may create the checkpoint. Decline, an empty staged diff, or any Git failure retains or restores exactly one Git-pending marker.
-- After a successful commit, run and display `git status --short`. Only empty output is evidence of a clean checkpoint. If the output is nonempty, report the exact remaining state, make no automatic cleanup or extra commit, do not claim a clean checkpoint, and require explicit approval before any recovery. If this status command errors, enter Git failure recovery.
+- macOS: `xcode-select --install` — https://git-scm.com/install/mac
+- Windows with WinGet: `winget install --id Git.Git -e --source winget` —
+  https://git-scm.com/install/windows
+- Debian or Ubuntu: `sudo apt-get install git` —
+  https://git-scm.com/install/linux
+- Fedora: `sudo dnf install git` — https://git-scm.com/install/linux
+- Arch Linux: `sudo pacman -S git` — https://git-scm.com/install/linux
+- openSUSE: `sudo zypper install git` — https://git-scm.com/install/linux
+- Alpine: `sudo apk add git` — https://git-scm.com/install/linux
 
-Git failure recovery applies to `git init -b main`, repository-local author or hook-path configuration, staging, staged-path inspection or comparison, either staged-diff check, commit, and the final post-commit status command. On failure, report the exact failed command or staged-path mismatch and preserve completed personal setup. Immediately run and display `git status --short`. Preserve the existing index; never blindly unstage, and stop further Git mutations. Failure handling must restore or retain `<!-- jarvis:git-pending -->` without staging it; when restoration changes the worktree, display `git status --short` again. The report must explain the exact staged and unstaged state, and offer only an explicit user-approved recovery step. Normal Jarvis work may continue.
+Before showing the Windows command, run `winget --version` as a read-only
+check. If WinGet is unavailable, show only the official Windows installation
+guide and do not invent another command. For Linux, resolve `/etc/os-release`
+and verify that the matching package-manager command exists with a read-only
+command lookup. If the detected package manager does not match the
+distribution, show only the official Linux installation guide. On macOS,
+verify that `xcode-select` exists before displaying its command; otherwise show
+only the official macOS guide.
 
-Never create a remote, authenticate with GitHub, or push. A local commit is a
-recovery checkpoint, not a remote backup.
+Ask for explicit installation approval before executing it. Installation
+approval does not authorize any Git mutation. If installation is declined,
+fails, or cannot run in the current environment, retain or add exactly one
+`<!-- jarvis:git-pending -->` marker, report the exact command and result, and
+continue normally. Re-run `git --version` after the installer returns. Only a
+successful availability check may continue to checkpoint inspection.
 
-## Git unavailable
+When an installer continues in a system dialog or another interactive process,
+wait for the user to confirm that installation finished before re-running the
+availability check.
 
-Git is optional for beginning work. If `git --version` is command-not-found,
-report the exact failed command, add `<!-- jarvis:git-pending -->` to the
-local profile without changing any non-marker line, then continue with Jarvis
-normally. Any other `git --version` execution error follows Git failure
-recovery. If the user
-does not answer the operating-system question, keep the Git-pending marker,
-complete personal onboarding, and do not block on a follow-up question. Offer operating-system guidance later only on request. When the user requests it,
-ask the operating system if unknown and provide only the matching official
-guide:
+For an unsupported or ambiguous platform, show https://git-scm.com/install/
+and do not guess a command. Declining installation does not block personal
+setup. If the user intentionally defers Git, treat it as a deferred checkpoint.
 
-- Windows: https://git-scm.com/download/win
-- macOS: https://git-scm.com/download/mac
+### Inspect checkpoint state
 
-Do not guess an operating system or run installation commands. On a later run,
-remove the Git-pending marker only after Git is available and the local
-checkpoint branch above has completed; preserve every other local-profile line.
+Once Git is available, perform these read-only checks before requesting any Git
+mutation:
+
+- `git rev-parse --is-inside-work-tree`: exit 0 with output `true` means an
+  existing worktree. Only exit 128 with an explicit not-a-repository error is
+  the expected missing-repository state; only the expected not-a-repository
+  result may lead to `git init -b main`.
+- `git config --get user.name`, `git config --get user.email`, and
+  `git config --get core.hooksPath`: exit 0 with nonempty output means
+  configured. Exit 1 with empty output and no error is the expected
+  missing-value state. Any other result enters Git failure recovery.
+- In an existing repository, run `git diff --cached --name-only`. Exit 0
+  provides the complete staged-path list, including an empty list. Any nonzero
+  result enters Git failure recovery.
+
+If the initial staged-path output contains any entry, display every staged
+path, do not alter the index, do not stage, and do not commit. Retain or add
+exactly one `<!-- jarvis:git-pending -->` marker without staging it, defer the
+checkpoint, and permit normal Jarvis work.
+
+### Approve the mutation scope
+
+Offer the local checkpoint and wait for explicit acceptance before any Git
+mutation: `git init -b main`, author configuration, hook-path configuration,
+staging, or commit. Include local hook-path configuration in the displayed
+checkpoint scope.
+
+Reuse an existing nonempty repository-local or inherited author name and
+email. For an expected missing name, set only the missing repository-local
+author name to the confirmed Identity name with `git config --local user.name`.
+On a Git-only resume where no confirmed name is available, ask one narrow Git
+author-name question without reopening personal onboarding. For an expected
+missing email, set only the missing repository-local email to
+`jarvis@vault.local` with `git config --local user.email`. Display these exact
+local values before requesting checkpoint approval.
+
+Explicit checkpoint acceptance authorizes adding or retaining exactly one
+`<!-- jarvis:git-pending -->` marker before the first Git mutation and the
+displayed `git status --short` inventory. The approved scope therefore already
+includes that marker. Preserve every non-marker local-profile line. A declined
+or deferred checkpoint performs no Git mutation, retains or adds the marker,
+and permits normal work.
+
+### Initialize and configure
+
+- For only the expected not-a-repository state, run `git init -b main`. Never
+  recreate or replace an existing repository.
+- Apply only the missing repository-local author values displayed in the
+  approved scope.
+- If `.githooks/pre-commit` exists and hooksPath is missing, run
+  `git config --local core.hooksPath .githooks`. Reuse `.githooks` when it is
+  already configured. If another nonempty hook path is configured, preserve it
+  and do not overwrite custom Git configuration. Report that the Lite
+  large-file guard was not activated. If the shipped hook is missing, do not
+  configure a nonexistent path.
+
+### Approve and stage exact content
+
+For a freshly initialized Jarvis directory, run `git status --short`, display
+the complete inventory, and require the user to explicitly approve the
+displayed full baseline. Only that fresh baseline approval authorizes
+`git add -A`. Withheld or declined baseline approval means no `git add -A` and no
+commit; retain Git-pending and continue normal work.
+
+In an existing repository, do not use `git add -A`; stage only explicitly
+approved onboarding sources or defer checkpointing. Before any onboarding
+staging or commit in an existing repository, run
+`git diff --cached --name-only`. Only when the initial staged-path output is
+empty may you stage the exact explicitly approved onboarding source paths.
+Display `git status --short`, obtain approval for a literal path list, and use
+only `git add -- <approved-path>...`. Because marker mutation is in the
+checkpoint scope, the local profile must appear explicitly in that path list
+whenever its marker changes.
+
+After staging, run `git diff --cached --name-only` again and verify that it
+contains no path outside the explicitly approved onboarding source paths.
+Repeat this staged-path comparison after re-staging the local profile and
+before commit. A mismatch means: do not automatically unstage or commit;
+preserve the index and enter Git failure recovery.
+
+### Commit only a verified checkpoint
+
+Stage the approved scope while Git-pending remains exactly once, then run
+`git diff --cached --quiet`: exit 0 means empty; exit 1 means changes. Any other
+exit code enters Git failure recovery. If the staged diff is empty, retain
+Git-pending, report that no checkpoint was made, and continue normal work.
+
+For a nonempty approved diff, remove the Git-pending marker before staging the
+local profile again. This ensures the successful checkpoint contains the clean
+profile state and leaves no marker-removal change afterward. Then remove the
+Git-pending marker, re-stage the local profile, recheck, then commit. Only a
+nonempty rechecked staged diff authorizes
+`git commit -m "chore: initialize my Jarvis"`. Decline, an empty staged diff,
+or any Git failure retains or restores exactly one Git-pending marker.
+
+After a successful commit, run and display `git status --short`. Only empty
+output is evidence of a clean checkpoint. Otherwise report the exact remaining
+state, make no automatic cleanup or extra commit, do not claim a clean
+checkpoint, and require explicit approval before any recovery. If this status
+command errors, enter Git failure recovery.
+
+### Git failure recovery
+
+Report the exact failed command or staged-path mismatch and preserve completed
+personal setup. Immediately run and display `git status --short`. Preserve the
+existing index; never blindly unstage, and stop further Git mutations. Restore
+or retain `<!-- jarvis:git-pending -->` without staging it. If that changes the
+worktree, display status again. Explain the exact staged and unstaged state and
+offer only an explicit user-approved recovery step. Normal Jarvis work may
+continue.
 
 ## Safety check
 
@@ -144,3 +310,6 @@ Before ending, re-read the resolved personal files and local profile. Confirm th
 the existing Soul was retained when present, only explicit fields and marker
 lines changed, onboarding is either safely complete or visibly pending, and no
 remote, authentication, or push was attempted.
+
+After Git is completed, deferred, unavailable, or safely failed, continue with
+the First trial and Continuity guide from the interview reference.

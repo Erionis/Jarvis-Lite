@@ -15,9 +15,12 @@ skills—all as readable Markdown.
 3. Open that folder in Codex, Claude Code, or OpenCode and say `Start Jarvis`.
 
 The first public release has not been published yet. Until it is available,
-use the source build below. Jarvis asks only for the minimum personal context
-and offers an optional local Git baseline. It never creates a remote or pushes
-automatically.
+use the source build below. First run uses four short decision moments and can
+start progressively or from a fuller map. It keeps identity, stable local
+context, current work, and durable memory in separate authoritative sources.
+It also checks Git and the operating system automatically, then offers optional
+platform-specific installation help and a separately approved local baseline.
+It never creates a remote or pushes automatically.
 
 ## What is included
 

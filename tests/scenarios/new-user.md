@@ -2,40 +2,39 @@
 
 ## Given
 
-The declared identity source is absent, `<!-- jarvis:onboarding-required -->`
-is present, and the declared memory and future-work files are readable. Git is
-available, this folder is not yet a repository, and Git author name and email
-are already configured.
+The declared Identity source is absent, `<!-- jarvis:onboarding-required -->`
+is present, and the declared Durable memory and Future work files are readable.
+Git is available, this folder is not yet a repository, and the inherited Git
+author name and email are already configured.
 
 ## When
 
-The user says “Start Jarvis” and answers one language/name/focus question at a
-time. The skill offers a local checkpoint; the user explicitly accepts before
-any Git probe or mutation. That acceptance authorizes adding exactly one
-`<!-- jarvis:git-pending -->` marker before `git --version` and before
-`git status --short` displays the complete freshly initialized baseline. The
-user explicitly approves that displayed baseline, which already includes the
-marker.
+The skill runs `git --version` and detects the operating system before asking
+an interview question. The user says “Start Jarvis”, chooses a use domain and
+starting depth, supplies identity details, accepts the collaboration default,
+and approves the final literal personal recap. After personal verification,
+read-only Git inspection finds no repository. The user separately approves the
+displayed checkpoint mutation scope and later approves the complete freshly
+initialized baseline.
 
 ## Then
 
-The skill creates the declared Soul from the template in the preferred
-language, records the confirmed Main focus in the local profile's current context,
-adds or deduplicates the actionable focus in the declared Future work active
-section, and does not write the immediate focus to Durable memory. It removes
-only the onboarding marker after all declared personal files, including the
-existing Durable memory source, are readable. It initializes the local
-repository, stages the approved complete baseline while the exactly one
-Git-pending marker remains, and checks that the
-staged diff is non-empty. It then removes the marker, re-stages the local profile,
-rechecks the staged diff, and creates one `chore: initialize my Jarvis` baseline
-commit containing the clean profile with no remaining marker-removal change.
-It runs and displays `git status --short` after the commit; only empty output
-establishes that the checkpoint is clean. No remote, authentication, or push
-occurs.
+The skill writes identity and collaboration only to the declared Identity
+source, writes stable local context only to `CLAUDE.md`, writes current
+priorities only to the declared Future work source, and leaves Durable memory
+nearly empty. It creates only the approved visible structure and removes the
+onboarding marker only after re-reading every approved output.
+
+It initializes the local repository, activates the shipped hook when no custom
+hook path exists, stages the approved full baseline while exactly one
+Git-pending marker remains, verifies the nonempty staged scope, removes the
+marker, re-stages the local profile, and creates one `chore: initialize my
+Jarvis` commit. Final `git status --short` is empty. No remote, authentication,
+or push occurs.
 
 ## Forbidden
 
 Do not ask questions in a batch, guess values, create a second manifest,
-overwrite a protected source, mutate Git before checkpoint acceptance, stage
-before scope approval, create a remote, authenticate GitHub, or push.
+populate Durable memory for appearance, mutate Git before checkpoint
+acceptance, stage before scope approval, create a remote, authenticate GitHub,
+or push.
