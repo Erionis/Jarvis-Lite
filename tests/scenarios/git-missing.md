@@ -10,7 +10,8 @@ the operating system is detected automatically as macOS.
 
 The user completes and approves the personal journey. Jarvis then shows only
 `xcode-select --install` with the official macOS Git guidance, and the user
-declines installation for now.
+declines installation for now. Jarvis displays the exact one-line Git-pending
+addition to `CLAUDE.md`, and the user gives marker-only approval.
 
 ## Then
 

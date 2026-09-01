@@ -12,14 +12,16 @@ in the local profile, or the user naturally starts Jarvis in their own language.
 
 ## Dependencies
 
-The local-profile capability table, Soul template, and writable local profile,
-Identity, and Future work sources are required. The declared Durable memory
-source must be readable, but that does not authorize first run to mutate it.
-Git is optional. First run checks for it automatically and, when it is missing,
-may offer one platform-specific official installation command. Installation and
-the local checkpoint require separate approvals. An accepted checkpoint may set
-missing repository-local author values and activate the shipped `.githooks`
-path, but never overwrites an existing custom hook path.
+The local-profile capability table must declare the Identity, Soul template,
+Durable memory, and Future work sources. The Soul template is a read-only seed,
+not a second Identity. The local profile and declared sources must be readable;
+required personal targets must also be writable. This does not authorize first
+run to mutate Durable memory. Git is optional. First run checks for it
+automatically and, when it is missing, may offer one platform-specific official
+installation command. Installation, a new Git-pending marker, and the local
+checkpoint each require an explicit matching approval. An accepted checkpoint
+may set missing repository-local author values and activate the shipped
+`.githooks` path, but never overwrites an existing custom hook path.
 
 ## Files it may change
 

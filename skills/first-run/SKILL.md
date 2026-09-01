@@ -76,9 +76,10 @@ the recap explicitly identifies a narrow addition.
 ### Identity
 
 If Identity is absent, render the complete Soul template in the confirmed
-language, replace `[NAME]` and `[LANGUAGE]`, and apply only explicit
-collaboration differences approved in the recap. Do not leave template tokens
-or shorten the template into a profile card.
+language: translate every prose heading and sentence while preserving the
+template's semantic structure, replace `[NAME]` and `[LANGUAGE]`, and apply
+only explicit collaboration differences approved in the recap. Do not leave
+template tokens or shorten the template into a profile card.
 
 Never replace or patch an existing Soul during first run. Its current bytes are
 authoritative even when onboarding-required remains. Later Identity evolution
@@ -98,11 +99,11 @@ progressive start must not invent a task merely to fill the file.
 
 ### Visible structure
 
-Create `98 - Archive/README.md` in every approved path. Create at most four
-approved numbered domain folders. Every created folder receives a short
-`README.md` that states its purpose without inventing user facts. Create a
-template only for an explicitly recurring output. A progressive start creates
-no domain folder and no template.
+Create the single `98 - Archive/README.md` at the approved workspace root.
+Create at most four approved numbered domain folders. Every created folder
+receives a short `README.md` that states its purpose without inventing user
+facts. Create a template only for an explicitly recurring output. A
+progressive start creates no domain folder and no template.
 
 Never create `PROFILE.md`, `JARVIS.md`, a second Soul, or a second capability
 manifest.

@@ -11,6 +11,8 @@ Jarvis displays `winget install --id Git.Git -e --source winget` and the
 official Git for Windows guidance. The user explicitly approves that installer
 command. After it succeeds, Jarvis re-runs `git --version`, then presents the
 separate local checkpoint mutation scope. The user defers the checkpoint.
+Jarvis displays the exact one-line Git-pending addition to `CLAUDE.md`, and the
+user gives marker-only approval.
 
 ## Then
 

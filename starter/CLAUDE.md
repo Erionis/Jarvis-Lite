@@ -18,11 +18,15 @@ Before responding or acting:
 | Role | Authoritative source |
 |---|---|
 | Identity | `99 - Jarvis/memory/soul.md` |
+| Soul template | `99 - Jarvis/system/soul-template.md` |
 | Durable memory | `99 - Jarvis/memory/MEMORY.md` |
 | Future work | `To Do.md` |
 | Daily history | `01 - Diary/` |
 | Handoff | `99 - Jarvis/handoffs/` |
 | Inbox | `00 - Inbox/` |
+
+The declared `Soul template` is a read-only seed for a missing `Identity`, not
+a second identity source. An existing Identity always remains authoritative.
 
 ## Use domains
 

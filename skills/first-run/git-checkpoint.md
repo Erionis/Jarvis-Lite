@@ -5,6 +5,29 @@ resume where personal onboarding was already completed. Git is optional. The
 checkpoint is a local recovery point, not a remote backup. Never create a
 remote, authenticate with GitHub, or push.
 
+## Record a pending result
+
+Whenever this reference requires a pending result, resolve the marker state in
+the local profile before writing:
+
+- If exactly one `<!-- jarvis:git-pending -->` marker already exists, preserve
+  it without another write or approval.
+- If it is absent and checkpoint acceptance has not already approved it, show
+  the exact local-profile path and the one-line marker addition, then ask for
+  explicit marker-only approval before writing it. Marker-only approval
+  authorizes no Git installation or mutation.
+- If the user declines, leave the local profile unchanged, state that the
+  checkpoint is deferred without automatic marker-based resume, and permit
+  ordinary Jarvis work.
+- If more than one marker exists, report the exact count and require explicit
+  recovery approval before reducing it to one. Perform no Git mutation first.
+
+Explicit checkpoint acceptance under Approve the mutation scope already covers
+the displayed marker addition; do not ask twice. Every instruction below to
+retain, add, or restore Git-pending follows this section. Removing Git-pending
+after a successful checkpoint is governed by the explicitly accepted checkpoint
+scope.
+
 ## If Git is missing
 
 `git --version`: exit 0 means Git is available; command-not-found means Git is

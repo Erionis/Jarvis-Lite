@@ -100,6 +100,40 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
+    def test_pending_marker_write_has_its_own_explicit_consent(self):
+        text = self.contract_flat
+        for phrase in [
+            "Whenever this reference requires a pending result",
+            "show the exact local-profile path and the one-line marker addition",
+            "ask for explicit marker-only approval before writing it",
+            "Marker-only approval authorizes no Git installation or mutation",
+            "If the user declines, leave the local profile unchanged",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_successful_marker_removal_uses_checkpoint_scope_not_pending_gate(self):
+        text = self.contract_flat
+        for phrase in [
+            "Every instruction below to retain, add, or restore Git-pending follows this section",
+            "Removing Git-pending after a successful checkpoint is governed by the explicitly accepted checkpoint scope",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_soul_rendering_translates_the_complete_template(self):
+        text = " ".join(self.text.split())
+        self.assertIn(
+            "translate every prose heading and sentence while preserving the template's semantic structure",
+            text,
+        )
+
+    def test_archive_is_one_workspace_root_path(self):
+        text = " ".join(self.text.split())
+        self.assertIn(
+            "Create the single `98 - Archive/README.md` at the approved workspace root",
+            text,
+        )
+        self.assertNotIn("Create `98 - Archive/README.md` in every approved path", text)
+
     def test_git_checkpoint_is_a_lazily_loaded_reference(self):
         self.assertTrue(GIT_CHECKPOINT.is_file(), "Git checkpoint reference is missing")
         self.assertIn("[git-checkpoint.md](git-checkpoint.md)", self.text)
@@ -143,7 +177,7 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "Make no personalized filesystem write before the user approves the final visible recap",
             "Approval covers only the literal personal paths, content summary, folders, and templates displayed in that recap",
-            "Create `98 - Archive/README.md` in every approved path",
+            "Create the single `98 - Archive/README.md` at the approved workspace root",
             "Create at most four approved numbered domain folders",
             "Every created folder receives a short `README.md`",
             "Create a template only for an explicitly recurring output",
@@ -541,6 +575,11 @@ class FirstRunContractTest(unittest.TestCase):
     def test_git_missing_scenario_is_command_not_found(self):
         scenario = (SCENARIOS / "git-missing.md").read_text(encoding="utf-8")
         self.assertIn("`git --version` is command-not-found", scenario)
+
+    def test_git_defer_scenarios_approve_the_marker_write(self):
+        for name in ["git-missing.md", "git-install.md", "staged-index.md"]:
+            scenario = " ".join(self.read_scenario(name).split())
+            self.assertIn("marker-only approval", scenario, name)
 
     def test_scenarios_exist(self):
         for name in [
