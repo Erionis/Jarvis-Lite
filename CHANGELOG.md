@@ -16,6 +16,9 @@ This project uses Semantic Versioning.
   never creates a remote.
 - Added the initial seven dependency-free installed skills, including
   report-only Inbox triage and session handoffs.
+- Adapted `briefing` from the Lite 0.8.1 session-start flow with declared local
+  sources, evidence-based priority selection, bounded choices, and concise
+  continuity from daily history or handoffs.
 - Made `save-session` update declared daily history and create only a scoped
   local commit, never a scheduled or remote push.
 - Added a standard-library builder that creates physical `.claude/skills` and

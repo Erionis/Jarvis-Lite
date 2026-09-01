@@ -11,8 +11,9 @@ A user asks for a briefing or wants a start-of-session overview.
 
 ## Dependencies
 
-The profile capability table and its declared Identity, Durable memory, Future
-work, and Inbox sources.
+The local capability table and its declared Identity, Durable memory, Future
+work, Daily history, Handoff, and Inbox sources. It requires no scripts, remote
+services, or Git integration.
 
 ## Files it may change
 
@@ -20,6 +21,7 @@ None. This skill is read-only.
 
 ## Adopting it into an existing Jarvis
 
-Keep the existing capability table authoritative. The skill resolves the four
+Keep the existing capability table authoritative. The skill resolves the six
 named capability roles from that table and does not require paths to match a
-starter layout.
+starter layout. Preserve any local rituals in the consumer profile; the skill
+does not introduce calendar rituals of its own.

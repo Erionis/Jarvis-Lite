@@ -48,6 +48,13 @@ Each fact has one authoritative home:
 - continuation packets in `Handoff`;
 - unclassified input in `Inbox`.
 
+## Questions and choices
+
+For a real decision between alternatives, use the runtime choice UI when
+available. Otherwise present short numbered concrete options. Use an open
+question only for truly free-form input. Do not turn every step into a quiz;
+proceed when context makes the answer evident.
+
 ## Skills
 
 Select skills from their frontmatter descriptions and read the full `SKILL.md`

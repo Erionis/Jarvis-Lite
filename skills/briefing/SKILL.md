@@ -3,61 +3,75 @@ name: briefing
 description: Use when a user asks for a session briefing or a start-of-session overview.
 ---
 
-# Briefing
+# Briefing — Quick Start
 
-Give a concise session-start view from the declared authoritative sources. The
-briefing is read-only and must not manufacture an order of importance.
+Give a local, read-only, dependency-free briefing grounded in evidence.
 
-## Workflow
+## What to do
 
-1. Read the consumer's local capability map (`CLAUDE.md` in the default
-   starter) and resolve the declared Identity, Durable memory, Future work, and
-   Inbox paths by semantic role. Do not use filesystem
-   discovery, substitute a starter or other location, or invent a fallback.
-   For every role whose declaration is missing, ambiguous, or points to a
-   missing source, name that role and report it as unresolved; do not
-   substitute another location or silently omit the role.
-2. Read each resolved source only. Read Identity for context, the active
-   Durable memory for retained commitments, and Future work for live work.
-   Inspect Inbox only to identify untriaged input; do not process it.
-3. Build the grounded priority candidate set:
-   - Retain explicit `current`, `now`, or `priority` evidence as a candidate
-     rule.
-   - A non-placeholder work or focus item under the declared `Future work`
-     source's `## Active` section is an active candidate.
-   - A non-placeholder work or focus item under `Durable memory`'s `## Active
-     Memory` section is an active candidate. Stable preferences, references,
-     and facts that do not describe work, focus, or a commitment are not
-     priority candidates merely because they appear in active memory.
-   - Empty placeholders such as `- [ ]` are not candidates. The same semantic
-     focus repeated in both sources is one distinct candidate.
+### Step 1 — Gather context
 
-   Durable memory and Future work are candidate-bearing sources. If either
-   role is unresolved, do not claim a unique current priority because
-   uniqueness cannot be verified. Surface any candidate found in the resolved
-   source only as partial evidence.
-4. Report these fields:
-   - **Current priority:** Exactly one distinct grounded candidate may be
-     reported as the current priority. Quote or link the supporting source. If
-     two or more distinct candidates are explicitly marked and the sources do
-     not order them, say that no single current priority is grounded; surface
-     the competing candidate titles and their source roles. Two or more
-     distinct unordered candidates produce no single current
-     priority: surface them without ranking. Do not rank or choose one. If no
-     item has grounded candidate evidence, say that no current priority is
-     grounded in the declared sources; do not rank by guesswork, age, item
-     count, or assumed impact.
-   - **Blockers:** list only dependencies, constraints, or waiting states
-     explicitly stated by a declared source. An explicit dependency,
-     constraint, or waiting statement in Inbox may be reported as a blocker;
-     identify Inbox as the evidence source. Do not infer a blocker from an
-     Inbox idea. If Inbox is unresolved, say that Inbox status is unverifiable
-     and do not claim that blocker coverage is complete. If all relevant
-     sources are resolved and none state a blocker, say so.
-   - **Inbox:** state whether declared Inbox material needs triage, without
-     moving, classifying, or summarizing it into another source. Never
-     classify, move, integrate, or mutate Inbox content. If Inbox is
-     unresolved, report that its status is unverifiable.
+Resolve through the local capability map:
 
-Do not edit, create, rename, move, delete, stage, commit, configure Git, or
-process Inbox items. The entire workflow remains read-only.
+1. `Identity` supplies preferences.
+2. `Durable memory` supplies retained commitments. Stable preferences,
+   references, and facts are not work candidates.
+3. `Future work` supplies current work and next actions. Ignore empty
+   placeholders such as `- [ ]`.
+4. `Daily history` supplies recent unfinished work or an explicit next action.
+   Use the latest relevant entry.
+5. `Handoff` supplies continuation. A Handoff is active only when its
+   frontmatter contains `status: active`. Treat each distinct active Handoff
+   with an unfinished next action as a candidate. Do not select between
+   multiple active Handoffs by recency alone.
+6. `Inbox` supplies untriaged item names plus explicit deadlines, dependencies,
+   constraints, or waiting states. Inbox is attention-only and never a
+   priority candidate. An unresolved Inbox limits only attention and triage
+   coverage. Do not process it.
+
+Use only rituals declared in the local profile. If a role's declaration is
+missing, ambiguous, or points to a missing source, mark it unresolved and
+continue from verified sources. Do not discover or substitute another path.
+
+### Step 2 — Select the focus
+
+Deduplicate the same semantic focus across sources. Recommend one candidate
+only when direct evidence distinguishes it: an explicit priority, an explicit
+deadline, a dependency or unblock, or an unequivocal continuation with a
+stated next action.
+
+Give one concrete next step and why it matters now. Do not rank by guessed
+impact, age, counts, source order, or assumed urgency.
+
+If candidates remain materially equivalent, no unique priority is grounded.
+Do not invent a ranking. Request one decision under the canonical interaction
+rule with at most three concrete candidates and next steps. If more exist, say
+so without demoting omitted items.
+
+`Durable memory`, `Future work`, `Daily history`, and `Handoff` are
+candidate-bearing roles. If any candidate-bearing role is unresolved, do not
+claim a unique priority; show resolved candidates as partial evidence.
+
+### Step 3 — Generate the briefing
+
+Use only the useful parts:
+
+- `Priority`: one recommendation, concrete next step, and why it matters now;
+  or the bounded choice.
+- `Continuity`: At most one visible `Continuity` line from relevant Daily
+  history or Handoff evidence. Do not repeat the same focus.
+- `Attention`: Include `Attention` only for verified deadlines, blockers,
+  Inbox material, or other explicit friction.
+- `Context incomplete`: one compact `Context incomplete` line naming unresolved
+  roles and the practical limitation.
+
+Omit empty sections. Use about five lines when signal is low and normally no
+more than 10–12 lines. With no work or friction, say so and ask what to work on.
+
+## Rules
+
+- Be direct and friendly.
+- Use declared local sources; require no remote service, network, script, or
+  Git state.
+- Do not edit, create, rename, move, delete, stage, commit, configure Git, or
+  process Inbox items. The entire workflow remains read-only.
