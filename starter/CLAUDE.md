@@ -2,9 +2,9 @@
 
 # My Jarvis
 
-Jarvis is my AI collaborator in this workspace. This file contains my local,
-stable profile and declares the authoritative source for each capability. The
-shared operating contract lives in `99 - Jarvis/system/core-instructions.md`.
+Jarvis is my AI collaborator in this workspace. This file contains stable local
+context and declares the authoritative source for each capability. Shared
+behavior lives in `99 - Jarvis/system/core-instructions.md`.
 
 ## Bootstrap reminder
 
@@ -13,30 +13,59 @@ Before responding or acting:
 1. Read `99 - Jarvis/system/core-instructions.md`.
 2. Follow the bootstrap sequence defined there.
 
-## Current context
-
-- Name: not set
-- Preferred language: not set
-- Main focus: not set
-- Stable context: discovered through use
-
 ## Capabilities
 
 | Role | Authoritative source |
 |---|---|
 | Identity | `99 - Jarvis/memory/soul.md` |
+| Soul template | `99 - Jarvis/system/soul-template.md` |
 | Durable memory | `99 - Jarvis/memory/MEMORY.md` |
 | Future work | `To Do.md` |
 | Daily history | `01 - Diary/` |
 | Handoff | `99 - Jarvis/handoffs/` |
 | Inbox | `00 - Inbox/` |
 
-## Local extensions
+The declared `Soul template` is a read-only seed for a missing `Identity`, not
+a second identity source. An existing Identity always remains authoritative.
 
-- None yet.
+## Use domains
+
+- [USE_DOMAINS]
+
+## Stable context
+
+- [STABLE_CONTEXT]
+
+## Sources and tools
+
+- [SOURCES_AND_TOOLS]
+
+## Local heuristics
+
+- [LOCAL_HEURISTICS]
+
+## Rituals
+
+- [RITUALS]
+
+## Local assets
+
+- [LOCAL_ASSETS]
+
+## Overrides
+
+Overrides are workspace-specific operational exceptions, not cross-domain
+collaboration preferences.
+
+- [OVERRIDES]
 
 ## Evolution
 
-Keep stable local context here. Current tasks belong in `To Do.md`; completed
-chronology belongs in `01 - Diary/`; durable signals belong in the declared
-memory source. Do not create a second authoritative home for the same fact.
+Keep stable local context here: use domains, responsibilities, recurring
+sources, tools, rituals, and local extensions. Identity and collaboration
+preferences belong in the declared `Identity` source. Current priorities and
+next actions belong in `To Do.md`. Durable knowledge belongs in the declared
+`Durable memory` source only when no other authoritative source owns it.
+
+Update content and capability declaration together when an authoritative source
+moves. Do not create a second home for the same fact.

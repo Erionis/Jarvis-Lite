@@ -6,4 +6,6 @@
    AI agent.
 3. Say `Start Jarvis` in your language.
 
-If Git is not installed and you later want local version history, see the [Git installation help](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git).
+First run checks for Git automatically. If it is missing, Jarvis can show the
+official installation command for the detected platform. Installing Git and
+creating a local checkpoint are optional and require separate approval.

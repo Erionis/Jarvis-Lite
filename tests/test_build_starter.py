@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 import shutil
 import tempfile
 import unittest
@@ -42,9 +43,40 @@ class BuildStarterTest(unittest.TestCase):
                     copied = mirror / skill / "SKILL.md"
                     self.assertEqual(digest(copied), digest(source))
 
+                first_run_reference = mirror / "first-run" / "interview.md"
+                self.assertTrue(first_run_reference.is_file())
+                self.assertEqual(
+                    digest(first_run_reference),
+                    digest(ROOT / "skills/first-run/interview.md"),
+                )
+                git_reference = mirror / "first-run" / "git-checkpoint.md"
+                self.assertTrue(git_reference.is_file())
+                self.assertEqual(
+                    digest(git_reference),
+                    digest(ROOT / "skills/first-run/git-checkpoint.md"),
+                )
+
             self.assertTrue((package / ".claude/settings.json").is_file())
             self.assertTrue((package / "01 - Diary/README.md").is_file())
             self.assertFalse((package / "skills").exists())
+
+            profile = (package / "CLAUDE.md").read_text(encoding="utf-8")
+            declared_template = re.search(
+                r"^\| Soul template \| `([^`]+)` \|$", profile, re.MULTILINE
+            )
+            self.assertIsNotNone(declared_template)
+            self.assertTrue((package / declared_template.group(1)).is_file())
+
+    def test_assembled_first_run_has_no_repository_test_dependency(self):
+        from scripts.build_starter import build_starter
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(ROOT, Path(temporary))
+            for runtime in [".claude", ".agents"]:
+                skill = (package / runtime / "skills/first-run/SKILL.md").read_text(
+                    encoding="utf-8"
+                )
+                self.assertNotIn("tests/scenarios", skill)
 
     def test_assembled_tree_contains_no_symlink(self):
         from scripts.build_starter import build_starter

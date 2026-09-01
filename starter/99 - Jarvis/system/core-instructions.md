@@ -40,9 +40,10 @@ a fallback file.
 
 Each fact has one authoritative home:
 
-- identity and collaboration style in `Identity`;
-- stable, reusable context in `Durable memory`;
-- current actions in `Future work`;
+- identity, preferred language, and collaboration style in `Identity`;
+- stable local context in `CLAUDE.md`;
+- durable knowledge with no other authoritative home in `Durable memory`;
+- current priorities and next actions in `Future work`;
 - completed chronology in `Daily history`;
 - continuation packets in `Handoff`;
 - unclassified input in `Inbox`.

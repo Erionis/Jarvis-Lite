@@ -2,28 +2,26 @@
 
 ## Given
 
-The declared identity source is absent and the onboarding marker is present;
-`<!-- jarvis:git-pending -->` may also be present. The personal sources are
-writable, but `git --version` is command-not-found. The user may defer the
-operating-system question.
+The declared Identity source is absent and the onboarding marker is present.
+The personal sources are writable, `git --version` is command-not-found, and
+the operating system is detected automatically as macOS.
 
 ## When
 
-The user completes the one-at-a-time language, name, and immediate-focus
-conversation.
+The user completes and approves the personal journey. Jarvis then shows only
+`xcode-select --install` with the official macOS Git guidance, and the user
+declines installation for now. Jarvis displays the exact one-line Git-pending
+addition to `CLAUDE.md`, and the user gives marker-only approval.
 
 ## Then
 
-The skill creates the missing Soul and records confirmed personal content in
-the preferred language. It removes the onboarding marker after the personal
-sources are readable and keeps `<!-- jarvis:git-pending -->` in the profile.
-Jarvis can begin work without a Git repository or baseline commit. If the user
-requests Git help later, the skill asks or uses the operating system and gives
-the correct official Windows or macOS guide.
+The skill completes and verifies personal setup, removes the onboarding marker,
+and keeps exactly one `<!-- jarvis:git-pending -->` marker in `CLAUDE.md`.
+Jarvis can begin ordinary work without a Git repository or baseline commit.
 
 ## Forbidden
 
-Do not guess the operating system, skip personal onboarding because Git-pending
-exists, block on an unanswered OS question, run an installer, require Git
-before work, overwrite existing custom content, create a remote, authenticate,
-or push.
+Do not ask for a detectable operating system, skip personal onboarding because
+Git-pending exists, run the installer without approval, treat installation
+approval as checkpoint approval, require Git before work, create a remote,
+authenticate, or push.
