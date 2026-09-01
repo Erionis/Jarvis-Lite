@@ -11,11 +11,19 @@ class LifecycleSkillsTest(unittest.TestCase):
     def skill(self, name: str) -> str:
         return (ROOT / f"skills/{name}/SKILL.md").read_text(encoding="utf-8")
 
-    def test_briefing_is_read_only(self):
+    def test_briefing_is_local_read_only_and_dependency_free(self):
         text = self.skill("briefing")
-        self.assertIn("read-only", text)
-        self.assertIn("Future work", text)
-        self.assertIn("Inbox", text)
+        for phrase in ["read-only", "local", "dependency-free"]:
+            self.assertIn(phrase, text)
+        for role in [
+            "Identity",
+            "Durable memory",
+            "Future work",
+            "Daily history",
+            "Handoff",
+            "Inbox",
+        ]:
+            self.assertIn(role, text)
 
     def test_briefing_frontmatter_has_a_valid_trigger_only_description(self):
         text = self.skill("briefing")
@@ -42,23 +50,27 @@ class LifecycleSkillsTest(unittest.TestCase):
             ],
         )
 
-    def test_briefing_does_not_choose_between_unordered_candidates(self):
+    def test_briefing_recommends_only_from_distinguishing_evidence(self):
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "If two or more distinct candidates are explicitly marked",
-            "no single current priority is grounded",
-            "surface the competing candidate titles and their source roles",
-            "Do not rank or choose one",
+            "explicit priority",
+            "explicit deadline",
+            "dependency or unblock",
+            "unequivocal continuation",
+            "concrete next step",
+            "why it matters now",
+            "assumed urgency",
         ]:
             self.assertIn(phrase, text)
 
-    def test_briefing_can_report_explicit_inbox_blocker_evidence(self):
+    def test_briefing_turns_equivalent_candidates_into_a_bounded_choice(self):
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "An explicit dependency, constraint, or waiting statement in Inbox may be reported",
-            "identify Inbox as the evidence source",
-            "Do not infer a blocker from an Inbox idea",
-            "Never classify, move, integrate, or mutate Inbox content",
+            "materially equivalent",
+            "canonical interaction rule",
+            "at most three",
+            "concrete next step",
+            "Do not invent a ranking",
         ]:
             self.assertIn(phrase, text)
 
@@ -74,52 +86,138 @@ class LifecycleSkillsTest(unittest.TestCase):
 
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "A non-placeholder work or focus item under the declared `Future work` source's `## Active` section is an active candidate",
-            "A non-placeholder work or focus item under `Durable memory`'s `## Active Memory` section is an active candidate",
-            "Stable preferences, references, and facts that do not describe work, focus, or a commitment are not priority candidates",
-            "Empty placeholders such as `- [ ]` are not candidates",
+            "`Future work` supplies current work and next actions",
+            "`Durable memory` supplies retained commitments",
+            "Stable preferences, references, and facts are not work candidates",
+            "Ignore empty placeholders such as `- [ ]`",
         ]:
             self.assertIn(phrase, text)
 
-    def test_briefing_deduplicates_active_candidates_before_selecting_priority(self):
+    def test_briefing_uses_daily_history_and_handoff_for_continuity(self):
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "The same semantic focus repeated in both sources is one distinct candidate",
-            "Exactly one distinct grounded candidate may be reported as the current priority",
-            "Two or more distinct unordered candidates produce no single current priority",
-            "surface them without ranking",
+            "`Daily history` supplies recent unfinished work or an explicit next action",
+            "A Handoff is active only when its frontmatter contains `status: active`",
+            "Treat each distinct active Handoff with an unfinished next action as a candidate",
+            "Do not select between multiple active Handoffs by recency alone",
+            "Deduplicate the same semantic focus across sources",
+            "At most one visible `Continuity` line",
         ]:
             self.assertIn(phrase, text)
 
-    def test_briefing_reports_every_unresolved_capability_without_fallback(self):
+    def test_briefing_reports_unresolved_roles_without_fallback(self):
         text = " ".join(self.skill("briefing").split())
-        for role in ["Identity", "Durable memory", "Future work", "Inbox"]:
+        for role in [
+            "Identity",
+            "Durable memory",
+            "Future work",
+            "Daily history",
+            "Handoff",
+            "Inbox",
+        ]:
             self.assertIn(role, text)
         for phrase in [
             "missing, ambiguous, or points to a missing source",
-            "name that role and report it as unresolved",
-            "Do not use filesystem discovery",
-            "do not substitute another location or silently omit the role",
+            "Do not discover or substitute another path",
+            "one compact `Context incomplete` line",
         ]:
             self.assertIn(phrase, text)
 
-    def test_briefing_unresolved_candidate_source_prevents_unique_priority(self):
+    def test_briefing_limits_conclusions_when_candidate_context_is_unresolved(self):
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "Durable memory and Future work are candidate-bearing sources",
-            "If either role is unresolved, do not claim a unique current priority",
-            "uniqueness cannot be verified",
-            "only as partial evidence",
+            "candidate-bearing role",
+            "If any candidate-bearing role is unresolved",
+            "do not claim a unique priority",
+            "partial evidence",
         ]:
             self.assertIn(phrase, text)
 
-    def test_briefing_unresolved_inbox_prevents_complete_blocker_coverage(self):
+    def test_briefing_keeps_inbox_attention_only(self):
         text = " ".join(self.skill("briefing").split())
         for phrase in [
-            "Inbox status is unverifiable",
-            "do not claim that blocker coverage is complete",
+            "Inbox is attention-only",
+            "never a priority candidate",
+            "An unresolved Inbox limits only attention and triage coverage",
         ]:
             self.assertIn(phrase, text)
+
+    def test_briefing_output_is_adaptive_and_omits_empty_sections(self):
+        text = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "about five lines",
+            "10–12 lines",
+            "Omit empty sections",
+            "`Attention` only for verified",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_briefing_has_no_remote_or_weekday_integration(self):
+        text = self.skill("briefing").lower()
+        for forbidden in [
+            "gitea",
+            "\ntea ",
+            "git status",
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday",
+            "saturday",
+            "sunday",
+        ]:
+            self.assertNotIn(forbidden, text)
+        self.assertIn("use only rituals declared in the local profile", text)
+
+    def test_briefing_scenarios_cover_the_approved_behavior(self):
+        scenarios = [
+            "briefing-clear-priority",
+            "briefing-choice",
+            "briefing-continuity",
+            "briefing-empty",
+            "briefing-unresolved",
+        ]
+        expected_contract = {
+            "briefing-clear-priority": [
+                "one current priority",
+                "deadline",
+                "why it matters now",
+                "Inbox evidence remains attention-only",
+            ],
+            "briefing-choice": [
+                "materially equivalent",
+                "at most three",
+                "runtime choice UI",
+                "Do not invent a winner",
+            ],
+            "briefing-continuity": [
+                "active handoff",
+                "at most one continuity line",
+                "Do not show two continuity sections",
+            ],
+            "briefing-empty": [
+                "about five lines",
+                "without manufacturing urgency",
+                "Do not render empty sections",
+            ],
+            "briefing-unresolved": [
+                "candidate-bearing role cannot be resolved",
+                "Context incomplete",
+                "avoids claiming a unique priority",
+                "Do not search for a fallback path",
+            ],
+        }
+        for name in scenarios:
+            path = ROOT / "tests/scenarios" / f"{name}.md"
+            self.assertTrue(path.is_file(), name)
+            scenario = path.read_text(encoding="utf-8")
+            headings = [
+                line[3:] for line in scenario.splitlines()
+                if line.startswith("## ")
+            ]
+            self.assertEqual(headings, ["Given", "When", "Then", "Forbidden"])
+            for phrase in expected_contract[name]:
+                self.assertIn(phrase, scenario, f"{name}: {phrase}")
 
     def test_memory_has_one_authoritative_home(self):
         text = self.skill("jarvis-memory")

@@ -154,6 +154,20 @@ class StarterContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, contract)
 
+    def test_canonical_contract_owns_runtime_neutral_choice_ux(self):
+        contract = " ".join(
+            self.read("99 - Jarvis/system/core-instructions.md").split()
+        )
+        for phrase in [
+            "real decision between alternatives",
+            "runtime choice UI when available",
+            "short numbered concrete options",
+            "truly free-form input",
+            "Do not turn every step into a quiz",
+            "proceed when context makes the answer evident",
+        ]:
+            self.assertIn(phrase, contract)
+
     def test_canonical_guardrails_name_protected_sources(self):
         contract = self.read("99 - Jarvis/system/core/guardrails.md")
         self.assertIn(
