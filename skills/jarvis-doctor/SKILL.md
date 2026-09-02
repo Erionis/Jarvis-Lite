@@ -5,82 +5,126 @@ description: Use when an existing Jarvis appears inconsistent or needs a local s
 
 # Jarvis Doctor
 
-Audit an existing Jarvis using local evidence only. The entire audit is
-read-only: inspect the declared installation and explain findings without
-changing it.
+Audit contract, readiness, and consistency from local evidence. Diagnose only:
+`jarvis-memory` remains the only curator of Durable memory.
 
-## Mutation boundary
+## Scope and focus
 
-You may inspect the consumer profile, its declared capability sources,
-declared filesystem targets, and local Markdown links. Do not use remote
-services as evidence.
+Scope is the profile and bootstrap contract, guardrails, declared sources, and
+one direct local-reference hop. Do not use remote services as evidence or scan
+the workspace. Preserve local extensions outside the common contract. Do not
+normalize or remove them.
 
-Do not edit, create, rename, move, delete, or install anything. Do not generate
-a report file. Do not stage, commit, push, or configure Git. You may propose a
-next step in the response, but never perform repair as a side effect.
+A plain Doctor request audits the complete bounded scope. If the user names a
+symptom or capability, report that role and its direct dependencies. Include
+bootstrap blockers, never unrelated bootstrap-only findings. Do not introduce
+flags or a second mode.
 
-## Bootstrap gate
+Doctor is read-only. Do not edit, create, rename, move, delete, or install
+anything. Do not generate a report file. Do not stage, commit, push, or
+configure Git; never perform repair as a side effect.
 
-Follow the canonical bootstrap before Doctor. When Identity is missing or the
-onboarding marker is present, do not bypass first run. Doctor starts only after
-ordinary work is available.
+## 1. Resolve the contract
 
-Once ordinary work is available, report a missing non-Identity capability as
-observed. Its absence does not authorize a fallback source.
+1. Resolve every capability role from the consumer's declared capability map.
+   Do not use starter paths, filesystem discovery, or guessed fallbacks.
+   Identify each declaration as unique, missing or ambiguous. Check whether
+   each declared target exists and is readable. A declared missing target is
+   evidence; do not silently create it. If a prerequisite is unreachable,
+   report only what direct evidence proves.
+2. Treat `<!-- jarvis:onboarding-required -->` in the resolved local profile
+   only as the onboarding marker. A Doctor request is concrete user work:
+   complete the bounded read-only diagnosis before offering setup. When
+   Identity is missing or the onboarding marker is present, do not bypass first
+   run: report `Bootstrap blocked` and route to `first-run`. A missing
+   non-Identity capability is unavailable and does not authorize a fallback
+   source. A missing optional capability is not automatically an error; an
+   invalid declared target is.
 
-## Audit workflow
+## 2. Verify structure and readiness
 
-1. **Resolve the declared map.** Resolve every capability role from the
-   consumer's declared capability map. Do not use starter paths, filesystem
-   discovery, or guessed fallbacks. Preserve local extensions outside the
-   common contract. Do not normalize or remove them.
-2. **Inventory declarations and targets.** For every role, determine whether
-   its declaration is unique, missing or ambiguous, and whether each declared
-   target exists and is readable. A declared missing target is evidence; do
-   not silently create it. A missing optional capability is not automatically
-   an error.
-3. **Inspect readable declared Markdown sources.** Limit content checks to the
-   sources made authoritative by the declared map:
-   - **Stale dated claims:** A past date alone is not stale. Mark a
-     current-state claim `unverifiable` only when its own date or freshness
-     statement no longer supports present-tense use, or when the declared
-     evidence cannot establish it. Do not invent a universal age threshold.
-   - **Contradictions:** Confirm a contradiction only from two mutually
-     incompatible claims about the same subject with compatible scope and
-     time. Different dates or scopes are not automatically contradictions. If
-     scope cannot be resolved, label the finding `unverifiable`, not `error`.
-   - **Broken links:** Ignore external URLs and fragment-only anchors. Resolve
-     each local relative Markdown link relative to its declaring source. When
-     the target is missing, retain the literal link and the resolved missing
-     target as evidence.
-4. **Render every finding completely.** Use the finding fields below and keep
-   each location tight enough for the user to inspect directly.
-5. **Verify the audit summary.** Report inspected scope and count findings only
-   after verifying what was read. If there are no findings, state which roles,
-   sources, and link scope were checked. Do not claim the whole installation
-   is healthy beyond that evidence.
+Common Lite roles use Markdown files for `Identity`, `Soul template`, `Durable
+memory`, and `Future work`, and directories for `Daily history`, `Handoff`, and
+`Inbox`. Do not impose these shapes on local roles.
 
-## Finding contract
+A full audit checks every declared writer: `Durable memory`, `Future work`,
+`Daily history`, `Handoff`, and `Inbox`. A focused audit checks only the named
+writer and its dependencies. For each, assess writability without mutation.
+Use an available read-only effective-access check or permission metadata;
+certain denial is a verified error. If the runtime cannot establish it without
+mutation, readiness is `unverifiable`. Do not create a write probe, script,
+cache, or temporary file in the consumer.
 
-Every finding contains all of these fields:
+The consumer's established Handoff contract is the lifecycle authority. Use
+the already-discovered `handoff` skill and bootstrap contract; do not search
+for another schema. The shipped Lite contract defines records as Markdown
+files whose frontmatter contains `type: handoff`; valid states are `active`,
+`completed`, and `superseded`. A missing or unknown status is a verified error.
+`created:` and `updated:` are required on every Handoff record. `completed`
+requires `completed:`; `superseded` requires `superseded:` and
+`superseded_by:`. `resumed:` is metadata, not a status. Do not lint ordinary
+Markdown files as handoffs or change records. Preserve lifecycle extensions
+declared by an adapted consumer contract.
 
-- `Label`: Use exactly one label: `error`, `unverifiable`, or `optional evolution`.
-- `Capability role`: Name the semantic role when applicable; otherwise state
-  that the finding is not role-specific.
-- `Source path and location`: Give the path and a tight line or section
-  location.
-- `Observed evidence`: State the local fact that was actually observed.
-- `Expected contract or verification limit`: State the broken requirement or
-  why the evidence cannot support a reliable conclusion.
-- `Proposed next step`: Give one concrete response-only suggestion and mark it
-  explicitly not applied.
+Daily history is historical evidence. Open it beyond readiness only when an
+active source directly cites it for a current fact.
 
-Use the labels consistently:
+## 3. Inspect bounded semantics
 
-- `error`: a mechanically verified contract break, such as an ambiguous
-  authoritative declaration, a declared missing or unreadable required target,
-  a confirmed contradictory current claim, or a broken local relative link.
-- `unverifiable`: insufficient, stale, conflicting-scope, or unavailable
-  evidence prevents a reliable conclusion.
-- `optional evolution`: a non-required improvement or optional capability,
-  never a disguised failure.
+- **Profile:** A repeated shared rule is `optional evolution`; an incompatible
+  directive or expired override is an `error`. Bootstrap reminders, capability
+  declarations, and local context are not duplicates. Do not judge style or
+  length.
+- **Current facts:** Require an explicit pointer,
+  time-bound promise, or directly verifiable filesystem evidence. A past date
+  alone is not stale. Mark a current-state claim `unverifiable` only when its
+  own date or freshness statement no longer supports present-tense use, or the
+  declared evidence cannot establish it. Do not invent a universal age
+  threshold. Do not turn preferences or descriptive present-tense prose into
+  findings.
+- **Contradictions:** Require two mutually incompatible claims about the same
+  subject with compatible scope and time. Different dates or scopes are not
+  automatically contradictions. If scope cannot be resolved, label the
+  finding `unverifiable`, not `error`.
+- **Authority:** A normative directive duplicated across Identity and Durable
+  memory is `optional evolution`; incompatible directives are errors.
+  Pointers, examples, and history are not duplication. Consolidation is a
+  separate `jarvis-memory` request.
+- **Local links:** Ignore external URLs and fragment-only anchors. Resolve each
+  local relative Markdown link relative to its declaring source. Ignore links
+  inside code. For a missing target, retain the literal link and resolved
+  missing target as evidence.
+
+Group equivalent low-impact findings; keep bootstrap blockers and failures in
+different capabilities separate.
+
+## 4. Report operationally
+
+Open in the user's language with the equivalent of one state:
+`Jarvis operational`, `Jarvis partially operational`, or `Bootstrap blocked`,
+and say that nothing was changed. Use partial status for non-bootstrap errors or
+`unverifiable` readiness. Other uncertainty and optional evolution do not
+degrade status.
+
+Use exactly one label: `error`, `unverifiable`, or `optional evolution`.
+
+- `error`: a mechanically verified contract or readiness failure.
+- `unverifiable`: evidence cannot support a reliable conclusion.
+- `optional evolution`: a non-required improvement, never a disguised failure.
+
+State the inspected scope. For each finding, include a compact source path and
+location when applicable. Explain problem, impact, evidence, and minimal repair
+in plain language before technical detail. End with at most three prioritized
+actions routed to the owner. With no findings, about three lines are enough.
+
+Report inspected scope and count findings only after verifying what was read.
+With no findings, name which roles, sources, and link scope were checked. Do
+not claim the whole installation is healthy beyond that evidence.
+
+After the report, actionable findings may justify a separate plan. Offer to
+update an existing plan or ask where a new one belongs; if `Future work`
+exists, offer one pointer. A plan or repair is separate follow-up work. Never
+create or update it during Doctor. Without actionable findings, do not offer a
+plan.
+
+Doctor does not certify external services or preserve audit state.
