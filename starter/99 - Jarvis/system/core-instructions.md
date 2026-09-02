@@ -67,17 +67,25 @@ and independent of those adapter paths.
 - Start: complete the required bootstrap; use `briefing` for a broader view.
 - During: work in the authoritative note or the smallest correct destination.
 - Finish: `save-session` updates daily history, future work, and durable signals
-  through their declared workflows, then creates a scoped local checkpoint.
+  through their declared workflows, then creates a whole-workspace local
+  recovery point after the semantic content writes are verified.
 - Continue elsewhere: use `handoff` when a fresh session needs a compact task
   packet.
 
+Organizing Inbox is normal Jarvis work and does not require a separate skill.
+`save-session` may offer bounded Inbox maintenance only after its core
+checkpoint is complete.
+
 ## Git
 
-Git is an optional local safety capability. Never require a remote, create one,
-or push automatically. `save-session` creates the semantic checkpoint; do not
-install a periodic scheduler. If Git is missing or a command fails, preserve
-the user's completed work, report the exact state, and continue without claiming
-a checkpoint.
+Git is an optional local safety capability for a dedicated personal workspace.
+Never require a remote, create one, or push automatically. First run owns Git
+installation, initialization, configuration, and initial consent.
+`save-session` creates the semantic checkpoint and may then checkpoint the
+whole workspace when its safety gates pass; do not install a periodic
+scheduler. If Git is missing or a command fails, preserve the user's completed
+work, report the exact state, and continue without claiming a Git recovery
+point.
 
 ## Working conventions
 

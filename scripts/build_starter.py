@@ -10,7 +10,6 @@ INSTALLED_SKILLS = (
     "briefing",
     "first-run",
     "save-session",
-    "ingest",
     "handoff",
     "jarvis-memory",
     "jarvis-doctor",

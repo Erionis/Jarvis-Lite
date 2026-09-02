@@ -24,16 +24,18 @@ It never creates a remote or pushes automatically.
 
 ## What is included
 
-The starter installs seven dependency-free skills:
+The starter installs six dependency-free skills:
 
 - `briefing` — a grounded start-of-session view;
 - `first-run` — safe, conversational onboarding and an optional Git baseline;
-- `save-session` — Diary, future-work, durable-memory routing, and a scoped
-  local commit;
-- `ingest` — report-only Inbox triage;
+- `save-session` — Diary, future-work, durable-memory routing, a whole-workspace
+  local recovery point, and optional Inbox maintenance;
 - `handoff` — compact continuity records between sessions;
 - `jarvis-memory` — deliberate durable-memory promotion;
 - `jarvis-doctor` — a read-only installation and contract audit.
+
+Inbox organization is normal Jarvis work. It stays available without a
+separate command and can be offered after a successful session checkpoint.
 
 `adopt-capability` remains available in the source repository for people who
 already have a Jarvis and want to compare capabilities safely. `defuddle` and

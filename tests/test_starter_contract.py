@@ -144,6 +144,19 @@ class StarterContractTest(unittest.TestCase):
         )
         self.assertIn("current priorities and next actions in `Future work`", contract)
 
+    def test_core_defines_the_dedicated_workspace_checkpoint_and_normal_inbox_flow(self):
+        contract = " ".join(
+            self.read("99 - Jarvis/system/core-instructions.md").split()
+        )
+        for phrase in [
+            "dedicated personal workspace",
+            "whole-workspace local recovery point",
+            "after the semantic content writes are verified",
+            "Organizing Inbox is normal Jarvis work",
+            "does not require a separate skill",
+        ]:
+            self.assertIn(phrase, contract)
+
     def test_canonical_contract_owns_bootstrap(self):
         contract = self.read("99 - Jarvis/system/core-instructions.md")
         for phrase in [

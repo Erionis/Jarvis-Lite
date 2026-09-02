@@ -37,6 +37,33 @@ class PublicContentTest(unittest.TestCase):
                 self.assertEqual(installed, set(INSTALLED_SKILLS))
                 self.assertTrue(installed.isdisjoint(CATALOG_ONLY))
 
+    def test_inbox_remains_supported_without_a_retired_skill(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn("six dependency-free skills", readme)
+
+        core = (ROOT / "starter/99 - Jarvis/system/core-instructions.md").read_text(
+            encoding="utf-8"
+        )
+        normalized_core = " ".join(core.split())
+        self.assertIn(
+            "Organizing Inbox is normal Jarvis work and does not require a separate skill",
+            normalized_core,
+        )
+        self.assertIn("bounded Inbox maintenance", normalized_core)
+        self.assertTrue((ROOT / "starter/00 - Inbox/README.md").is_file())
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(ROOT, Path(temporary))
+            for runtime in [".claude", ".agents"]:
+                self.assertEqual(
+                    {
+                        path.name
+                        for path in (package / runtime / "skills").iterdir()
+                        if path.is_dir()
+                    },
+                    set(INSTALLED_SKILLS),
+                )
+
     def test_assembled_public_text_has_no_private_or_legacy_markers(self):
         denied = [
             "/Users/erionislamay",
