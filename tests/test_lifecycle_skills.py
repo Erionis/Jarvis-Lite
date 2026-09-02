@@ -296,12 +296,14 @@ class LifecycleSkillsTest(unittest.TestCase):
             "Do not stage, commit, push, or change Git configuration", text
         )
 
-    def test_save_session_does_not_push(self):
-        text = self.skill("save-session")
+    def test_save_session_keeps_the_checkpoint_local(self):
+        text = self.skill("save-session").lower()
         self.assertIn("never push", text)
         self.assertIn("git status --short", text)
-        self.assertIn("Future work", text)
-        self.assertIn("Durable memory", text)
+        self.assertIn("future work", text)
+        self.assertIn("durable memory", text)
+        self.assertIn("local recovery point", text)
+        self.assertIn("not an off-device backup", text)
 
     def test_save_session_frontmatter_has_a_valid_trigger_only_description(self):
         text = self.skill("save-session")
@@ -339,71 +341,125 @@ class LifecycleSkillsTest(unittest.TestCase):
             ],
         )
 
-    def test_save_session_resolves_semantic_roles_including_daily_history(self):
+    def test_save_session_resolves_every_persistence_role_without_fallback(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Resolve `Daily history`, `Future work`, and `Durable memory` through the consumer's declared capability map",
-            "A missing or ambiguous role disables only that persistence channel",
+            "Resolve `Daily history`, `Future work`, `Durable memory`, and `Inbox` through the consumer's declared capability map",
+            "An intentionally unavailable optional role disables only its feature",
+            "A declared source that is missing or ambiguous makes the checkpoint partial",
             "Do not invent a second history source",
         ]:
             self.assertIn(phrase, text)
         self.assertNotIn("starter/", text)
 
-    def test_save_session_persists_completed_chronology_to_declared_daily_history(self):
+    def test_save_session_updates_one_idempotent_daily_file(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
             "Persist completed chronology only in the declared `Daily history` source",
             "one file per local calendar day",
             "`YYYY/MM/YYYY-MM-DD.md`",
-            "append or update one compact session entry without overwriting unrelated entries",
+            "`## Done`, `## Decisions`, and `## Closing state`",
+            "semantically deduplicate",
+            "rewrite `Closing state`",
+            "Do not add per-session timestamps or subsections",
+            "preserve frontmatter, custom sections, and unrelated content",
+            "Re-read the daily file immediately before and after editing",
         ]:
             self.assertIn(phrase, text)
         self.assertNotIn("Completed chronology is response-only", text)
 
-    def test_save_session_inventory_and_future_work_are_evidence_scoped(self):
+    def test_save_session_routes_future_work_without_normalizing_it(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "completed outcomes, explicit future items, stable signals, files actually changed in the session, and the current Git boundary",
-            "Deduplicate and route only explicit unresolved follow-ups",
-            "never deletion, reordering, or rewriting of unrelated entries",
-            "If ownership or target is unclear, show a proposal and wait",
+            "close an existing item only when completion is evidenced",
+            "add only explicit unresolved follow-ups",
+            "Do not add completed work retroactively",
+            "plain bullets and checkboxes",
+            "one short actionable item per line",
+            "Do not automatically remove or reorder entries",
+            "at most five obvious `Future work` cleanup candidates",
         ]:
             self.assertIn(phrase, text)
 
-    def test_save_session_delegates_durable_signals_to_memory(self):
+    def test_save_session_delegates_bounded_durable_signals_to_memory(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Route stable signals through `jarvis-memory`",
+            "Delegate at most five stable candidates to `jarvis-memory`",
             "Do not write `Durable memory` directly",
-            "Live state and ordinary history must not be promoted as durable facts",
+            "Live status, ordinary history, and current tasks are not durable candidates",
+            "parallel worker when the runtime supports it",
+            "inline fallback",
+            "must not touch Git or unrelated files",
+            "Approval-only memory proposals remain pending until after the core checkpoint",
         ]:
             self.assertIn(phrase, text)
 
-    def test_save_session_stages_only_verified_exact_paths(self):
+    def test_save_session_checkpoints_the_dedicated_workspace(self):
+        text = " ".join(self.skill("save-session").split()).lower()
+        for phrase in [
+            "dedicated personal workspace",
+            "`git add -A`",
+            "5 mib",
+            "`save-session: yyyy-mm-dd <focus>`",
+            "verify the commit hash and final `git status --short`",
+            "do not initialize git, install it, or change git configuration",
+        ]:
+            self.assertIn(phrase.lower(), text)
+        self.assertNotIn("session-owned paths", text)
+
+    def test_save_session_skips_git_when_the_repository_is_busy_or_unprotected(self):
+        text = " ".join(self.skill("save-session").split()).lower()
+        for phrase in [
+            "initial staged index is non-empty",
+            "merge, rebase, cherry-pick, revert, bisect, or another Git operation",
+            "large-file guard is missing or inactive",
+            "skip only the Git recovery point",
+            "Do not alter the existing index",
+        ]:
+            self.assertIn(phrase.lower(), text)
+
+    def test_save_session_treats_an_empty_diff_as_already_safe(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Stage exact session-owned paths only",
-            "Never use `git add -A` or `git add .`",
-            "Verify the staged path set before committing",
+            "staged diff is empty",
+            "do not create an empty commit",
+            "no new local recovery point was needed",
         ]:
             self.assertIn(phrase, text)
 
-    def test_save_session_stops_for_a_preexisting_staged_index(self):
+    def test_save_session_preserves_failure_and_concurrent_state(self):
+        text = " ".join(self.skill("save-session").split()).lower()
+        for phrase in [
+            "staging, the guard, or the commit fails",
+            "Never reset, discard, or blindly unstage",
+            "report the exact index and worktree state",
+            "Concurrent changes left after the commit",
+            "do not stage them again",
+        ]:
+            self.assertIn(phrase.lower(), text)
+
+    def test_save_session_finishes_core_checkpoint_before_optional_maintenance(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "If the initial index is non-empty",
-            "do not mutate the index and do not commit",
-            "pre-existing work",
+            "Report the core checkpoint before offering optional maintenance",
+            "non-hidden, non-README Inbox items",
+            "Move, Keep, or Delete",
+            "runtime choice UI",
+            "No move or deletion happens without explicit confirmation",
+            "`save-session: YYYY-MM-DD maintenance`",
+            "No response leaves the completed checkpoint and its recovery point valid",
         ]:
             self.assertIn(phrase, text)
 
-    def test_save_session_discloses_final_git_state_and_failure_recovery(self):
+    def test_save_session_keeps_technical_detail_out_of_normal_success(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "After a successful commit, report its hash and run `git status --short` again",
-            "If staging or commit fails",
-            "disclose the resulting index and worktree state",
-            "recovery path limited to paths this workflow staged",
+            "plain language",
+            "Do not show commit hashes",
+            "local restore point",
+            "state what succeeded first",
+            "Nothing was deleted",
+            "Never claim full conversational memory",
         ]:
             self.assertIn(phrase, text)
 
@@ -417,11 +473,12 @@ class LifecycleSkillsTest(unittest.TestCase):
             "declared `Daily history` source",
             "declared `Future work` source",
             "through `jarvis-memory`",
-            "safe local Git commit",
+            "whole dedicated workspace",
+            "local Git recovery point",
             "must not write a second or undeclared history source",
-            "mutate unrelated files or index entries",
             "must never push",
             "Git is optional",
+            "optional Inbox maintenance",
         ]:
             self.assertIn(phrase, card)
         self.assertNotIn("starter/", card)
@@ -435,21 +492,51 @@ class LifecycleSkillsTest(unittest.TestCase):
         for phrase in [
             "Completed chronology goes only to the declared `Daily history` source",
             "one local-day file",
-            "preserves unrelated entries",
+            "preserves frontmatter, custom sections, and unrelated entries",
         ]:
             self.assertIn(phrase, card)
         self.assertNotIn("Completed chronology is response-only", card)
 
-    def test_ingest_is_report_only_and_resolves_declared_inbox(self):
-        text = " ".join(self.skill("ingest").split())
-        for phrase in [
-            "Resolve `Inbox` through the consumer's declared capability map",
-            "report-only",
-            "Do not create, modify, move, rename, or delete any file",
-            "relative Markdown links",
-            "confidence",
-        ]:
-            self.assertIn(phrase, text)
+    def test_save_session_scenarios_cover_the_approved_behavior(self):
+        expected_contract = {
+            "save-session-first-save": [
+                "year and month folders",
+                "Done, Decisions, and Closing state",
+                "plain-language result",
+            ],
+            "save-session-same-day": [
+                "same daily file",
+                "semantically deduplicated",
+                "latest one or two lines",
+            ],
+            "save-session-partial": [
+                "declared Daily history source is ambiguous",
+                "other safe channels continue",
+                "Nothing is deleted",
+            ],
+            "save-session-git-boundaries": [
+                "staged index",
+                "large-file guard",
+                "content checkpoint remains saved",
+            ],
+            "save-session-maintenance": [
+                "core checkpoint is complete",
+                "runtime choice UI",
+                "second local recovery point",
+            ],
+        }
+        for name, phrases in expected_contract.items():
+            path = ROOT / "tests/scenarios" / f"{name}.md"
+            self.assertTrue(path.is_file(), name)
+            scenario = path.read_text(encoding="utf-8")
+            headings = [
+                line[3:] for line in scenario.splitlines()
+                if line.startswith("## ")
+            ]
+            self.assertEqual(headings, ["Given", "When", "Then", "Forbidden"])
+            normalized = " ".join(scenario.split())
+            for phrase in phrases:
+                self.assertIn(phrase, normalized, f"{name}: {phrase}")
 
     def test_handoff_is_scoped_to_the_declared_source(self):
         text = " ".join(self.skill("handoff").split())
@@ -463,7 +550,7 @@ class LifecycleSkillsTest(unittest.TestCase):
             self.assertIn(phrase, text)
 
     def test_new_lifecycle_cards_and_scenarios_exist(self):
-        for name in ["ingest", "handoff"]:
+        for name in ["handoff"]:
             self.assertTrue((ROOT / f"skills/{name}/README.md").is_file(), name)
             self.assertTrue((ROOT / f"tests/scenarios/{name}.md").is_file(), name)
 

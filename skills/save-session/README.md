@@ -2,36 +2,37 @@
 
 ## Purpose
 
-Creates an evidence-based end-of-session checkpoint while separating completed
-outcomes, future work, durable signals, and optional local Git state.
+Creates an approachable end-of-session checkpoint across completed history,
+future work, durable signals, and an optional local recovery point.
 
 ## Use it when
 
-A user asks to save the current session, preserve explicit follow-ups, or make
-a safe local checkpoint of session-owned work.
+A user asks to save the current session, preserve explicit follow-ups, or close
+a meaningful work block.
 
 ## Dependencies
 
-The consumer's capability map supplies the semantic `Daily history`, `Future
-work`, and `Durable memory` roles. Durable candidates are handled through
-`jarvis-memory`. Git is optional.
+The capability map supplies `Daily history`, `Future work`, `Durable memory`,
+and optional `Inbox`. Durable candidates go through `jarvis-memory`. Git is
+optional and must already be configured by first run.
 
 ## Files it may change
 
 Completed chronology goes only to the declared `Daily history` source, in one
-local-day file that preserves unrelated entries. The skill may narrowly append
-or update session-owned items in the declared `Future work` source. It may route approved stable facts through
-`jarvis-memory`, which owns any change to `Durable memory`, and may create a
-safe local Git commit containing only verified session-owned paths.
+local-day file that preserves frontmatter, custom sections, and unrelated
+entries. The skill may patch evidenced items in the declared `Future work`
+source and route stable signals through `jarvis-memory`. After those writes are
+verified, it may checkpoint the whole dedicated workspace in a local Git
+recovery point and offer optional Inbox maintenance.
 
-It must not write a second or undeclared history source, mutate unrelated files
-or index entries, or absorb pre-existing user changes. It must never push,
-create a remote, or change Git configuration.
+It must not write a second or undeclared history source. It must never push,
+create a remote, install or configure Git, discard user work, or call a local
+commit a backup.
 
 ## Adopting it into an existing Jarvis
 
-Map the semantic `Daily history`, `Future work`, and `Durable memory` roles to
-the consumer's already-declared capabilities. Preserve a declared local daily
-naming convention. Reconcile an existing same-purpose skill deliberately; do
-not introduce path assumptions, duplicate authoritative sources, or a new
-history authority.
+Map the four semantic roles to existing authoritative sources and preserve
+their local structure. Adopt the whole-workspace recovery model only when the
+consumer is a dedicated personal workspace with an active large-file guard.
+Reconcile same-purpose behavior in place instead of creating another history,
+task, memory, or Inbox authority.
