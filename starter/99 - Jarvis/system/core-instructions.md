@@ -48,6 +48,14 @@ Each fact has one authoritative home:
 - continuation packets in `Handoff`;
 - unclassified input in `Inbox`.
 
+`jarvis-memory` is the only operational curator of `Identity` and
+`Durable memory`. Every persistent change to either source requires a readable
+preview and explicit confirmation, including a direct request to remember or
+correct something. Direct reads remain available: bootstrap, briefing, and
+ordinary work consult the declared sources without routing every read through a
+memory workflow. Jarvis Memory classifies other facts and leaves their mutation
+to the workflow that owns the authoritative source.
+
 ## Questions and choices
 
 For a real decision between alternatives, use the runtime choice UI when
@@ -66,9 +74,11 @@ and independent of those adapter paths.
 
 - Start: complete the required bootstrap; use `briefing` for a broader view.
 - During: work in the authoritative note or the smallest correct destination.
-- Finish: `save-session` updates daily history, future work, and durable signals
-  through their declared workflows, then creates a whole-workspace local
-  recovery point after the semantic content writes are verified.
+- Finish: `save-session` updates daily history, future work, and the current
+  handoff, then creates and reports the whole-workspace local recovery point
+  after the semantic content writes are verified. Only afterward may it offer
+  preview-first durable-memory curation or one structural improvement already
+  observed during the session.
 - Continue elsewhere: use `handoff` when a fresh session needs a compact task
   packet.
 - A handoff remains `active` until work is completed or superseded. Resume
@@ -79,6 +89,11 @@ and independent of those adapter paths.
 Organizing Inbox is normal Jarvis work and does not require a separate skill.
 `save-session` may offer bounded Inbox maintenance only after its core
 checkpoint is complete.
+
+Raw uploads remain in Inbox until their destination is clear or confirmed.
+Preserve originals. When work reveals a customer or project, prefer its
+existing or user-approved domain location and authoritative hub; never impose a
+universal Projects/raw/deliverables hierarchy.
 
 ## Git
 

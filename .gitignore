@@ -5,3 +5,10 @@ __pycache__/
 .pytest_cache/
 dist/
 .venv/
+
+# Common local secret files.
+.env
+.env.*
+*.pem
+*.key
+credentials.json

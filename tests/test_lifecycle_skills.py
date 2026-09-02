@@ -283,8 +283,8 @@ class LifecycleSkillsTest(unittest.TestCase):
         )
         for phrase in [
             "Consultation is read-only",
-            "only the declared `Durable memory` source",
-            "does not mutate Identity, Future work, Inbox, or Git",
+            "declared `Identity` or `Durable memory` source",
+            "does not mutate Future work, Inbox, project knowledge, or Git",
             "semantic adoption workflow",
         ]:
             self.assertIn(phrase, card)
@@ -387,7 +387,8 @@ class LifecycleSkillsTest(unittest.TestCase):
             "Delegate at most five stable candidates to `jarvis-memory`",
             "Do not write `Durable memory` directly",
             "Live status, ordinary history, and current tasks are not durable candidates",
-            "parallel worker when the runtime supports it",
+            "parallel read-only worker when the runtime supports it",
+            "same agent owns all writes",
             "inline fallback",
             "must not touch Git or unrelated files",
             "Approval-only memory proposals remain pending until after the core checkpoint",
@@ -630,13 +631,13 @@ class LifecycleSkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, core)
 
-    def test_save_session_card_adopts_all_five_persistence_roles(self):
+    def test_save_session_card_adopts_all_six_persistence_roles(self):
         card = " ".join(
             (ROOT / "skills/save-session/README.md")
             .read_text(encoding="utf-8")
             .split()
         )
-        self.assertIn("five semantic roles", card)
+        self.assertIn("six semantic roles", card)
         self.assertIn("handoff authority", card)
 
     def test_handoff_card_documents_the_living_lifecycle(self):

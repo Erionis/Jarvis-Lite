@@ -28,14 +28,16 @@ The starter installs six dependency-free skills:
 
 - `briefing` — a grounded start-of-session view;
 - `first-run` — safe, conversational onboarding and an optional Git baseline;
-- `save-session` — Diary, future-work, durable-memory routing, a whole-workspace
-  local recovery point, and optional Inbox maintenance;
+- `save-session` — a core Diary, future-work, handoff, and local-recovery
+  checkpoint followed by optional memory and workspace maintenance;
 - `handoff` — living continuity records that stay visible until work closes;
-- `jarvis-memory` — deliberate durable-memory promotion;
+- `jarvis-memory` — preview-first Identity and durable-memory curation;
 - `jarvis-doctor` — a read-only installation and contract audit.
 
 Inbox organization is normal Jarvis work. It stays available without a
 separate command and can be offered after a successful session checkpoint.
+Raw files remain in Inbox until their destination is clear or approved; Lite
+does not impose a fixed project hierarchy.
 
 `adopt-capability` remains available in the source repository for people who
 already have a Jarvis and want to compare capabilities safely. `defuddle` and
