@@ -344,7 +344,7 @@ class LifecycleSkillsTest(unittest.TestCase):
     def test_save_session_resolves_every_persistence_role_without_fallback(self):
         text = " ".join(self.skill("save-session").split())
         for phrase in [
-            "Resolve `Daily history`, `Future work`, `Durable memory`, and `Inbox` through the consumer's declared capability map",
+            "Resolve `Daily history`, `Future work`, `Durable memory`, `Handoff`, and `Inbox` through the consumer's declared capability map",
             "An intentionally unavailable optional role disables only its feature",
             "A declared source that is missing or ambiguous makes the checkpoint partial",
             "Do not invent a second history source",
@@ -543,11 +543,167 @@ class LifecycleSkillsTest(unittest.TestCase):
         for phrase in [
             "Resolve `Handoff` through the consumer's declared capability map",
             "Do not create a fallback directory",
-            "status: active",
-            "status: resumed",
-            "Never delete a handoff as a side effect",
+            "readable and writable directory",
+            "Write only inside the declared `Handoff` source",
+            "link other authorities without changing them",
+            "Never delete, archive, or expire a handoff automatically",
         ]:
             self.assertIn(phrase, text)
+
+    def test_handoff_uses_one_living_record_per_authoritative_anchor(self):
+        text = " ".join(self.skill("handoff").split())
+        for phrase in [
+            "valid states are `active`, `completed`, and `superseded`",
+            "Compare every record",
+            "same authoritative reference",
+            "A similar filename is insufficient",
+            "update the active record in place",
+            "runtime choice UI",
+            "numbered options",
+            "closed match",
+            "authoritative match has a missing or unknown status",
+            "stop without writing",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_handoff_resume_stays_active_and_handles_closed_records(self):
+        skill = self.skill("handoff")
+        resume = skill.split("## Resume", 1)[1].split(
+            "## Complete and supersede", 1
+        )[0]
+        normalized = " ".join(resume.split())
+        for phrase in [
+            "no relevant `active` record",
+            "closed record",
+            "do not reopen it implicitly",
+            "new scope",
+            "`resumed:`",
+            "keep `status: active`",
+        ]:
+            self.assertIn(phrase, normalized)
+        self.assertNotIn("`status: resumed`", skill)
+
+    def test_handoff_complete_and_supersede_are_explicit(self):
+        skill = self.skill("handoff")
+        section = skill.split("## Complete and supersede", 1)[1].split(
+            "## List", 1
+        )[0]
+        for phrase in [
+            "`status: completed`",
+            "`completed:`",
+            "create the replacement first",
+            "`status: superseded`",
+            "`superseded:`",
+            "`superseded_by:`",
+        ]:
+            self.assertIn(phrase, section)
+
+    def test_handoff_lifecycle_is_shared_with_briefing_save_and_core(self):
+        briefing = " ".join(self.skill("briefing").split())
+        for phrase in [
+            "readable directory",
+            "A missing or unknown status is not active",
+            "report it as a discrepancy",
+        ]:
+            self.assertIn(phrase, briefing)
+
+        save = " ".join(self.skill("save-session").split())
+        for phrase in [
+            "Resolve `Daily history`, `Future work`, `Durable memory`, `Handoff`, and `Inbox`",
+            "current-session handoff",
+            "status, ownership, or evidence",
+            "existing status is missing or unknown",
+            "report the discrepancy and skip this channel",
+            "leave every other handoff unchanged",
+        ]:
+            self.assertIn(phrase, save)
+
+        core = " ".join(
+            (ROOT / "starter/99 - Jarvis/system/core-instructions.md")
+            .read_text(encoding="utf-8")
+            .split()
+        )
+        for phrase in [
+            "remains `active` until work is completed or superseded",
+            "`save-session` updates only the handoff used in the current session",
+            "never deletes closed records automatically",
+        ]:
+            self.assertIn(phrase, core)
+
+    def test_save_session_card_adopts_all_five_persistence_roles(self):
+        card = " ".join(
+            (ROOT / "skills/save-session/README.md")
+            .read_text(encoding="utf-8")
+            .split()
+        )
+        self.assertIn("five semantic roles", card)
+        self.assertIn("handoff authority", card)
+
+    def test_handoff_card_documents_the_living_lifecycle(self):
+        card = " ".join(
+            (ROOT / "skills/handoff/README.md").read_text(encoding="utf-8").split()
+        )
+        for phrase in [
+            "create, update, resume, complete, supersede, or list",
+            "one living record",
+            "readable and writable `Handoff` source",
+            "does not change other capabilities or Git",
+        ]:
+            self.assertIn(phrase, card)
+
+    def test_handoff_scenarios_cover_cross_session_transitions(self):
+        expected_contract = {
+            "handoff": [
+                "same authoritative issue",
+                "updates the existing active record in place",
+                "does not create a duplicate",
+            ],
+            "handoff-resume": [
+                "keeps status active",
+                "remains visible to briefing",
+                "completed handoff",
+            ],
+            "handoff-save-session": [
+                "current session",
+                "leaves unrelated handoffs unchanged",
+                "certain completion evidence",
+            ],
+            "handoff-ambiguity": [
+                "runtime choice UI",
+                "numbered options",
+                "does not select by recency",
+            ],
+            "handoff-invalid-source": [
+                "readable and writable directory",
+                "reports a discrepancy",
+                "authoritative match has invalid status",
+                "stops without writing",
+                "does not create a fallback",
+            ],
+            "handoff-concurrency": [
+                "semantic conflict",
+                "preserves non-overlapping changes",
+                "does not use last-writer-wins",
+            ],
+            "handoff-lifecycle": [
+                "resume -> briefing -> save-session -> briefing",
+                "open path",
+                "completed path",
+                "remains visible as active continuity",
+                "no longer appears as active continuity",
+            ],
+        }
+        for name, phrases in expected_contract.items():
+            path = ROOT / "tests/scenarios" / f"{name}.md"
+            self.assertTrue(path.is_file(), name)
+            scenario = path.read_text(encoding="utf-8")
+            headings = [
+                line[3:] for line in scenario.splitlines() if line.startswith("## ")
+            ]
+            self.assertEqual(headings, ["Given", "When", "Then", "Forbidden"])
+            normalized = " ".join(scenario.split())
+            for phrase in phrases:
+                self.assertIn(phrase, normalized, f"{name}: {phrase}")
 
     def test_new_lifecycle_cards_and_scenarios_exist(self):
         for name in ["handoff"]:

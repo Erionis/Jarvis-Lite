@@ -30,7 +30,7 @@ The starter installs six dependency-free skills:
 - `first-run` — safe, conversational onboarding and an optional Git baseline;
 - `save-session` — Diary, future-work, durable-memory routing, a whole-workspace
   local recovery point, and optional Inbox maintenance;
-- `handoff` — compact continuity records between sessions;
+- `handoff` — living continuity records that stay visible until work closes;
 - `jarvis-memory` — deliberate durable-memory promotion;
 - `jarvis-doctor` — a read-only installation and contract audit.
 

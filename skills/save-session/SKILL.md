@@ -12,13 +12,16 @@ second never erases the first.
 ## 1. Resolve sources and evidence
 
 Read the consumer capability map. Resolve `Daily history`, `Future work`,
-`Durable memory`, and `Inbox` through the consumer's declared capability map,
-by semantic role rather than a familiar path. Do not hard-code a starter path
-or create a fallback file. Do not invent a second history source.
+`Durable memory`, `Handoff`, and `Inbox` through the consumer's declared
+capability map, by semantic role rather than a familiar path. Do not hard-code
+a starter path or create a fallback file. Do not invent a second history source.
 
 An intentionally unavailable optional role disables only its feature. A
 declared source that is missing or ambiguous makes the checkpoint partial;
 name the affected role and continue every other safe channel.
+
+A declared `Handoff` source must be a readable and writable directory. If it
+is not, mark that channel partial and do not create a fallback.
 
 Use the workspace's local date and timezone. From current-session evidence,
 separate:
@@ -83,7 +86,23 @@ Do not automatically remove or reorder entries. Semantically deduplicate each
 change. Re-read the target immediately before and after editing. If ownership
 or placement remains unclear, defer that item as an optional proposal.
 
-## 4. Delegate Durable memory
+## 4. Update the current Handoff
+
+Consider only the current-session handoff: a record created, updated, resumed,
+or explicitly named in this session. A similar topic, filename, or timestamp
+does not prove ownership. If the record is uncertain, use the runtime choice UI
+or numbered options, or skip this channel.
+
+Re-read it before patching. If its existing status is missing or unknown,
+report the discrepancy and skip this channel. If status, ownership, or evidence
+changed semantically, do not write and report the conflict. When work remains,
+refresh current state, evidence, next action, and `updated:`, keeping
+`status: active`. With certain completion evidence, set `status: completed`,
+`completed:`, and `updated:`. If completion remains ambiguous, ask whether to
+keep it active or complete it. Always leave every other handoff unchanged.
+Never delete or archive a handoff automatically.
+
+## 5. Delegate Durable memory
 
 Delegate at most five stable candidates to `jarvis-memory`. Do not write
 `Durable memory` directly. Live status, ordinary history, and current tasks are
@@ -103,7 +122,7 @@ After every immediately authorized content write finishes, re-read every
 modified target. Any failed verification makes the content result partial and
 must name the exact role that was not verified.
 
-## 5. Create the local recovery point
+## 6. Create the local recovery point
 
 Jarvis Lite treats the consumer as a dedicated personal workspace. After Git
 was set up and accepted during first run, invoking `save-session` authorizes a
@@ -134,7 +153,7 @@ unstage. Report the exact index and worktree state. Concurrent changes left
 after the commit stay outside that recovery point; report them and do not stage
 them again.
 
-## 6. Report before optional maintenance
+## 7. Report before optional maintenance
 
 Report the core checkpoint before offering optional maintenance. Lead with the
 content result in plain language:
@@ -151,7 +170,7 @@ Do not show commit hashes, staging terminology, or internal state labels in a
 normal success. Show technical detail only when the user asks or recovery
 requires it. Never claim full conversational memory.
 
-## 7. Offer bounded maintenance
+## 8. Offer bounded maintenance
 
 Only after the core result is visible:
 

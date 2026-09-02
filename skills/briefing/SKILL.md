@@ -20,10 +20,12 @@ Resolve through the local capability map:
    placeholders such as `- [ ]`.
 4. `Daily history` supplies recent unfinished work or an explicit next action.
    Use the latest relevant entry.
-5. `Handoff` supplies continuation. A Handoff is active only when its
-   frontmatter contains `status: active`. Treat each distinct active Handoff
-   with an unfinished next action as a candidate. Do not select between
-   multiple active Handoffs by recency alone.
+5. `Handoff` supplies continuation. Its source must be a readable directory;
+   otherwise mark the role unresolved. A Handoff is active only when its
+   frontmatter contains `status: active`. A missing or unknown status is not
+   active; report it as a discrepancy. Treat each distinct active Handoff with
+   an unfinished next action as a candidate. Do not select between multiple
+   active Handoffs by recency alone.
 6. `Inbox` supplies untriaged item names plus explicit deadlines, dependencies,
    constraints, or waiting states. Inbox is attention-only and never a
    priority candidate. An unresolved Inbox limits only attention and triage
