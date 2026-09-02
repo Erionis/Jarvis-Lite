@@ -1,69 +1,98 @@
 ---
 name: handoff
-description: Use when a user asks to create, resume, or list a handoff, or when work must continue in a new session.
+description: Use when asked to create, update, resume, complete, supersede, or list a handoff, or when work needs a new session.
 ---
 
 # Handoff
 
-Create compact, inspectable continuity records between sessions.
+Keep one living cross-session record.
+Write only inside the declared `Handoff` source; link other authorities without
+changing them. Never mutate Git.
 
 ## Preflight
 
-Resolve `Handoff` through the consumer's declared capability map. If the role
-is missing or ambiguous, report that the workflow is unavailable. If its
-declared source is missing, report the discrepancy. Do not create a fallback
-directory.
+Resolve `Handoff` through the consumer's declared capability map. A missing or
+ambiguous role makes the workflow unavailable. Its source must be a readable
+and writable directory; otherwise report the discrepancy.
+Do not create a fallback directory.
 
-## Create
+Read every candidate. The valid states are `active`, `completed`, and
+`superseded`. A missing or unknown state is not active; report a discrepancy.
+Re-read before patching; preserve non-overlapping changes and local sections,
+and stop on a semantic conflict.
 
-For a new handoff, use the user-supplied topic or a clearly evidenced session
-topic. Ask only when the topic remains ambiguous. Re-read the declared source
-to avoid collisions, then create
-`handoff-YYYY-MM-DD-topic-slug.md`; add a short numeric suffix if that name
-already exists. Never overwrite.
+## Lifecycle
 
-Use this structure:
+- `active`: unfinished work.
+- `completed`: evidenced completion.
+- `superseded`: intentional replacement.
+
+Preserve `created:` and refresh `updated:`. Transitions add
+`resumed:`, `completed:`, or `superseded:`; `superseded_by:` links a replacement.
+Resume is not a state. Never delete, archive, or expire a handoff automatically.
+
+## Create or update
+
+For `/handoff` or `/handoff [topic]`:
+
+1. Use the supplied or evidenced topic; ask only if ambiguous.
+2. Compare every record. The same work requires the same authoritative
+   reference — issue, pull request, note, or path — or an identical objective.
+   A similar filename is insufficient.
+3. If an authoritative match has a missing or unknown status, report the
+   discrepancy and stop without writing.
+4. For one certain `active` match, update the active record in place; preserve
+   `created:`, refresh `updated:`, and rewrite the snapshot. For multiple
+   candidates, use the runtime choice UI or numbered options. For a closed
+   match, do not reopen it implicitly; ask whether to reopen the same objective
+   or create a handoff for the new scope. Do not write before a choice.
+5. Otherwise create `handoff-YYYY-MM-DD-topic-slug.md` in the declared source.
+   Add a numeric suffix only for an unrelated filename collision:
 
 ```markdown
 ---
 type: handoff
 status: active
 created: YYYY-MM-DD HH:mm
+updated: YYYY-MM-DD HH:mm
 topic: Topic
+tags:
+  - handoff
 ---
 
 # Handoff — Topic
 
-## Context
+## Context and goal
 
 ## Current state
 
-## Decisions
-
-## Failed approaches
-
 ## Evidence and relevant files
 
-## Next steps
-
-## Open questions
+## Next action
 ```
 
-Omit empty optional sections. Record facts from session evidence, preserve
-absolute paths when they help an agent resume, and use relative Markdown links
-for workspace navigation. Confirm the created path and how to resume it.
+Add only useful decisions, constraints, failed approaches, or questions.
+Confirm path and resume command.
 
 ## Resume
 
-For resume, select files whose frontmatter contains `status: active`. Resume
-the single match automatically; ask the user to choose when multiple active
-handoffs remain. Read the selected handoff before its critical evidence. Patch
-only its frontmatter to `status: resumed` plus a `resumed: YYYY-MM-DD HH:mm`
-field, preserving concurrent content, then report the next step concisely.
+For `/handoff resume`, filter `status: active`. Use one relevant record; for
+multiple candidates use the runtime choice UI or numbered options, never name
+or recency. If there is no relevant `active` record, say so. For a closed
+record, do not reopen it implicitly; ask whether to reopen the same objective
+or create a handoff for the new scope.
 
-## List and cleanup
+Read critical evidence and re-read the record. Update `resumed:` and `updated:`,
+keep `status: active`, and summarize context, state, and next action briefly.
 
-List handoffs from the declared source grouped by status. Moving, renaming, or
-archiving requires the consumer's declared destination and the applicable
-approval guardrail. Never delete a handoff as a side effect. Do not write
-outside the declared `Handoff` source or mutate Git.
+## Complete and supersede
+
+For `/handoff complete`, choose only when needed, then set
+`status: completed`, `completed:`, and `updated:`. For an intentional
+replacement, create the replacement first; then set `status: superseded`,
+`superseded:`, `updated:`, and `superseded_by:` on the old record. Keep both.
+
+## List
+
+`/handoff list` groups records as `active`, `completed`, `superseded`, then
+invalid. It changes nothing.

@@ -23,5 +23,8 @@ This project uses Semantic Versioning.
   durable signals, and create a guarded whole-workspace local recovery point.
   Optional Inbox maintenance runs only after the core checkpoint; Git never
   creates a remote or pushes automatically.
+- Made `handoff` a living record shared with `briefing` and `save-session`:
+  resume stays active, the same authoritative work updates in place, and
+  completion or replacement closes the record without automatic deletion.
 - Added a standard-library builder that creates physical `.claude/skills` and
   `.agents/skills` mirrors without symlinks.

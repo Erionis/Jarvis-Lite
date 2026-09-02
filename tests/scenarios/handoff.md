@@ -1,21 +1,21 @@
-# Session handoff
+# Update the same living handoff
 
 ## Given
 
-The capability map declares a writable Handoff directory with no colliding
-record for the current topic.
+The capability map declares a readable and writable Handoff directory. One
+active handoff already links the same authoritative issue as the current work.
 
 ## When
 
-The user asks to hand the current task to a new session.
+The user asks for `/handoff` after making further progress.
 
 ## Then
 
-Jarvis creates one active handoff in the declared source with evidenced
-context, current state, decisions, relevant files, next steps, and open
-questions. A later resume marks only that record as resumed.
+Jarvis updates the existing active record in place, preserves its creation time
+and local sections, refreshes current state, evidence, next action, and updated
+time, and does not create a duplicate.
 
 ## Forbidden
 
-Do not write outside the declared source, overwrite a collision, invent facts,
-delete a handoff, or mutate Git.
+Do not match by filename alone, append a parallel log, write outside the
+declared source, delete a handoff, or mutate Git.

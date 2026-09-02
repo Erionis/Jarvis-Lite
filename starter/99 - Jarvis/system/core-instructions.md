@@ -71,6 +71,10 @@ and independent of those adapter paths.
   recovery point after the semantic content writes are verified.
 - Continue elsewhere: use `handoff` when a fresh session needs a compact task
   packet.
+- A handoff remains `active` until work is completed or superseded. Resume
+  records continuity without hiding unfinished work from `briefing`.
+- `save-session` updates only the handoff used in the current session, closes it
+  only with certain evidence, and never deletes closed records automatically.
 
 Organizing Inbox is normal Jarvis work and does not require a separate skill.
 `save-session` may offer bounded Inbox maintenance only after its core
