@@ -183,9 +183,9 @@ class StarterContractTest(unittest.TestCase):
 
     def test_canonical_guardrails_name_protected_sources(self):
         contract = self.read("99 - Jarvis/system/core/guardrails.md")
-        self.assertIn(
-            "Identity, durable memory, and local customizations", contract
-        )
+        self.assertIn("Identity and durable memory", contract)
+        self.assertIn("Local customizations", contract)
+        self.assertIn("preview", contract)
         self.assertIn("require explicit approval", contract)
         self.assertIn("before overwriting them", contract)
 

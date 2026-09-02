@@ -13,8 +13,10 @@ second never erases the first.
 
 Read the consumer capability map. Resolve `Daily history`, `Future work`,
 `Durable memory`, `Handoff`, and `Inbox` through the consumer's declared
-capability map, by semantic role rather than a familiar path. Do not hard-code
-a starter path or create a fallback file. Do not invent a second history source.
+capability map, by semantic role rather than a familiar path. Resolve `Identity`
+as well because `jarvis-memory` may classify a stable signal there. Do not
+hard-code a starter path or create a fallback file. Do not invent a second
+history source.
 
 An intentionally unavailable optional role disables only its feature. A
 declared source that is missing or ambiguous makes the checkpoint partial;
@@ -34,6 +36,11 @@ separate:
 
 Do not manufacture decisions, infer tasks the user did not leave open, or copy
 the conversation.
+
+Before each phase that may write, record `HEAD` when available. Immediately
+before touching a target, record its exact path, operation type and pre-phase
+state without copying secret values. Keep an exact list of files changed by the
+workflow; for a rename record both old and new paths.
 
 Before content writes, inspect Git read-only so its initial state remains
 distinguishable from this checkpoint. Use `git --version`, repository checks,
@@ -102,25 +109,12 @@ refresh current state, evidence, next action, and `updated:`, keeping
 keep it active or complete it. Always leave every other handoff unchanged.
 Never delete or archive a handoff automatically.
 
-## 5. Delegate Durable memory
+## 5. Verify the content checkpoint
 
-Delegate at most five stable candidates to `jarvis-memory`. Do not write
-`Durable memory` directly. Live status, ordinary history, and current tasks are
-not durable candidates.
-
-An explicit request to remember something follows `jarvis-memory` authority.
-Inferred, conflicting, corrective, consolidating, or destructive changes remain
-approval-only proposals. Approval-only memory proposals remain pending until
-after the core checkpoint and never block it.
-
-Use a parallel worker when the runtime supports it; otherwise use an inline
-fallback that follows the same `jarvis-memory` contract. A delegated memory
-worker must not touch Git or unrelated files. The parent workflow owns content
-status, Git, and the final response.
-
-After every immediately authorized content write finishes, re-read every
-modified target. Any failed verification makes the content result partial and
-must name the exact role that was not verified.
+Re-read every modified Daily history, Future work, and Handoff target. Any
+failed verification makes the content result partial and must name the exact
+role that was not verified. Hold stable candidates without changing Identity
+or Durable memory; their preview belongs after the core checkpoint.
 
 ## 6. Create the local recovery point
 
@@ -139,10 +133,35 @@ When every Git gate passes:
 
 1. Run `git add -A` for the dedicated workspace.
 2. Inspect the staged diff. If the staged diff is empty, do not create an empty
-   commit; report that no new local recovery point was needed.
+   commit; defer the recovery conclusion until the per-operation checks below.
+   Only if those checks pass may you report that no new local recovery point
+   was needed.
 3. Otherwise commit as `save-session: YYYY-MM-DD <focus>`, using a short evidenced focus
    or `checkpoint` when none is distinguishable.
-4. Verify the commit hash and final `git status --short`.
+4. Verify the commit hash and final `git status --short`, together with `HEAD`
+   before and after.
+
+Normal status can hide ignored files, so verify every operation in the core
+phase using the exact list of files changed:
+
+- for a creation or modification, `git ls-files --error-unmatch -- "$target"`
+  and `git diff --quiet HEAD -- "$target"` must show that the current file is
+  tracked and matches `HEAD`;
+- **For a deletion**, `git cat-file -e "$head_before:$old_path"` must confirm
+  that the old path was recoverable before the phase, while
+  `git cat-file -e "HEAD:$old_path"` must fail and confirm its final absence;
+- **For a rename**, verify the deletion rule for the old path and the
+  creation rule for the new path.
+
+After a non-empty staged diff, claim a new local recovery point only when the
+commit command succeeded, its commit result matches final `HEAD`, `HEAD`
+advanced, the final working tree is clean, and every operation passes its
+matching check. After an empty staged diff, call the state already covered only
+when the final tree is clean and the same checks pass. A protected secret file
+verified as ignored is
+**intentionally unversioned**; redact its value and never claim that Git covers
+it. Any other ignored or untracked changed target makes recovery coverage
+partial even when normal status looks clean.
 
 Do not initialize Git, install it, or change Git configuration. Never push or
 create a remote, authenticate, force, amend unrelated history, or describe the
@@ -153,10 +172,11 @@ unstage. Report the exact index and worktree state. Concurrent changes left
 after the commit stay outside that recovery point; report them and do not stage
 them again.
 
-## 7. Report before optional maintenance
+## 7. Report the core checkpoint
 
-Report the core checkpoint before offering optional maintenance. Lead with the
-content result in plain language:
+Complete and report the core checkpoint before memory proposals. Report the
+core checkpoint before offering optional maintenance. Lead with the content
+result in plain language:
 
 - complete: `Done, I saved the session. I updated the Diary and your open
   activities.`
@@ -170,23 +190,38 @@ Do not show commit hashes, staging terminology, or internal state labels in a
 normal success. Show technical detail only when the user asks or recovery
 requires it. Never claim full conversational memory.
 
-## 8. Offer bounded maintenance
+## 8. Offer memory and bounded maintenance
 
 Only after the core result is visible:
 
+- Delegate at most five stable candidates to `jarvis-memory`. Do not write
+  `Durable memory` directly or write `Identity` directly. Live status, ordinary
+  history, and current tasks are not durable candidates. Approval-only memory
+  proposals remain pending until after the core checkpoint and never block it;
 - offer at most five obvious `Future work` cleanup candidates;
 - surface at most five non-hidden, non-README Inbox items;
 - propose a destination only for an item tied to the current session or whose
   destination is evident from existing context;
 - leave every other Inbox item as `to organize`;
-- present approval-only memory proposals returned by `jarvis-memory`.
+- surface at most one structural opportunity already observed in this session;
+  Do not scan the workspace to invent cleanup. Show the exact target and patch
+  or moves; make broader reorganization a separate task;
+- present the preview-first memory proposals returned by `jarvis-memory`.
+
+The same agent owns all writes and serializes them. A parallel read-only worker
+when the runtime supports it may classify candidates or inspect existing homes,
+but it must return evidence without changing files. Otherwise use an inline
+fallback with the same `jarvis-memory` contract. A delegated worker must not
+touch Git or unrelated files. The parent owns checkpoint status and the final
+response. Pending or rejected memory proposals never block the saved core.
 
 For a real choice, use the runtime choice UI when available and short numbered
 choices otherwise. Inbox actions are Move, Keep, or Delete. No move or deletion
 happens without explicit confirmation. Silence is not approval. No response
 leaves the completed checkpoint and its recovery point valid.
 
-Apply only approved changes and re-read their targets. If content changed and
-the Git gates still pass, create a second local recovery point named
-`save-session: YYYY-MM-DD maintenance`. A maintenance or second-commit failure
-does not invalidate the first checkpoint.
+Apply only approved changes and re-read their targets. Create a second local
+recovery point only when an approved proposal changed files, naming it
+`save-session: YYYY-MM-DD maintenance`. Reapply the operation-aware verification
+from the first point. A pending proposal, maintenance failure, or second-commit
+failure does not invalidate the first checkpoint.

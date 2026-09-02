@@ -29,5 +29,11 @@ This project uses Semantic Versioning.
 - Made `jarvis-doctor` report operational status, focus naturally on a named
   capability, verify write readiness without probes, and validate the Handoff
   lifecycle while remaining fully read-only.
+- Made `jarvis-memory` the preview-first semantic curator for Identity and
+  Durable memory, with direct reads, one authoritative home, progressive
+  project-aware structure, concurrency checks, and informed secret handling.
+- Moved memory and observed structural proposals after the `save-session` core
+  checkpoint. Recovery claims now verify every changed operation, including
+  ignored files, deletions, and renames.
 - Added a standard-library builder that creates physical `.claude/skills` and
   `.agents/skills` mirrors without symlinks.

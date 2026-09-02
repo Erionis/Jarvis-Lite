@@ -2,25 +2,26 @@
 
 ## Purpose
 
-Provides predictable, safe consultation and curation of the semantic
-`Durable memory` capability while keeping changing operational data in its
-living source.
+Provides preview-first semantic curation for `Identity` and `Durable memory`
+while keeping direct reads and every other authoritative source independent.
 
 ## Use it when
 
-A user wants to consult durable memory or explicitly add, correct, consolidate,
-or forget a retained fact.
+A user wants to consult, remember, correct, consolidate, or forget durable
+context, or another Jarvis workflow surfaces a stable candidate.
 
 ## Dependencies
 
-The consumer's declared capability map and the source it resolves for the
-semantic `Durable memory` role. No consumer-specific filesystem layout is
+The consumer's declared capability map and the sources it resolves for
+`Identity` and `Durable memory`. No consumer-specific filesystem layout is
 required.
 
 ## Files it may change
 
-Consultation is read-only. Approved curation may change only the declared
-`Durable memory` source; it does not mutate Identity, Future work, Inbox, or Git.
+Consultation is read-only. After a human-readable preview and explicit
+approval, curation may change only the declared `Identity` or `Durable memory`
+source. It does not mutate Future work, Inbox, project knowledge, or Git.
+Secret destinations remain owned by their existing local tool or workflow.
 
 ## Adopting it into an existing Jarvis
 

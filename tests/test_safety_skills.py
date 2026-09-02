@@ -152,7 +152,7 @@ class SafetySkillsTest(unittest.TestCase):
         text = " ".join(self.read("jarvis-doctor").split())
         for phrase in [
             "Use an available read-only effective-access check or permission metadata",
-            "A full audit checks every declared writer: `Durable memory`, `Future work`, `Daily history`, `Handoff`, and `Inbox`",
+            "A full audit checks every declared writer: `Identity`, `Durable memory`, `Future work`, `Daily history`, `Handoff`, and `Inbox`",
             "A focused audit checks only the named writer and its dependencies",
             "assess writability",
             "certain denial is a verified error",
@@ -192,7 +192,7 @@ class SafetySkillsTest(unittest.TestCase):
         text = " ".join(self.read("jarvis-doctor").split())
         for phrase in [
             "at most three prioritized actions",
-            "`jarvis-memory` remains the only curator of Durable memory",
+            "`jarvis-memory` remains the only curator of Identity and Durable memory",
             "plan or repair is separate follow-up work",
             "Never create or update it during Doctor",
         ]:

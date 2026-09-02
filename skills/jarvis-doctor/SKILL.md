@@ -6,7 +6,7 @@ description: Use when an existing Jarvis appears inconsistent or needs a local s
 # Jarvis Doctor
 
 Audit contract, readiness, and consistency from local evidence. Diagnose only:
-`jarvis-memory` remains the only curator of Durable memory.
+`jarvis-memory` remains the only curator of Identity and Durable memory.
 
 ## Scope and focus
 
@@ -47,9 +47,10 @@ Common Lite roles use Markdown files for `Identity`, `Soul template`, `Durable
 memory`, and `Future work`, and directories for `Daily history`, `Handoff`, and
 `Inbox`. Do not impose these shapes on local roles.
 
-A full audit checks every declared writer: `Durable memory`, `Future work`,
-`Daily history`, `Handoff`, and `Inbox`. A focused audit checks only the named
-writer and its dependencies. For each, assess writability without mutation.
+A full audit checks every declared writer: `Identity`, `Durable memory`,
+`Future work`, `Daily history`, `Handoff`, and `Inbox`. A focused audit checks
+only the named writer and its dependencies. For each, assess writability
+without mutation.
 Use an available read-only effective-access check or permission metadata;
 certain denial is a verified error. If the runtime cannot establish it without
 mutation, readiness is `unverifiable`. Do not create a write probe, script,
@@ -88,8 +89,8 @@ active source directly cites it for a current fact.
   finding `unverifiable`, not `error`.
 - **Authority:** A normative directive duplicated across Identity and Durable
   memory is `optional evolution`; incompatible directives are errors.
-  Pointers, examples, and history are not duplication. Consolidation is a
-  separate `jarvis-memory` request.
+  Pointers, examples, and history are not duplication. Consolidation or repair
+  is a separate `jarvis-memory` request with a preview.
 - **Local links:** Ignore external URLs and fragment-only anchors. Resolve each
   local relative Markdown link relative to its declaring source. Ignore links
   inside code. For a missing target, retain the literal link and resolved
