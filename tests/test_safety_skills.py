@@ -122,24 +122,90 @@ class SafetySkillsTest(unittest.TestCase):
         for label in ["error", "unverifiable", "optional evolution"]:
             self.assertIn(f"`{label}`:", text)
 
-    def test_doctor_findings_have_evidence_and_proposed_next_step_fields(self):
+    def test_doctor_findings_are_plain_language_and_actionable(self):
         text = " ".join(self.read("jarvis-doctor").split())
         for field in [
-            "Label",
-            "Capability role",
-            "Source path and location",
-            "Observed evidence",
-            "Expected contract or verification limit",
-            "Proposed next step",
+            "problem",
+            "impact",
+            "evidence",
+            "minimal repair",
         ]:
-            self.assertIn(f"`{field}`", text)
-        self.assertIn("explicitly not applied", text)
+            self.assertIn(field, text.lower())
+        self.assertIn("plain language before technical detail", text)
+        self.assertIn("compact source path and location", text)
+
+    def test_doctor_reports_operational_state_and_natural_language_focus(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "Jarvis operational",
+            "Jarvis partially operational",
+            "Bootstrap blocked",
+            "nothing was changed",
+            "plain Doctor request audits the complete bounded scope",
+            "names a symptom or capability",
+            "that role and its direct dependencies",
+            "Do not introduce flags or a second mode",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_doctor_checks_readiness_without_mutating_the_consumer(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "Use an available read-only effective-access check or permission metadata",
+            "A full audit checks every declared writer: `Durable memory`, `Future work`, `Daily history`, `Handoff`, and `Inbox`",
+            "A focused audit checks only the named writer and its dependencies",
+            "assess writability",
+            "certain denial is a verified error",
+            "cannot establish it without mutation",
+            "unverifiable",
+            "Do not create a write probe, script, cache, or temporary file in the consumer",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_doctor_validates_only_real_handoff_records(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "The consumer's established Handoff contract is the lifecycle authority",
+            "The shipped Lite contract defines",
+            "Markdown files whose frontmatter contains `type: handoff`",
+            "`active`, `completed`, and `superseded`",
+            "A missing or unknown status is a verified error",
+            "`created:` and `updated:` are required on every Handoff record",
+            "`completed` requires `completed:`",
+            "`superseded` requires `superseded:` and `superseded_by:`",
+            "`resumed:` is metadata, not a status",
+            "Do not lint ordinary Markdown files as handoffs",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_doctor_filters_history_and_semantic_noise(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "Daily history is historical evidence",
+            "an active source directly cites it for a current fact",
+            "explicit pointer, time-bound promise, or directly verifiable filesystem evidence",
+            "Do not turn preferences or descriptive present-tense prose into findings",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_doctor_limits_actions_and_keeps_repairs_separate(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "at most three prioritized actions",
+            "`jarvis-memory` remains the only curator of Durable memory",
+            "plan or repair is separate follow-up work",
+            "Never create or update it during Doctor",
+        ]:
+            self.assertIn(phrase, text)
 
     def test_doctor_respects_the_first_run_gate(self):
         text = " ".join(self.read("jarvis-doctor").split())
         for phrase in [
             "Identity is missing",
             "onboarding marker is present",
+            "`<!-- jarvis:onboarding-required -->` in the resolved local profile only",
+            "A Doctor request is concrete user work",
+            "complete the bounded read-only diagnosis before offering setup",
             "do not bypass first run",
             "missing non-Identity capability",
             "does not authorize a fallback source",
@@ -176,6 +242,57 @@ class SafetySkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, card)
         self.assertNotIn("starter/", card)
+
+    def test_doctor_behavioral_scenario_documents_cover_operational_gaps(self):
+        expected = {
+            "doctor-targeted-focus": [
+                "reports only the Handoff failure",
+                "does not report the unrelated broken Durable memory link",
+            ],
+            "doctor-handoff-lifecycle": [
+                "missing status",
+                "status: resumed",
+                "missing `created:`",
+                "missing `updated:`",
+                "completed without `completed:`",
+                "superseded without `superseded:` and `superseded_by:`",
+                "ordinary Markdown note is ignored",
+            ],
+            "doctor-readiness": [
+                "readable but certainly not writable",
+                "verified readiness error",
+                "does not create a write probe",
+                "read-only effective-access evidence establishes writability",
+                "does not report an unverifiable state",
+                "non-Handoff write target",
+            ],
+            "doctor-semantic-noise": [
+                "preferences and descriptive present-tense prose",
+                "no false finding",
+            ],
+        }
+        for name, phrases in expected.items():
+            scenario = " ".join(self.read_scenario(name).split())
+            for phrase in phrases:
+                self.assertIn(phrase, scenario, f"{phrase!r} missing from {name}")
+
+    def test_doctor_handoff_contract_matches_handoff_skill(self):
+        doctor = " ".join(self.read("jarvis-doctor").split())
+        handoff = " ".join(self.read("handoff").split())
+
+        for lifecycle_term in [
+            "`active`",
+            "`completed`",
+            "`superseded`",
+            "`created:`",
+            "`updated:`",
+            "`completed:`",
+            "`superseded:`",
+            "`superseded_by:`",
+            "`resumed:`",
+        ]:
+            self.assertIn(lifecycle_term, handoff)
+            self.assertIn(lifecycle_term, doctor)
 
     def test_adoption_requires_selection_and_approval(self):
         text = self.read("adopt-capability")

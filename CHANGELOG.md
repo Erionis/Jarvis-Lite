@@ -26,5 +26,8 @@ This project uses Semantic Versioning.
 - Made `handoff` a living record shared with `briefing` and `save-session`:
   resume stays active, the same authoritative work updates in place, and
   completion or replacement closes the record without automatic deletion.
+- Made `jarvis-doctor` report operational status, focus naturally on a named
+  capability, verify write readiness without probes, and validate the Handoff
+  lifecycle while remaining fully read-only.
 - Added a standard-library builder that creates physical `.claude/skills` and
   `.agents/skills` mirrors without symlinks.
