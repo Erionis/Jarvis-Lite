@@ -24,7 +24,9 @@ It never creates a remote or pushes automatically.
 
 ## What is included
 
-The starter installs six dependency-free skills:
+The starter includes seven installed skills. Six use only the shared
+Markdown/filesystem contract; `jarvis-update` additionally uses the Python 3
+standard library for deterministic verification and recovery:
 
 - `briefing` — a grounded start-of-session view;
 - `first-run` — safe, conversational onboarding and an optional Git baseline;
@@ -32,7 +34,10 @@ The starter installs six dependency-free skills:
   checkpoint followed by optional memory and workspace maintenance;
 - `handoff` — living continuity records that stay visible until work closes;
 - `jarvis-memory` — preview-first Identity and durable-memory curation;
-- `jarvis-doctor` — a read-only installation and contract audit.
+- `jarvis-doctor` — a read-only installation and contract audit;
+- `jarvis-update` — release-aware updates that preserve or negotiate local
+  customizations and always create scoped recovery before changing managed
+  files.
 
 Inbox organization is normal Jarvis work. It stays available without a
 separate command and can be offered after a successful session checkpoint.
@@ -74,10 +79,39 @@ The repository's `skills/` directory is the canonical catalog. The builder
 copies only the installed allowlist into the release; generated mirrors are
 never edited by hand.
 
+## Updating Jarvis Lite
+
+Say `/jarvis-update`. Jarvis shows the installed release identity, the newer
+official release, and its practical changes before asking for approval. A
+read-only preflight verifies the ZIP checksum and manifest, compares each
+managed component with its accepted baseline, and ignores unrelated workspace
+health.
+
+The common path needs one confirmation. If a release overlaps a customized
+functional skill, Jarvis discusses one conflict at a time and lets you keep and
+adapt, replace, merge, or postpone it. Control-plane files such as the updater,
+Doctor, and system guardrails become canonical after their previous bytes are
+saved in recovery. Consumer-owned identity, memory, work, Diary, handoffs,
+Inbox, local extensions, and Git history are never release-managed.
+
+The update records a scoped local recovery point, applies only the approved
+plan, and runs a focused verification without invoking Doctor. You can then ask
+to roll back that update. Rollback stops before mutation if an in-scope file
+has changed again since the update, so a newer local edit is not silently
+overwritten. If Python 3 is unavailable, updating is blocked with no consumer
+change; normal Jarvis work remains available.
+
+For an older Lite without `jarvis-update`, download the official ZIP and
+checksum, verify and extract them outside the current workspace, then point
+your agent at the target artifact's `jarvis-update` skill. That first adoption
+establishes the managed baseline without replacing consumer-owned content. It
+proceeds only when the existing profile, Lite core marker, and both physical
+runtime mirrors identify a real Lite installation.
+
 ## Already have a Jarvis?
 
-Point your agent at an immutable Jarvis Lite release or commit and ask it to
-compare capabilities semantically. Review the proposed `add`, `adapt`,
+For a non-Lite Jarvis, point your agent at an immutable Jarvis Lite release or
+commit and ask it to compare capabilities semantically. Review the proposed `add`, `adapt`,
 `already present`, or `conflict` classification, then approve an exact patch
 only for the capabilities you want. Existing identity, memory, paths, local
 extensions, and Git history stay authoritative.

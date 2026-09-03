@@ -16,6 +16,7 @@ INSTALLED = (
     "handoff",
     "jarvis-memory",
     "jarvis-doctor",
+    "jarvis-update",
 )
 
 

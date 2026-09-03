@@ -41,6 +41,7 @@ node_modules/
 dist/
 build/
 coverage/
+.jarvis-update/recovery/
 *.tmp
 *.temp
 *~
