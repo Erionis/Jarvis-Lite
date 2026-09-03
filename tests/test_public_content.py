@@ -39,7 +39,9 @@ class PublicContentTest(unittest.TestCase):
 
     def test_inbox_remains_supported_without_a_retired_skill(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
-        self.assertIn("six dependency-free skills", readme)
+        normalized_readme = " ".join(readme.split())
+        self.assertIn("seven installed skills", normalized_readme)
+        self.assertIn("Python 3 standard library", normalized_readme)
 
         core = (ROOT / "starter/99 - Jarvis/system/core-instructions.md").read_text(
             encoding="utf-8"

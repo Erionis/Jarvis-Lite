@@ -40,4 +40,5 @@ the runtime cannot guarantee.
 Files under `99 - Jarvis/system/` are the installed Jarvis system. Do not rewrite
 or delete them as a side effect of normal workspace use. Product development
 happens in the Jarvis Lite source repository, not inside a user's installed
-copy.
+copy. Release-managed system files and runtime skill mirrors change only
+through an explicitly approved `jarvis-update` plan with scoped recovery.

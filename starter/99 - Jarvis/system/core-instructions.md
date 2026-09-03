@@ -70,6 +70,10 @@ before following one. Project skills are installed in the native discovery
 locations used by the active runtime. Their behavior remains capability-based
 and independent of those adapter paths.
 
+Use `jarvis-update` for changes to release-managed Lite behavior. Normal work,
+first run, Doctor, and capability adoption do not overwrite the installed
+system or physical skill mirrors as a side effect.
+
 ## Session lifecycle
 
 - Start: complete the required bootstrap; use `briefing` for a broader view.

@@ -84,7 +84,11 @@ python3 scripts/build_starter.py --output dist
 The command creates `dist/Jarvis-Lite/` and installs the selected skills into
 both `.claude/skills/` and `.agents/skills/`. Do not edit those generated
 mirrors directly. The builder rejects symlinks so normal ZIP extraction works
-on Windows and macOS.
+on Windows and macOS. It also writes the release-managed file manifest and the
+initial `.jarvis-update/state.json`; source builds use the explicit
+`unreleased` identity. The release builder owned by the release workflow passes
+the stable semantic version and full source commit instead of editing those
+files afterward.
 
 ## Documentation impact
 

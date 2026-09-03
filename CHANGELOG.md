@@ -14,8 +14,10 @@ This project uses Semantic Versioning.
 - Added automatic Git and platform preflight, separately approved installation
   and pending-state markers, plus an optional scoped local checkpoint that
   never creates a remote.
-- Added six dependency-free installed skills, with Inbox organization handled
-  through normal Jarvis behavior and optional post-checkpoint maintenance.
+- Added seven installed skills, with six using only the Markdown/filesystem
+  contract and `jarvis-update` using the Python 3 standard library. Inbox
+  organization remains normal Jarvis behavior with optional post-checkpoint
+  maintenance.
 - Adapted `briefing` from the Lite 0.8.1 session-start flow with declared local
   sources, evidence-based priority selection, bounded choices, and concise
   continuity from daily history or handoffs.
@@ -37,3 +39,7 @@ This project uses Semantic Versioning.
   ignored files, deletions, and renames.
 - Added a standard-library builder that creates physical `.claude/skills` and
   `.agents/skills` mirrors without symlinks.
+- Added the artifact-based update control plane: release and baseline
+  identities and hashes, read-only preflight, ownership-aware conflict decisions, coherent
+  runtime mirrors, exact migration overlays, scoped recovery, focused
+  verification, and complete rollback without consumer Git mutation.
