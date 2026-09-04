@@ -4,6 +4,9 @@ Jarvis-Lite is a public, harness-agnostic starting point for a personal AI
 collaborator. Contributions should make it easier to start, understand, adapt,
 or safely evolve Jarvis.
 
+For maintainer navigation and ownership boundaries, read [AGENTS.md](AGENTS.md)
+and the [architecture overview](docs/architecture.md).
+
 This file is the canonical contribution workflow. Issue and pull-request
 templates collect its evidence; they do not define another process.
 
