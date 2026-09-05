@@ -57,6 +57,15 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "../skills/adopt-capability/SKILL.md",
                 "../skills/jarvis-update/SKILL.md",
             },
+            "docs/daily-use.md": {
+                "../README.md",
+                "../skills/briefing/SKILL.md",
+                "../skills/handoff/SKILL.md",
+                "../skills/jarvis-doctor/SKILL.md",
+                "../skills/jarvis-memory/SKILL.md",
+                "../skills/save-session/SKILL.md",
+                "updates.md",
+            },
         }
 
         for relative_document, expected_targets in documents.items():
