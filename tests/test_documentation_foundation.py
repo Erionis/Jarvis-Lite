@@ -75,6 +75,16 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "daily-use.md",
                 "updates.md",
             },
+            "README.md": {
+                "AGENTS.md",
+                "CONTRIBUTING.md",
+                "LICENSE",
+                "docs/architecture.md",
+                "docs/daily-use.md",
+                "docs/getting-started.md",
+                "docs/provenance.md",
+                "docs/updates.md",
+            },
         }
 
         for relative_document, expected_targets in documents.items():
