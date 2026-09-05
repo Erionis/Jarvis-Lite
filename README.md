@@ -1,5 +1,9 @@
 # Jarvis Lite
 
+<p align="center">
+  <img src="assets/brand/logo.svg" alt="Jarvis Lite" width="640">
+</p>
+
 Easy to start. Yours to evolve.
 
 Jarvis Lite is a readable local-workspace foundation for a personal AI
@@ -133,3 +137,6 @@ Changes follow issue → short-lived branch → pull request → CI → squash m
 See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow,
 [provenance](docs/provenance.md) for the reuse boundary, and the
 [MIT License](LICENSE) for licensing terms.
+
+Brand assets and their minimal usage notes live in
+[`assets/brand/`](assets/brand/README.md).
