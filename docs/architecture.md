@@ -53,6 +53,6 @@ documentation impact** with its reason.
 | Core | [`starter/99 - Jarvis/system/`](../starter/99%20-%20Jarvis/system/) | [`README.md`](../README.md), [daily use](daily-use.md), this architecture | Core and repository-contract tests |
 | Skill | [`skills/`](../skills/) | Skill README, the affected public journey, [`README.md`](../README.md), this architecture | Focused skill tests, full suite |
 | Starter or first run | [`starter/`](../starter/) and [`skills/first-run/`](../skills/first-run/) | [getting started](getting-started.md), [`README.md`](../README.md), this architecture | Starter-contract, first-run, and build tests |
-| Build | [`scripts/build_starter.py`](../scripts/build_starter.py) | [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build tests, full suite |
+| Build | [`scripts/build_starter.py`](../scripts/build_starter.py) | [getting started](getting-started.md), [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build tests, full suite |
 | Update or adoption | [`skills/jarvis-update/`](../skills/jarvis-update/) and [`skills/adopt-capability/`](../skills/adopt-capability/) | [updates](updates.md), [`README.md`](../README.md), this architecture | Update tests, full suite |
 | Release | Builder and [CI](../.github/workflows/ci.yml) | [`README.md`](../README.md), [getting started](getting-started.md), [`CHANGELOG.md`](../CHANGELOG.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Release/update tests, full suite, CI |
