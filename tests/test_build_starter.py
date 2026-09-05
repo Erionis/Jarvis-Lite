@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import json
 import re
 import shutil
 import sys
@@ -27,6 +28,32 @@ def digest(path: Path) -> str:
 
 
 class BuildStarterTest(unittest.TestCase):
+    def test_release_manifest_lists_every_shipped_regular_file(self):
+        from scripts.build_starter import build_starter
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(ROOT, Path(temporary))
+            manifest = json.loads(
+                (package / "99 - Jarvis/system/release-manifest.json").read_text(
+                    encoding="utf-8"
+                )
+            )
+
+            package_paths = manifest["package_paths"]
+            actual_paths = sorted(
+                path.relative_to(package).as_posix()
+                for path in package.rglob("*")
+                if path.is_file()
+            )
+
+            self.assertEqual(package_paths, actual_paths)
+            self.assertEqual(len(package_paths), len(set(package_paths)))
+            for relative in package_paths:
+                path = Path(relative)
+                self.assertFalse(path.is_absolute(), relative)
+                self.assertNotIn("..", path.parts, relative)
+                self.assertNotIn("\\", relative)
+
     def test_builds_both_physical_runtime_skill_mirrors(self):
         from scripts.build_starter import build_starter
 
