@@ -23,6 +23,7 @@ source, then rebuild.
 - Acquisition and first run: [`docs/getting-started.md`](getting-started.md).
 - Daily user lifecycle: [`docs/daily-use.md`](daily-use.md).
 - Updates and capability adoption: [`docs/updates.md`](updates.md).
+- Optional tooling boundary: [`docs/extensions.md`](extensions.md).
 - Consumer behavior: [starter core instructions](../starter/99%20-%20Jarvis/system/core-instructions.md).
 - Skill behavior: [`skills/`](../skills/).
 - Package selection and assembly: [`scripts/build_starter.py`](../scripts/build_starter.py).
@@ -40,6 +41,7 @@ source, then rebuild.
 | Install and complete first run | [`docs/getting-started.md`](getting-started.md) | Acquisition, staged tree, onboarding, and first trial. |
 | Work with Lite each day | [`docs/daily-use.md`](daily-use.md) | Start, work, memory, close, handoff, and diagnostics. |
 | Update Lite or adopt selected capabilities | [`docs/updates.md`](updates.md) | User choices and outcomes; skill files retain executable mechanics. |
+| Explore optional tools | [`docs/extensions.md`](extensions.md) | Included capabilities and external references without compatibility or support claims. |
 | Change or review the repository | This architecture and [`AGENTS.md`](../AGENTS.md) | Source boundaries, ownership, and maintainer navigation. |
 
 ## Documentation ownership
@@ -51,7 +53,7 @@ documentation impact** with its reason.
 | Change | Implementation source | Documentation to review | Validation to run |
 | --- | --- | --- | --- |
 | Core | [`starter/99 - Jarvis/system/`](../starter/99%20-%20Jarvis/system/) | [`README.md`](../README.md), [daily use](daily-use.md), this architecture | Core and repository-contract tests |
-| Skill | [`skills/`](../skills/) | Skill README, the affected public journey, [`README.md`](../README.md), this architecture | Focused skill tests, full suite |
+| Skill | [`skills/`](../skills/) | Skill README, the affected public journey, [extensions](extensions.md), [`README.md`](../README.md), this architecture | Focused skill tests, full suite |
 | Starter or first run | [`starter/`](../starter/) and [`skills/first-run/`](../skills/first-run/) | [getting started](getting-started.md), [`README.md`](../README.md), this architecture | Starter-contract, first-run, and build tests |
 | Build | [`scripts/build_starter.py`](../scripts/build_starter.py) | [getting started](getting-started.md), [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build tests, full suite |
 | Update or adoption | [`skills/jarvis-update/`](../skills/jarvis-update/) and [`skills/adopt-capability/`](../skills/adopt-capability/) | [updates](updates.md), [`README.md`](../README.md), this architecture | Update tests, full suite |

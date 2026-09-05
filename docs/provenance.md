@@ -13,10 +13,10 @@ content, or technical upstream relationships.
 | Build and tests | Jarvis Lite implementation | Python standard library and public fixtures only |
 
 The public starter currently ships `briefing`, `first-run`, `save-session`,
-`handoff`, `jarvis-memory`, and `jarvis-doctor`. The repository-only
-`adopt-capability` workflow helps existing consumers compare behavior without
-copying private sources. Capabilities with unresolved licensing, provenance,
-or external dependencies remain outside the release.
+`handoff`, `jarvis-memory`, `jarvis-doctor`, and `jarvis-update`. The
+repository-only `adopt-capability` workflow helps existing consumers compare
+behavior without copying private sources. Capabilities with unresolved
+licensing, provenance, or external dependencies remain outside the release.
 
 Every contribution must identify third-party material and confirm compatible
 license obligations before merge.
