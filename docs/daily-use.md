@@ -1,8 +1,11 @@
 # Use Jarvis Lite day to day
 
 Jarvis Lite keeps work understandable by giving each kind of information one
-authoritative home. You can work in ordinary language; the commands below are
-short, explicit entry points when you want them.
+authoritative home. Natural-language requests work across supported runtimes.
+Slash aliases are optional runtime conveniences: a runtime may recognize
+`/briefing`, `/save-session`, `/handoff`, `/jarvis-doctor`, or
+`/jarvis-update`, while Codex may reserve slash-prefixed input for its own
+client commands. An ordinary sentence is therefore the reliable default.
 
 | Kind of information | Authoritative role |
 | --- | --- |
@@ -18,7 +21,7 @@ not guess a replacement path when a declared source is missing.
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/briefing` or “Where should we resume?” | Reads declared current-work, history, handoff, memory, and Inbox evidence; recommends one grounded focus or asks you to choose when evidence is tied. | None. Briefing is read-only. |
+| “Give me a briefing.” or “Where should we resume?” | Reads declared current-work, history, handoff, memory, and Inbox evidence; recommends one grounded focus or asks you to choose when evidence is tied. | None. Briefing is read-only. |
 
 [`briefing`](../skills/briefing/SKILL.md) does not process Inbox, rank by age,
 or invent urgency. An unresolved source is reported as a limit on the answer.
@@ -49,21 +52,21 @@ and project knowledge in its project-owned source.
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/save-session` or “Save and close.” | Records the day's result, updates future work and the involved handoff, then creates and reports the available local checkpoint. Only afterward does it offer optional Inbox maintenance, which requires its own explicit confirmation. | Daily history, Future work, the involved Handoff, and local Git history for the core checkpoint; confirmed Inbox targets only for later maintenance. |
+| “Save and close.” | Records the day's result, updates future work and the involved handoff, then creates and reports the available local restore point. Only afterward does it offer optional Inbox maintenance, which requires its own explicit confirmation. | Daily history, Future work, the involved Handoff, and local Git history for the core save; confirmed Inbox targets only for later maintenance. |
 
-The core checkpoint closes before optional memory or structural proposals.
+The core save closes before optional memory or structural proposals.
 Those proposals keep their own confirmation and do not make a successful
-checkpoint incomplete. No push happens automatically. See the canonical
+restore point incomplete. No push happens automatically. See the canonical
 [`save-session`](../skills/save-session/SKILL.md) contract for exact ordering.
 
 ## Continue work across sessions
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/handoff` | Creates or updates one living continuation record with state, evidence, and the next action. | The selected Handoff record after confirmation where required. |
-| `/handoff resume` | Selects a relevant active record, re-reads its evidence, and refreshes continuity without hiding it. | The resumed and updated timestamps of that record. |
-| `/handoff complete` | Marks the selected record completed while preserving its history. | The selected Handoff record. |
-| `/handoff list` | Lists active, completed, superseded, and invalid records. | None. Listing is read-only. |
+| “Create a handoff.” | Creates or updates one living continuation record with state, evidence, and the next action. | The selected Handoff record after confirmation where required. |
+| “Resume the handoff.” | Selects a relevant active record, re-reads its evidence, and refreshes continuity without hiding it. | The resumed and updated timestamps of that record. |
+| “Complete the handoff.” | Marks the selected record completed while preserving its history. | The selected Handoff record. |
+| “List the handoffs.” | Lists active, completed, superseded, and invalid records. | None. Listing is read-only. |
 
 A handoff stays active until work completes or an intentional replacement
 supersedes it. The canonical lifecycle lives in
@@ -73,7 +76,7 @@ supersedes it. The canonical lifecycle lives in
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/jarvis-doctor` | Audits the declared contract, readiness, bounded semantics, and local links; reports evidence and routes any repair to its owner. | None. Doctor is read-only. |
+| “Check the Jarvis installation.” | Audits the declared contract, readiness, bounded semantics, and local links; reports evidence and routes any repair to its owner. | None. Doctor is read-only. |
 
 [`jarvis-doctor`](../skills/jarvis-doctor/SKILL.md) diagnoses only. A repair,
 memory change, install, or update is a separate request.

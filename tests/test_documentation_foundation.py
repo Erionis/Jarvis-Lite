@@ -38,6 +38,19 @@ def public_documents() -> list[Path]:
 
 
 class DocumentationFoundationTest(unittest.TestCase):
+    def test_architecture_distinguishes_package_inventory_from_update_ownership(self):
+        architecture = " ".join(
+            (ROOT / "docs/architecture.md").read_text(encoding="utf-8").split()
+        )
+        for phrase in [
+            "`managed_files`",
+            "`package_paths`",
+            "every regular file shipped in the package",
+            "does not expand updater ownership",
+            "fresh-package safety gate",
+        ]:
+            self.assertIn(phrase, architecture)
+
     def test_readme_uses_self_contained_wordmark(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn('src="assets/brand/logo.svg"', readme)

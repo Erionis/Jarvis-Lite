@@ -35,7 +35,7 @@ problem. Do not fall back to a conventional path.
 - If Identity exists and neither marker exists, onboarding is complete. Exit
   with zero questions, zero writes, zero staged changes, and zero commits.
 - If Identity exists, onboarding-required is absent, and Git-pending exists,
-  skip the personal interview and resume only Local Git checkpoint.
+  skip the personal interview and resume only Local restore point.
 - If Identity is absent or onboarding-required exists, complete or reconcile
   personal onboarding first, even when Git-pending also exists.
 
@@ -45,15 +45,21 @@ exists, do not replace it.
 
 ## Personal interview
 
-Read and follow [interview.md](interview.md) for the full visible journey. Ask
-one question at a time and present one decision at a time. Use only direct
+Read and follow [interview.md](interview.md) for the full visible journey. Use
+one coherent interaction at a time: one free-form question, one decision, or a
+small group of related closed questions that can be answered together. Keep
+dependent questions separate until their context exists. Use only direct
 answers or explicitly confirmed choices; never infer personal facts from vague
 signals, free-form memory, or unrelated notes.
 
 Make no personalized filesystem write before the user approves the final
 visible recap. Approval covers only the literal personal paths, content
-summary, folders, and templates displayed in that recap. A request to change
-the recap invalidates the previous proposal; revise it and ask again.
+summary, folders, templates, and local restore-point outcome displayed in that
+recap. For a verified fresh Lite package, that outcome also authorizes the
+internal local-history mutations defined in the Git reference. It never
+authorizes software installation, an existing repository mutation, remote
+access, authentication, or push. A request to change the recap invalidates the
+previous proposal; revise it and ask again.
 
 ## One authoritative home per fact
 
@@ -142,18 +148,20 @@ claim that the workspace is ready.
 
 ## Close personal setup
 
-Only after verification, say that personal setup is ready. State that Git is
-optional and does not block ordinary Jarvis work. Continue to Local Git
-checkpoint before offering the First trial.
+Only after verification, record that personal setup is complete internally.
+Do not yet offer the First trial or lead with Git. Continue to Local restore
+point; missing or deferred local protection never invalidates the
+completed personal setup.
 
-## Local Git checkpoint
+## Local restore point
 
 The detailed workflow lives in [git-checkpoint.md](git-checkpoint.md). Read it
 only after personal setup verification, including a Git-only resume where
 onboarding is already complete. Pass it the resolved local-profile path, the
-confirmed Identity name when available, and the Git and operating-system
-preflight results. Follow that reference through one completed, deferred,
-unavailable, or safely failed local checkpoint result.
+confirmed Identity name when available, the literal approved personal paths,
+the Git and operating-system preflight results, and the installed release
+manifest and seed-state paths. Follow that reference through one completed,
+deferred, unavailable, or safely failed local restore-point result.
 
 ## Safety check
 
@@ -162,5 +170,6 @@ that the existing Soul was retained when present, only explicit fields and
 marker lines changed, onboarding is either safely complete or visibly pending,
 and no remote, authentication, or push was attempted.
 
-After Git is completed, deferred, unavailable, or safely failed, continue with
-the First trial and Continuity guide from the interview reference.
+After the local restore point is completed, deferred, unavailable, or safely
+failed, continue with the First trial and Continuity guide from the interview
+reference.

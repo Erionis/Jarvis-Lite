@@ -6,11 +6,21 @@
    AI agent.
 3. Say `Start Jarvis` in your language.
 
-First run checks for Git automatically. If it is missing, Jarvis can show the
-official installation command for the detected platform. Installing Git and
-creating a local checkpoint are optional and require separate approval.
+When available, Jarvis uses the agent application's interactive questions. It
+may group two independent setup choices and let you select several use domains;
+identity and anything nuanced stay in normal conversation.
 
-After setup, say `/jarvis-update` to check a verified Lite release. Jarvis
+First run checks for Git automatically. For a verified fresh Lite package, the
+setup recap includes a local restore point; no second technical choice is
+needed. If Git is missing, Jarvis names it as the widely used open source tool
+behind local history, explains that it creates no account or online repository,
+and asks permission before trying the official installation itself. If the
+computer needs a password or system dialog, Jarvis guides you one step at a
+time. Declining leaves only the restore point pending, not the personal setup.
+
+After setup, say `Check for Jarvis updates`. Natural-language requests work
+across supported runtimes. Slash aliases are optional runtime conveniences,
+and Codex may reserve slash-prefixed input for its own client commands. Jarvis
 explains the release first, asks only about overlapping customizations, creates
 scoped recovery, and verifies the approved update without running a general
 Doctor audit. The updater uses the Python 3 standard library; its absence

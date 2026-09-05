@@ -11,9 +11,12 @@ The user accepts the collaboration default and approves the essential proposal.
 
 ## Then
 
-The first visible response combines the short setup orientation with the use
-domain choice. Each later turn contains one user-relevant reflection and one
-current question or decision, without internal process narration.
+The first visible response is one coherent interaction: it combines the short
+setup orientation with the related use-domain and starting-point choices when
+the runtime supports grouping. Each later turn contains one user-relevant
+reflection and either a focused question or a small related decision group when
+useful, without internal process narration. Jarvis does not turn the
+conversation into a form.
 
 The approval recap is a compact card: it names the confirmed facts, exact
 paths, personalized values, actions, and purposes. It identifies the standard

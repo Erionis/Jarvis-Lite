@@ -7,8 +7,8 @@ staged-path list contains work that predates first run.
 
 ## When
 
-Jarvis performs read-only checkpoint inspection, displays the exact one-line
-Git-pending addition to `CLAUDE.md`, and receives marker-only approval.
+Jarvis performs read-only checkpoint inspection and explains in plain language
+that another save operation is already in progress and was left untouched.
 
 ## Then
 

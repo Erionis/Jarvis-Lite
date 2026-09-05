@@ -6,7 +6,7 @@ authorizes an automatic install or replacement.
 
 | Starting point | Use | Result |
 | --- | --- | --- |
-| Current Jarvis Lite with `jarvis-update` | `/jarvis-update` | Compare and apply a verified Lite release. |
+| Current Jarvis Lite with `jarvis-update` | “Check for Jarvis updates.” | Compare and apply a verified Lite release. |
 | Older Jarvis Lite without the updater | The updater from the target official artifact | Establish the managed baseline, then update. |
 | A Jarvis that is not Lite | Repository-only `adopt-capability` | Compare and adopt only selected capabilities. |
 
@@ -17,10 +17,12 @@ a published update artifact.
 
 ## Current Jarvis Lite
 
-Say `/jarvis-update`. Jarvis first shows the installed release identity, the
-target release, and the practical changes. The preflight is read-only: it
-verifies the target artifact and compares only release-managed files with the
-accepted local baseline.
+Say `Check for Jarvis updates`. Jarvis first shows the installed release
+identity, the target release, and the practical changes. Where recognized,
+`/jarvis-update` is an optional alias; Codex may reserve slash-prefixed input
+for its own client commands. The preflight is read-only: it verifies the target
+artifact and compares only release-managed files with the accepted local
+baseline.
 
 The common path has one approval for the exact update plan. If a functional
 skill overlaps a local customization, Jarvis stops on that component and asks

@@ -71,6 +71,8 @@ def _write_update_metadata(
     source_commit: str,
     release_summary: str,
 ) -> None:
+    manifest_relative = "99 - Jarvis/system/release-manifest.json"
+    state_relative = ".jarvis-update/state.json"
     managed_files = []
     for path in sorted(candidate for candidate in package.rglob("*") if candidate.is_file()):
         relative = path.relative_to(package).as_posix()
@@ -88,6 +90,14 @@ def _write_update_metadata(
             }
         )
 
+    package_paths = sorted(
+        {
+            path.relative_to(package).as_posix()
+            for path in package.rglob("*")
+            if path.is_file()
+        }
+        | {manifest_relative, state_relative}
+    )
     manifest = {
         "schema_version": UPDATE_SCHEMA_VERSION,
         "product": "jarvis-lite",
@@ -96,9 +106,10 @@ def _write_update_metadata(
         "contract_revision": UPDATE_CONTRACT_REVISION,
         "release_summary": release_summary,
         "managed_files": managed_files,
+        "package_paths": package_paths,
         "migrations": [],
     }
-    manifest_path = package / "99 - Jarvis/system/release-manifest.json"
+    manifest_path = package / manifest_relative
     manifest_path.write_text(
         json.dumps(manifest, indent=2, sort_keys=True) + "\n",
         encoding="utf-8",
@@ -119,7 +130,7 @@ def _write_update_metadata(
         "applied_migrations": {},
         "last_recovery": None,
     }
-    state_path = package / ".jarvis-update/state.json"
+    state_path = package / state_relative
     state_path.parent.mkdir(parents=True, exist_ok=True)
     state_path.write_text(
         json.dumps(state, indent=2, sort_keys=True) + "\n",

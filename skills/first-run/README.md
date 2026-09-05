@@ -3,7 +3,10 @@
 ## Purpose
 
 Creates the smallest safe personal starting point for a new Jarvis and records
-an optional local Git recovery checkpoint.
+a local restore point when the Lite package can be verified as fresh. Native
+interactive questions may group related closed choices and accept multiple use
+domains when the control is actually exposed; free-form and nuanced context
+stays conversational and never uses a one-option placeholder.
 
 ## Use it when
 
@@ -16,12 +19,11 @@ The local-profile capability table must declare the Identity, Soul template,
 Durable memory, and Future work sources. The Soul template is a read-only seed,
 not a second Identity. The local profile and declared sources must be readable;
 required personal targets must also be writable. This does not authorize first
-run to mutate Durable memory. Git is optional. First run checks for it
-automatically and, when it is missing, may offer one platform-specific official
-installation command. Installation, a new Git-pending marker, and the local
-checkpoint each require an explicit matching approval. An accepted checkpoint
-may set missing repository-local author values and activate the shipped
-`.githooks` path, but never overwrites an existing custom hook path.
+run to mutate Durable memory. First run checks for Git automatically. A verified
+fresh Lite package receives its first local restore point under the approved
+setup card; Git commands remain internal. Installing missing Git changes the
+host and therefore needs separate informed consent. An existing repository or
+unexpected file always uses a conservative, separately reviewed path.
 
 ## Files it may change
 
@@ -30,11 +32,15 @@ limited to a missing Soul, approved stable-context placeholders, approved
 current-work entries in the declared `Future work` active section, and
 onboarding or Git-pending markers. It may also create
 `98 - Archive/README.md`, up to four approved numbered domain folders with
-READMEs, and templates for explicitly recurring outputs. It does not write
-`Durable memory` directly and never replaces an existing Soul or other custom
-content. A distinct stable signal is a separate `jarvis-memory` candidate, not
-live onboarding state. With separate consent, it may run one displayed Git
-installer or mutate only the displayed local checkpoint scope.
+READMEs, and templates for explicitly recurring outputs. Multiple domains with
+confirmed continuing context receive separate folders in the default recap;
+**Start lighter** is the opt-out, while a progressive setup creates none. It
+does not write `Durable memory` directly and never replaces an existing Soul
+or other custom content. A distinct stable signal is a separate
+`jarvis-memory` candidate, not live onboarding state. It may maintain one
+internal Git-pending marker, create the verified-fresh local history, or—with
+separate consent—attempt one official Git installation. It never creates a
+remote or pushes.
 
 ## Adopting it into an existing Jarvis
 

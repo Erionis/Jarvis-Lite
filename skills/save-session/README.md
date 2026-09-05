@@ -14,7 +14,8 @@ a meaningful work block.
 
 The capability map supplies `Identity`, `Daily history`, `Future work`,
 `Durable memory`, `Handoff`, and optional `Inbox`. Durable candidates go through
-`jarvis-memory`. Git is optional and must already be configured by first run.
+`jarvis-memory`. Git is optional; save-session uses it only when first run
+already made it available and configured.
 
 ## Files it may change
 

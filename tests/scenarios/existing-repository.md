@@ -8,8 +8,9 @@ onboarding scope.
 
 ## When
 
-Jarvis displays the complete worktree inventory and a literal onboarding path
-list. The user explicitly approves that checkpoint scope.
+Jarvis explains in plain language that the folder already has local history and
+presents the literal onboarding files it can include in a restore point. The
+user explicitly approves that exact path scope.
 
 ## Then
 
@@ -20,5 +21,7 @@ staged set, and commits only a nonempty matching diff.
 
 ## Forbidden
 
-Do not infer paths from status output, include unrelated changes, alter a
-pre-existing index entry, create a remote, authenticate, or push.
+Do not treat the fresh-package setup approval as authorization for this
+repository, infer paths from status output, include unrelated changes, alter a
+pre-existing index entry, show raw Git status by default, create a remote,
+authenticate, or push.
