@@ -26,6 +26,15 @@ def resolve_local_target(document: Path, target: str) -> Path:
     return (document.parent / target).resolve()
 
 
+def public_documents() -> list[Path]:
+    return [
+        ROOT / "README.md",
+        ROOT / "AGENTS.md",
+        ROOT / "CONTRIBUTING.md",
+        *sorted((ROOT / "docs").glob("*.md")),
+    ]
+
+
 class DocumentationFoundationTest(unittest.TestCase):
     def test_maintainer_navigation_links_resolve(self):
         documents = {
@@ -44,9 +53,13 @@ class DocumentationFoundationTest(unittest.TestCase):
             },
             "CONTRIBUTING.md": {"AGENTS.md", "docs/architecture.md"},
             "docs/architecture.md": {
+                "../AGENTS.md",
                 "../README.md",
                 "../CONTRIBUTING.md",
+                "daily-use.md",
+                "getting-started.md",
                 "provenance.md",
+                "updates.md",
                 "../scripts/build_starter.py",
                 "../starter/99 - Jarvis/system/core-instructions.md",
                 "../skills/",
@@ -91,10 +104,14 @@ class DocumentationFoundationTest(unittest.TestCase):
             document = ROOT / relative_document
             actual_targets = local_link_targets(document)
             self.assertTrue(expected_targets <= actual_targets, relative_document)
-            for target in actual_targets:
+
+    def test_all_public_document_links_resolve(self):
+        for document in public_documents():
+            self.assertTrue(document.is_file(), document.relative_to(ROOT).as_posix())
+            for target in local_link_targets(document):
                 self.assertTrue(
                     resolve_local_target(document, target).exists(),
-                    f"{relative_document}: {target}",
+                    f"{document.relative_to(ROOT).as_posix()}: {target}",
                 )
 
     def test_starter_keeps_its_consumer_adapter_separate_from_maintainer_guide(self):

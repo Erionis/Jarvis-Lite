@@ -22,7 +22,11 @@ class RepositoryContractTest(unittest.TestCase):
             "CONTRIBUTING.md",
             "LICENSE",
             "README.md",
+            "docs/architecture.md",
+            "docs/daily-use.md",
+            "docs/getting-started.md",
             "docs/provenance.md",
+            "docs/updates.md",
         ]:
             self.assertTrue((ROOT / relative).is_file(), relative)
 
