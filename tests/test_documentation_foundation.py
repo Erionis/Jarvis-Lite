@@ -66,6 +66,15 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "../skills/save-session/SKILL.md",
                 "updates.md",
             },
+            "docs/getting-started.md": {
+                "../README.md",
+                "../scripts/build_starter.py",
+                "../skills/first-run/SKILL.md",
+                "../skills/first-run/interview.md",
+                "../skills/jarvis-doctor/SKILL.md",
+                "daily-use.md",
+                "updates.md",
+            },
         }
 
         for relative_document, expected_targets in documents.items():
