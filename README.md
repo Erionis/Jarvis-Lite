@@ -8,7 +8,7 @@ Easy to start. Yours to evolve.
 
 Jarvis Lite is a readable local-workspace foundation for a personal AI
 collaborator. It gives a compatible agent runtime durable identity, memory,
-current-work context, daily continuity, safe local checkpoints, and a small set
+current-work context, daily continuity, safe local restore points, and a small set
 of reusable skills—all as files you own.
 
 ## Is it for you?
@@ -85,7 +85,7 @@ handoff, and diagnostic journey.
 The starter includes exactly seven installed skills:
 
 - `briefing` — grounded, read-only session orientation;
-- `first-run` — conversational onboarding and an optional local Git baseline;
+- `first-run` — conversational onboarding and a verified local restore point;
 - `save-session` — Diary, future-work, handoff, and local-recovery closure;
 - `handoff` — living continuity across sessions;
 - `jarvis-memory` — preview-first Identity and durable-memory curation;
@@ -107,9 +107,11 @@ history remain owned by the consumer workspace. Jarvis previews protected
 memory changes and asks before important, destructive, installation, or
 external actions. Updates create scoped recovery before changing managed files.
 
-A local Git checkpoint supports comparison and recovery; it is not a backup.
-Jarvis does not create a remote or push automatically. Local files do not imply
-local model inference: that depends on the runtime and model provider you use.
+A local restore point supports comparison and recovery; it is not a backup.
+Jarvis uses Git behind the scenes for this local history, but does not create an
+online repository or publish your files. If Git is missing, Jarvis explains what
+it is and asks before trying to install it. Local files do not imply local model
+inference: that depends on the runtime and model provider you use.
 
 ## Compatibility and prerequisites
 
@@ -120,7 +122,8 @@ works across macOS and Windows.
 
 - Markdown/filesystem read and write access is the daily minimum.
 - The source builder and update helpers use the Python 3 standard library.
-- Git is required to acquire source and optional for consumer checkpoints.
+- Git is required only for the source-build path. For the release ZIP path,
+  Jarvis handles local restore-point setup during first run.
 
 ## Choose your path
 

@@ -42,6 +42,32 @@ class PublicContentTest(unittest.TestCase):
         for skill in INSTALLED_SKILLS:
             self.assertIn(f"`{skill}`", readme)
 
+    def test_public_onboarding_explains_the_local_restore_point(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        getting_started = (ROOT / "docs/getting-started.md").read_text(
+            encoding="utf-8"
+        )
+        normalized = " ".join(f"{readme}\n{getting_started}".split())
+
+        for phrase in [
+            "local restore point",
+            "widely used open source tool",
+            "creates no account",
+            "does not publish or send your documents online",
+            "tries the official installation",
+            "guides you one step at a time",
+            "Apple Command Line Tools",
+        ]:
+            self.assertIn(phrase, normalized)
+
+        self.assertNotIn("Optional local Git checkpoint", getting_started)
+        for raw_install_command in [
+            "xcode-select --install",
+            "winget install",
+            "sudo apt-get install git",
+        ]:
+            self.assertNotIn(raw_install_command, normalized)
+
     def test_catalog_only_capabilities_are_not_installed(self):
         with tempfile.TemporaryDirectory() as temporary:
             package = build_starter(ROOT, Path(temporary))
