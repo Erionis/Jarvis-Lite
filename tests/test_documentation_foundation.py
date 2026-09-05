@@ -6,6 +6,7 @@ import tempfile
 import unittest
 from pathlib import Path
 from urllib.parse import unquote
+import xml.etree.ElementTree as ET
 
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -36,15 +37,26 @@ def public_documents() -> list[Path]:
 
 
 class DocumentationFoundationTest(unittest.TestCase):
-    def test_readme_uses_self_contained_brand_assets(self):
+    def test_readme_uses_self_contained_wordmark(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn('src="assets/brand/logo.svg"', readme)
 
-        for relative in ("assets/brand/logo.svg", "assets/brand/mark.svg"):
-            with self.subTest(asset=relative):
-                svg = (ROOT / relative).read_text(encoding="utf-8")
-                self.assertIn("<path", svg)
-                self.assertNotIn("<text", svg)
+        brand_root = ROOT / "assets" / "brand"
+        self.assertEqual(
+            {path.name for path in brand_root.iterdir() if path.is_file()},
+            {"README.md", "logo.svg"},
+        )
+
+        svg = (brand_root / "logo.svg").read_text(encoding="utf-8")
+        self.assertNotIn("<text", svg)
+        root = ET.fromstring(svg)
+        paths = root.findall(".//{http://www.w3.org/2000/svg}path")
+        fills = [path.get("fill") for path in paths]
+        self.assertEqual(fills.count("#007373"), 2)
+        self.assertEqual(fills.count("#1A171B"), 5)
+        description = root.find("{http://www.w3.org/2000/svg}desc")
+        self.assertIsNotNone(description)
+        self.assertIn("letters A and I", description.text or "")
 
     def test_maintainer_navigation_links_resolve(self):
         documents = {
