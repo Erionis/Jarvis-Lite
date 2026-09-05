@@ -69,13 +69,17 @@ pre- and post-first-run shape.
 
 ## A day with Jarvis
 
+Natural-language requests work across supported runtimes. Slash aliases are
+optional runtime conveniences: Codex may reserve slash-prefixed input for its
+own client commands, so an ordinary sentence is the reliable default.
+
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/briefing` | Reads declared evidence and recommends one grounded focus. | None; briefing is read-only. |
+| “Give me a briefing.” | Reads declared evidence and recommends one grounded focus. | None; briefing is read-only. |
 | “Work on this decision note.” | Resolves and edits the task's authoritative source. | Only the named or confirmed task source. |
 | “Remember this preference.” | Classifies it, previews the exact change, and waits for approval. | None before confirmation; then only the approved Identity or Durable memory patch. |
-| `/save-session` | Records the result, future work, involved handoff, and available local restore point in the defined order. | Confirmed session sources and local Git history when available. |
-| `/handoff` | Creates or updates one living continuation record. | Only the selected handoff; listing remains read-only. |
+| “Save and close.” | Records the result, future work, involved handoff, and available local restore point in the defined order. | Confirmed session sources and local Git history when available. |
+| “Create a handoff.” | Creates or updates one living continuation record. | Only the selected handoff; listing remains read-only. |
 
 The [daily-use guide](docs/daily-use.md) explains the full start, work, close,
 handoff, and diagnostic journey.

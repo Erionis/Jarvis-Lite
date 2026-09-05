@@ -18,7 +18,9 @@ and asks permission before trying the official installation itself. If the
 computer needs a password or system dialog, Jarvis guides you one step at a
 time. Declining leaves only the restore point pending, not the personal setup.
 
-After setup, say `/jarvis-update` to check a verified Lite release. Jarvis
+After setup, say `Check for Jarvis updates`. Natural-language requests work
+across supported runtimes. Slash aliases are optional runtime conveniences,
+and Codex may reserve slash-prefixed input for its own client commands. Jarvis
 explains the release first, asks only about overlapping customizations, creates
 scoped recovery, and verifies the approved update without running a general
 Doctor audit. The updater uses the Python 3 standard library; its absence

@@ -8,7 +8,10 @@ map for a combination of work and personal domains.
 ## When
 
 The user gives stable areas, recurring commitments, sources, and tools in one
-answer, corrects one proposed folder, and approves the revised recap.
+answer. Jarvis proposes a separate numbered folder for each confirmed domain
+by default, without another structure question. The user uses the recap to
+correct one proposed folder rather than choosing **Start lighter**, then
+approves the revised recap.
 
 ## Then
 

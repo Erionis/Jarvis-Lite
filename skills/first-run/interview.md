@@ -3,12 +3,22 @@
 This reference defines the user-facing journey. `SKILL.md` owns preflight,
 filesystem writes, verification, markers, Git, and recovery.
 
-Use the native interactive question tool when the active runtime exposes it:
-`AskUserQuestion` in Claude Code or `request_user_input` in Codex. Otherwise
-show short numbered choices. Follow actual capabilities rather than assuming
-them from the runtime name. If the native UI cannot group questions, split the
-interaction without changing its meaning. If it cannot select multiple
-answers, use the single-select or numbered fallback defined below.
+Use the native interactive question tool only when the active runtime exposes
+it and the user faces a real decision with at least two genuinely distinct
+options: `AskUserQuestion` in Claude Code or `request_user_input` in Codex.
+Normal Codex sessions may not expose `request_user_input`; follow actual
+capabilities rather than assuming them from the runtime name. Never create a
+one-option placeholder such as **I’ll type it out** to collect a free-form
+answer. When the input is free-form, ask it directly in normal conversation.
+
+Without a native choice tool, use the fallback allowed by the active runtime.
+Show short numbered choices when textual choices are supported. If they are
+not, ask one concise conversational question, preserve all alternatives in
+prose, and accept a named choice, a combination, or a free-form correction.
+Never imply that a native control was used. If the native UI cannot group
+questions, split the interaction without changing its meaning. If it cannot
+select multiple answers, use the single-select or conversational fallback
+defined below.
 
 Work through one coherent interaction at a time. It may contain one free-form
 question, one decision, or a small group of related closed questions that can
@@ -158,8 +168,8 @@ The list names every other exact path and action:
 - the literal stable local-context values to replace in `CLAUDE.md`;
 - the literal current-priority lines to add to `To Do.md`, if supplied;
 - `98 - Archive/README.md`, always, with its one-sentence purpose;
-- no more than three or four numbered domain folders, each with its concrete
-  reason and one-sentence README purpose, only when the context motivates it;
+- no more than four numbered domain folders, each with its concrete reason and
+  one-sentence README purpose, following the structure rule below;
 - each template only when the user explicitly described a recurring output.
 
 End the list with one outcome, not a technical operation:
@@ -171,8 +181,17 @@ State `No change` for an authoritative personal source that will remain
 untouched. This card is the complete approval scope: path, action, personalized
 content, and purpose, without dumping unchanged boilerplate.
 
-For **Learn while working**, propose no domain folder and no template. For a
-combination, keep domains separate only when separation improves clarity.
+For **Current priorities** or **Full map**, when two or more selected domains
+each have confirmed stable context that can hold continuing material, propose
+one separate numbered domain folder per domain by default, up to four. Do not
+ask another question merely to decide whether to separate them: the approval
+card makes the default visible, and **Start lighter** is the opt-out. Do not
+invent a folder for a domain without confirmed continuing context. For one
+domain, propose a folder only when the supplied context identifies continuing
+material.
+
+For **Learn while working**, propose no domain folder and no template,
+including when the user selected several domains.
 
 Ask whether the proposal represents the user. Offer:
 

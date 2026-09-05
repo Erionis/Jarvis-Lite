@@ -103,6 +103,28 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
+    def test_interview_never_forces_free_form_input_into_a_fake_choice(self):
+        text = " ".join(self.read_interview().split())
+        for phrase in [
+            "at least two genuinely distinct options",
+            "Never create a one-option placeholder",
+            "ask it directly in normal conversation",
+            "preserve all alternatives in prose",
+        ]:
+            self.assertIn(phrase, text)
+        self.assertIn("I’ll type it out", text)
+
+    def test_multiple_confirmed_domains_have_a_deterministic_structure_default(self):
+        text = " ".join(self.read_interview().split())
+        for phrase in [
+            "two or more selected domains each have confirmed stable context",
+            "propose one separate numbered domain folder per domain by default",
+            "Start lighter",
+            "Do not ask another question merely to decide whether to separate them",
+            "Learn while working",
+        ]:
+            self.assertIn(phrase, text)
+
     def test_use_domain_preserves_combinations_with_single_select_runtimes(self):
         text = " ".join(self.read_interview().split())
         for phrase in [
@@ -298,6 +320,14 @@ class FirstRunContractTest(unittest.TestCase):
             "does not turn the conversation into a form",
         ]:
             self.assertIn(phrase, progressive)
+
+        full_map = " ".join(self.read_scenario("full-map-user.md").split())
+        for phrase in [
+            "separate numbered folder for each confirmed domain by default",
+            "Start lighter",
+            "without another structure question",
+        ]:
+            self.assertIn(phrase, full_map)
 
     def test_git_and_os_detection_are_automatic_read_only_preflight(self):
         text = " ".join(self.text.split())

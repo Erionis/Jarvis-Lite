@@ -42,6 +42,35 @@ class PublicContentTest(unittest.TestCase):
         for skill in INSTALLED_SKILLS:
             self.assertIn(f"`{skill}`", readme)
 
+    def test_public_daily_flow_leads_with_cross_runtime_natural_language(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        daily_use = (ROOT / "docs/daily-use.md").read_text(encoding="utf-8")
+        getting_started = (ROOT / "docs/getting-started.md").read_text(
+            encoding="utf-8"
+        )
+        updates = (ROOT / "docs/updates.md").read_text(encoding="utf-8")
+        start_here = (ROOT / "starter/START-HERE.md").read_text(encoding="utf-8")
+        normalized = " ".join(
+            f"{readme}\n{daily_use}\n{getting_started}\n{updates}\n{start_here}".split()
+        )
+
+        for phrase in [
+            "Give me a briefing",
+            "Save and close",
+            "Check for Jarvis updates",
+            "Check the Jarvis installation",
+            "Natural-language requests work across supported runtimes",
+            "Slash aliases are optional runtime conveniences",
+            "Codex may reserve slash-prefixed input for its own client commands",
+        ]:
+            self.assertIn(phrase, normalized)
+
+        self.assertNotIn("| `/briefing` |", readme)
+        self.assertNotIn("| `/save-session` |", readme)
+        self.assertIn("Say `Check for Jarvis updates`", updates)
+        self.assertNotIn("| `/jarvis-update` |", updates)
+        self.assertIn("Say `Check the Jarvis installation`", getting_started)
+
     def test_public_onboarding_explains_the_local_restore_point(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         getting_started = (ROOT / "docs/getting-started.md").read_text(

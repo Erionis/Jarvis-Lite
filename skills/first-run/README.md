@@ -5,7 +5,8 @@
 Creates the smallest safe personal starting point for a new Jarvis and records
 a local restore point when the Lite package can be verified as fresh. Native
 interactive questions may group related closed choices and accept multiple use
-domains; free-form and nuanced context stays conversational.
+domains when the control is actually exposed; free-form and nuanced context
+stays conversational and never uses a one-option placeholder.
 
 ## Use it when
 
@@ -31,12 +32,15 @@ limited to a missing Soul, approved stable-context placeholders, approved
 current-work entries in the declared `Future work` active section, and
 onboarding or Git-pending markers. It may also create
 `98 - Archive/README.md`, up to four approved numbered domain folders with
-READMEs, and templates for explicitly recurring outputs. It does not write
-`Durable memory` directly and never replaces an existing Soul or other custom
-content. A distinct stable signal is a separate `jarvis-memory` candidate, not
-live onboarding state. It may maintain one internal Git-pending marker, create
-the verified-fresh local history, or—with separate consent—attempt one official
-Git installation. It never creates a remote or pushes.
+READMEs, and templates for explicitly recurring outputs. Multiple domains with
+confirmed continuing context receive separate folders in the default recap;
+**Start lighter** is the opt-out, while a progressive setup creates none. It
+does not write `Durable memory` directly and never replaces an existing Soul
+or other custom content. A distinct stable signal is a separate
+`jarvis-memory` candidate, not live onboarding state. It may maintain one
+internal Git-pending marker, create the verified-fresh local history, or—with
+separate consent—attempt one official Git installation. It never creates a
+remote or pushes.
 
 ## Adopting it into an existing Jarvis
 

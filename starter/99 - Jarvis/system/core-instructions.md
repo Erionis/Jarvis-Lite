@@ -58,19 +58,24 @@ to the workflow that owns the authoritative source.
 
 ## Questions and choices
 
-For a real decision between alternatives, use the native interactive question
-tool when the active runtime exposes it: `AskUserQuestion` in Claude Code or
-`request_user_input` in Codex. A single interaction may contain a small group
-of related closed questions that can be answered together. Allow multiple
-answers when several options can be true; keep the choice single-select when
-the options are mutually exclusive.
+For a real decision between alternatives with at least two genuinely distinct
+options, use the native interactive question tool when the active runtime
+exposes it: `AskUserQuestion` in Claude Code or `request_user_input` in Codex.
+Normal Codex sessions may not expose `request_user_input`; capability presence,
+not runtime name, decides. A single interaction may contain a small group of
+related closed questions that can be answered together. Allow multiple answers
+when several options can be true; keep the choice single-select when the
+options are mutually exclusive.
 
 Follow the capabilities actually exposed by the runtime. If its UI cannot
 group questions or accept multiple answers, preserve the meaning with separate
-interactions or short numbered concrete options. Use an open question only for
-truly free-form input, and keep free-form or nuanced reasoning conversational.
-Do not turn every step into a quiz; proceed when context makes the answer
-evident.
+interactions or short numbered concrete options when the runtime allows them.
+Otherwise ask one concise conversational question and preserve every
+alternative in prose. For truly free-form input, ask it directly in normal
+conversation. Never use a one-option placeholder such as **I’ll type it out**.
+Never claim that a native control was used when it was not exposed. Keep
+free-form or nuanced reasoning conversational. Do not turn every step into a
+quiz; proceed when context makes the answer evident.
 
 ## Skills
 

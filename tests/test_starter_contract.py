@@ -201,6 +201,19 @@ class StarterContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, contract)
 
+    def test_canonical_contract_defines_safe_native_tool_boundaries_and_fallback(self):
+        contract = " ".join(
+            self.read("99 - Jarvis/system/core-instructions.md").split()
+        )
+        for phrase in [
+            "at least two genuinely distinct options",
+            "Never use a one-option placeholder",
+            "ask it directly in normal conversation",
+            "preserve every alternative in prose",
+            "Never claim that a native control was used when it was not exposed",
+        ]:
+            self.assertIn(phrase, contract)
+
     def test_canonical_guardrails_name_protected_sources(self):
         contract = self.read("99 - Jarvis/system/core/guardrails.md")
         self.assertIn("Identity and durable memory", contract)
