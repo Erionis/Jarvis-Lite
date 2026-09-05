@@ -49,7 +49,7 @@ and project knowledge in its project-owned source.
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
-| `/save-session` or “Save and close.” | Applies any separately confirmed Inbox action first; records the day's result, updates future work and the involved handoff, then creates the available local checkpoint. | Confirmed Inbox targets, Daily history, Future work, the involved Handoff, and local Git history when available. |
+| `/save-session` or “Save and close.” | Records the day's result, updates future work and the involved handoff, then creates and reports the available local checkpoint. Only afterward does it offer optional Inbox maintenance, which requires its own explicit confirmation. | Daily history, Future work, the involved Handoff, and local Git history for the core checkpoint; confirmed Inbox targets only for later maintenance. |
 
 The core checkpoint closes before optional memory or structural proposals.
 Those proposals keep their own confirmation and do not make a successful
