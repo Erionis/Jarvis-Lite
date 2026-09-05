@@ -354,7 +354,7 @@ class FirstRunContractTest(unittest.TestCase):
     def test_first_trial_follows_a_terminal_git_result(self):
         text = self.contract_flat
         for phrase in [
-            "Continue to Local Git checkpoint",
+            "Continue to Local restore point",
             "After the local restore point is completed, deferred, unavailable, or safely failed",
             "continue with the First trial and Continuity guide",
         ]:
@@ -438,7 +438,7 @@ class FirstRunContractTest(unittest.TestCase):
             "If Identity is absent or onboarding-required exists",
             "complete or reconcile personal onboarding first",
             "If Identity exists, onboarding-required is absent, and Git-pending exists",
-            "skip the personal interview and resume only Local Git checkpoint",
+            "skip the personal interview and resume only Local restore point",
         ]:
             self.assertIn(phrase, self.contract_flat)
 

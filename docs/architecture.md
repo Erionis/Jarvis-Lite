@@ -17,6 +17,12 @@ source, then rebuild.
 | [`docs/`](.) | Public user journeys, maintainer architecture, and provenance. |
 | [`.github/`](../.github/) | Review templates and continuous-integration configuration. |
 
+The generated release manifest separates two inventories. `managed_files`
+defines the files and hashes owned by the update contract. `package_paths`
+lists every regular file shipped in the package so first run can use it as a
+fresh-package safety gate before creating local history. The broader path list
+does not expand updater ownership.
+
 ## Canonical owners
 
 - Public promise and audience routes: [`README.md`](../README.md).

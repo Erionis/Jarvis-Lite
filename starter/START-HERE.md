@@ -6,9 +6,13 @@
    AI agent.
 3. Say `Start Jarvis` in your language.
 
-First run checks for Git automatically. If it is missing, Jarvis can show the
-official installation command for the detected platform. Installing Git and
-creating a local checkpoint are optional and require separate approval.
+First run checks for Git automatically. For a verified fresh Lite package, the
+setup recap includes a local restore point; no second technical choice is
+needed. If Git is missing, Jarvis names it as the widely used open source tool
+behind local history, explains that it creates no account or online repository,
+and asks permission before trying the official installation itself. If the
+computer needs a password or system dialog, Jarvis guides you one step at a
+time. Declining leaves only the restore point pending, not the personal setup.
 
 After setup, say `/jarvis-update` to check a verified Lite release. Jarvis
 explains the release first, asks only about overlapping customizations, creates

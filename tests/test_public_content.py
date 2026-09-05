@@ -68,6 +68,44 @@ class PublicContentTest(unittest.TestCase):
         ]:
             self.assertNotIn(raw_install_command, normalized)
 
+    def test_packaged_and_release_docs_match_the_restore_point_flow(self):
+        start_here = (ROOT / "starter/START-HERE.md").read_text(encoding="utf-8")
+        changelog = (ROOT / "CHANGELOG.md").read_text(encoding="utf-8")
+        core = (ROOT / "starter/99 - Jarvis/system/core-instructions.md").read_text(
+            encoding="utf-8"
+        )
+        daily_use = (ROOT / "docs/daily-use.md").read_text(encoding="utf-8")
+
+        start_here = " ".join(start_here.split())
+        changelog = " ".join(changelog.split())
+        core = " ".join(core.split())
+        daily_use = " ".join(daily_use.split())
+
+        for phrase in [
+            "local restore point",
+            "verified fresh Lite package",
+            "asks permission before trying the official installation",
+            "creates no account",
+        ]:
+            self.assertIn(phrase, start_here)
+
+        self.assertIn(
+            "automatic local restore point for a verified fresh package",
+            changelog,
+        )
+        self.assertIn(
+            "approved setup already owns the local restore-point outcome",
+            core,
+        )
+        self.assertIn("existing repository changes need separate approval", core)
+        self.assertIn("local restore point", daily_use)
+
+        self.assertNotIn(
+            "creating a local checkpoint are optional and require separate approval",
+            start_here,
+        )
+        self.assertNotIn("optional scoped local checkpoint", changelog)
+
     def test_catalog_only_capabilities_are_not_installed(self):
         with tempfile.TemporaryDirectory() as temporary:
             package = build_starter(ROOT, Path(temporary))

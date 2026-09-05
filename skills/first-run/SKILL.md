@@ -35,7 +35,7 @@ problem. Do not fall back to a conventional path.
 - If Identity exists and neither marker exists, onboarding is complete. Exit
   with zero questions, zero writes, zero staged changes, and zero commits.
 - If Identity exists, onboarding-required is absent, and Git-pending exists,
-  skip the personal interview and resume only Local Git checkpoint.
+  skip the personal interview and resume only Local restore point.
 - If Identity is absent or onboarding-required exists, complete or reconcile
   personal onboarding first, even when Git-pending also exists.
 
@@ -147,11 +147,11 @@ claim that the workspace is ready.
 ## Close personal setup
 
 Only after verification, record that personal setup is complete internally.
-Do not yet offer the First trial or lead with Git. Continue to Local Git
-checkpoint; missing or deferred local protection never invalidates the
+Do not yet offer the First trial or lead with Git. Continue to Local restore
+point; missing or deferred local protection never invalidates the
 completed personal setup.
 
-## Local Git checkpoint
+## Local restore point
 
 The detailed workflow lives in [git-checkpoint.md](git-checkpoint.md). Read it
 only after personal setup verification, including a Git-only resume where

@@ -11,9 +11,11 @@ This project uses Semantic Versioning.
   one authoritative home per fact, verified resume, a contract-declared Soul
   seed, a detailed Soul, a compact approval recap, and Git details loaded only
   after personal setup.
-- Added automatic Git and platform preflight, separately approved installation
-  and pending-state markers, plus an optional scoped local checkpoint that
-  never creates a remote.
+- Added automatic Git and platform preflight, informed approval before any
+  system installation, and an automatic local restore point for a verified
+  fresh package using shipped-path evidence. Pending state stays internal;
+  existing repositories and unexpected files remain conservative, and no
+  remote is created.
 - Added seven installed skills, with six using only the Markdown/filesystem
   contract and `jarvis-update` using the Python 3 standard library. Inbox
   organization remains normal Jarvis behavior with optional post-checkpoint

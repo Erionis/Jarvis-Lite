@@ -103,7 +103,10 @@ universal Projects/raw/deliverables hierarchy.
 
 Git is an optional local safety capability for a dedicated personal workspace.
 Never require a remote, create one, or push automatically. First run owns Git
-installation, initialization, configuration, and initial consent.
+availability checks, informed installation consent, and initial setup. In a
+verified fresh Lite package, approved setup already owns the local restore-point
+outcome; software installation and existing repository changes need separate
+approval.
 `save-session` creates the semantic checkpoint and may then checkpoint the
 whole workspace when its safety gates pass; do not install a periodic
 scheduler. If Git is missing or a command fails, preserve the user's completed
