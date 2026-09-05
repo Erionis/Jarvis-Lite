@@ -1,7 +1,10 @@
 # Brand assets
 
-- `logo.svg` is the Jarvis Lite wordmark with a small `LITE` descriptor and no
-  separate symbol.
+- `logo.svg` is the editable Jarvis Lite wordmark with a small `LITE`
+  descriptor and no separate symbol; `logo.png` is its practical raster
+  export.
+- `social-preview.svg` is the editable 2:1 repository-sharing canvas;
+  `social-preview.png` is the upload-ready export.
 - The letters `A` and `I` highlight the AI identity in E4 Teal `#007373`.
 - The remaining letters use E4 Black `#1A171B`; the background is white
   `#FFFFFF`.
@@ -15,5 +18,5 @@ is the official
 repository.
 
 Keep the proportions, spacing, and color distinction between `AI` and the
-remaining letters intact. For dark backgrounds, create a high-contrast variant
-without changing the geometry.
+remaining letters intact. The opaque white canvas preserves the approved
+contrast on both light and dark interfaces without maintaining a second logo.

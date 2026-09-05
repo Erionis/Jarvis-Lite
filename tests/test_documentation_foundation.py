@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import re
+import struct
 import sys
 import tempfile
 import unittest
@@ -44,7 +45,13 @@ class DocumentationFoundationTest(unittest.TestCase):
         brand_root = ROOT / "assets" / "brand"
         self.assertEqual(
             {path.name for path in brand_root.iterdir() if path.is_file()},
-            {"README.md", "logo.svg"},
+            {
+                "README.md",
+                "logo.png",
+                "logo.svg",
+                "social-preview.png",
+                "social-preview.svg",
+            },
         )
 
         svg = (brand_root / "logo.svg").read_text(encoding="utf-8")
@@ -57,6 +64,18 @@ class DocumentationFoundationTest(unittest.TestCase):
         description = root.find("{http://www.w3.org/2000/svg}desc")
         self.assertIsNotNone(description)
         self.assertIn("letters A and I", description.text or "")
+
+    def test_brand_raster_exports_use_practical_canvas_sizes(self):
+        expected_sizes = {
+            "logo.png": (1040, 360),
+            "social-preview.png": (1280, 640),
+        }
+        for filename, expected_size in expected_sizes.items():
+            asset = ROOT / "assets" / "brand" / filename
+            self.assertTrue(asset.is_file(), filename)
+            payload = asset.read_bytes()
+            self.assertEqual(payload[:8], b"\x89PNG\r\n\x1a\n", filename)
+            self.assertEqual(struct.unpack(">II", payload[16:24]), expected_size)
 
     def test_maintainer_navigation_links_resolve(self):
         documents = {
@@ -79,6 +98,7 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "../README.md",
                 "../CONTRIBUTING.md",
                 "daily-use.md",
+                "extensions.md",
                 "getting-started.md",
                 "provenance.md",
                 "updates.md",
@@ -116,6 +136,7 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "LICENSE",
                 "docs/architecture.md",
                 "docs/daily-use.md",
+                "docs/extensions.md",
                 "docs/getting-started.md",
                 "docs/provenance.md",
                 "docs/updates.md",

@@ -96,7 +96,8 @@ Inbox organization is normal Jarvis work and needs no separate skill. Lite does
 not install `ingest`, impose a fixed project hierarchy, or silently add optional
 extensions. `adopt-capability` remains repository-only for existing non-Lite
 Jarvis installations; the public [updates guide](docs/updates.md) explains that
-boundary. Optional extension references are neither installation nor trust
+boundary. The [external references](docs/extensions.md) page names optional
+projects without treating them as installation, compatibility, or trust
 decisions.
 
 ## Local-first safety
@@ -128,6 +129,7 @@ works across macOS and Windows.
 | New to Jarvis Lite | [Getting started](docs/getting-started.md) |
 | Using Lite day to day | [Daily use](docs/daily-use.md) |
 | Updating Lite or bringing a capability to another Jarvis | [Updates and adoption](docs/updates.md) |
+| Exploring optional tools | [Extensions and external references](docs/extensions.md) |
 | Contributing | [Contribution workflow](CONTRIBUTING.md) |
 | Maintaining the repository or acting as a coding agent | [Architecture](docs/architecture.md) and [maintainer guide](AGENTS.md) |
 

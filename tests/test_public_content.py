@@ -9,7 +9,7 @@ from scripts.build_starter import INSTALLED_SKILLS, build_starter
 
 
 ROOT = Path(__file__).resolve().parents[1]
-CATALOG_ONLY = {"adopt-capability", "defuddle", "playwright-cli"}
+CATALOG_ONLY = {"adopt-capability", "defuddle", "playwright-cli", "superpowers"}
 PRIVATE_PATTERNS = (
     re.compile(r"/Users/[^/\s]+"),
     re.compile(r"\b[A-Za-z0-9_-]+-Vault\b"),
