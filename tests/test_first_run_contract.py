@@ -100,22 +100,22 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
-    def test_pending_marker_write_has_its_own_explicit_consent(self):
+    def test_pending_marker_does_not_create_a_user_facing_decision(self):
         text = self.contract_flat
         for phrase in [
-            "Whenever this reference requires a pending result",
-            "show the exact local-profile path and the one-line marker addition",
-            "ask for explicit marker-only approval before writing it",
-            "Marker-only approval authorizes no Git installation or mutation",
-            "If the user declines, leave the local profile unchanged",
+            "The approved local restore-point outcome covers adding or retaining exactly one",
+            "Do not ask for marker-only approval",
+            "The marker is implementation state",
+            "report only whether local protection is ready or still pending",
         ]:
             self.assertIn(phrase, text)
 
-    def test_successful_marker_removal_uses_checkpoint_scope_not_pending_gate(self):
+    def test_marker_lifecycle_tracks_restore_point_state(self):
         text = self.contract_flat
         for phrase in [
-            "Every instruction below to retain, add, or restore Git-pending follows this section",
-            "Removing Git-pending after a successful checkpoint is governed by the explicitly accepted checkpoint scope",
+            "A successful commit contains no Git-pending marker",
+            "Failure or deferral retains or restores exactly one",
+            "leaves no marker-only worktree change",
         ]:
             self.assertIn(phrase, text)
 
@@ -155,6 +155,7 @@ class FirstRunContractTest(unittest.TestCase):
             "resume-first-run.md",
             "git-missing.md",
             "git-install.md",
+            "unexpected-fresh-content.md",
             "existing-repository.md",
             "staged-index.md",
         ]:
@@ -176,7 +177,7 @@ class FirstRunContractTest(unittest.TestCase):
         text = " ".join(self.text.split())
         for phrase in [
             "Make no personalized filesystem write before the user approves the final visible recap",
-            "Approval covers only the literal personal paths, content summary, folders, and templates displayed in that recap",
+            "Approval covers only the literal personal paths, content summary, folders, templates, and local restore-point outcome displayed in that recap",
             "Create the single `98 - Archive/README.md` at the approved workspace root",
             "Create at most four approved numbered domain folders",
             "Every created folder receives a short `README.md`",
@@ -261,15 +262,74 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
-    def test_git_install_help_is_specific_and_separately_approved(self):
+    def test_setup_card_approves_a_plain_language_local_restore_point(self):
+        text = " ".join(self.read_interview().split())
+        for phrase in [
+            "local restore point",
+            "Nothing is published or sent online",
+            "authorizes the local restore-point outcome for a verified fresh Lite package",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_verified_fresh_package_checkpoint_needs_no_second_approval(self):
+        text = self.contract_flat
+        for phrase in [
+            "coherent Jarvis Lite release manifest and seed state",
+            "`package_paths`",
+            "actual regular-file inventory",
+            "shipped package paths plus the literal personal paths approved during onboarding",
+            "no separate checkpoint or baseline-inventory approval",
+            "Only this verified fresh-package branch may use `git add -A` automatically",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_missing_git_is_named_explained_and_installed_after_consent(self):
+        text = self.contract_flat
+        for phrase in [
+            "Name Git",
+            "widely used open source tool",
+            "keeps a local history of file changes",
+            "official source",
+            "creates no account",
+            "does not publish or send the user's documents online",
+            "Name any broader system package",
+            "Ask for explicit installation approval",
+            "After approval, attempt the verified official command",
+            "guide the user one step at a time",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_pending_marker_is_internal_restore_point_state(self):
+        text = self.contract_flat
+        for phrase in [
+            "approved local restore-point outcome covers adding or retaining exactly one `<!-- jarvis:git-pending -->` marker",
+            "Do not ask for marker-only approval",
+            "Failure or deferral retains or restores exactly one `<!-- jarvis:git-pending -->` marker",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_unexpected_fresh_content_scenario_defers_before_git_init(self):
+        scenario = " ".join(
+            self.read_scenario("unexpected-fresh-content.md").split()
+        )
+        for phrase in [
+            "outside `package_paths` and the approved onboarding paths",
+            "does not run `git init`",
+            "does not stage or commit anything",
+            "plain language",
+            "Ordinary Jarvis work can continue",
+        ]:
+            self.assertIn(phrase, scenario)
+
+    def test_git_install_help_is_specific_transparent_and_separately_approved(self):
         text = self.contract_flat
         for phrase in [
             "Missing Git never blocks personal onboarding or ordinary Jarvis work",
-            "show exactly one matching installation command",
-            "Ask for explicit installation approval before executing it",
-            "Installation approval does not authorize any Git mutation",
+            "Ask for explicit installation approval without displaying the raw command by default",
+            "After approval, attempt the verified official command yourself",
+            "Installation approval authorizes only that displayed software or system package",
             "Re-run `git --version` after the installer returns",
-            "unsupported or ambiguous platform",
+            "guide the user one step at a time",
         ]:
             self.assertIn(phrase, text)
         for command in [
@@ -284,18 +344,18 @@ class FirstRunContractTest(unittest.TestCase):
     def test_install_command_requires_a_verified_platform_package_manager(self):
         text = self.contract_flat
         for phrase in [
-            "Before showing the Windows command, run `winget --version` as a read-only check",
-            "If WinGet is unavailable, show only the official Windows installation guide",
-            "For Linux, resolve `/etc/os-release` and verify that the matching package-manager command exists",
-            "If the detected package manager does not match the distribution, show only the official Linux installation guide",
+            "On Windows run `winget --version`; without WinGet use only the official Windows guide",
+            "On Linux resolve `/etc/os-release` and confirm that the matching package manager command exists",
+            "On macOS confirm that `xcode-select` exists",
+            "Apple Command Line Tools",
         ]:
             self.assertIn(phrase, text)
 
     def test_first_trial_follows_a_terminal_git_result(self):
         text = self.contract_flat
         for phrase in [
-            "Continue to Local Git checkpoint before offering the First trial",
-            "After Git is completed, deferred, unavailable, or safely failed",
+            "Continue to Local Git checkpoint",
+            "After the local restore point is completed, deferred, unavailable, or safely failed",
             "continue with the First trial and Continuity guide",
         ]:
             self.assertIn(phrase, text)
@@ -304,9 +364,9 @@ class FirstRunContractTest(unittest.TestCase):
         text = self.contract_flat
         for phrase in [
             "Reuse an existing nonempty repository-local or inherited author name",
-            "set only the missing repository-local author name to the confirmed Identity name",
-            "set only the missing repository-local email to `jarvis@vault.local`",
-            "Display these exact local values before requesting checkpoint approval",
+            "Set only a missing local name to the confirmed Identity name",
+            "Set only a missing local email to `jarvis@vault.local`",
+            "do not expose author values",
         ]:
             self.assertIn(phrase, text)
 
@@ -328,11 +388,9 @@ class FirstRunContractTest(unittest.TestCase):
     def test_git_hook_activation_preserves_existing_custom_configuration(self):
         text = self.contract_flat
         for phrase in [
-            "Include local hook-path configuration in the displayed checkpoint scope",
-            "Reuse `.githooks` when it is already configured",
-            "If another nonempty hook path is configured, preserve it",
-            "do not overwrite custom Git configuration",
-            "Report that the Lite large-file guard was not activated",
+            "Reuse `.githooks` when already configured",
+            "Preserve any other nonempty custom hook path",
+            "the Lite large-file guard was not activated",
         ]:
             self.assertIn(phrase, text)
 
@@ -341,39 +399,37 @@ class FirstRunContractTest(unittest.TestCase):
         self.assertIn("https://git-scm.com/install/mac", self.contract_text)
         self.assertIn("<!-- jarvis:git-pending -->", self.contract_text)
 
-    def test_fresh_baseline_requires_scope_review_and_approval(self):
+    def test_fresh_baseline_is_automatic_only_after_inventory_verification(self):
         for phrase in [
             "git status --short",
-            "freshly initialized Jarvis directory",
-            "explicitly approve the displayed full baseline",
-            "do not use `git add -A`",
-            "stage only explicitly approved onboarding sources or defer checkpointing",
+            "Before `git init`",
+            "Every actual path is in the shipped package paths plus the literal personal paths approved during onboarding",
+            "Only this verified fresh-package branch may use `git add -A` automatically",
+            "do not expose author values, hook configuration, status output, or another Git choice",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
     def test_existing_repository_index_isolated_before_checkpoint(self):
         for phrase in [
-            "Before any onboarding staging or commit in an existing repository, run `git diff --cached --name-only`",
-            "If the initial staged-path output contains any entry",
-            "display every staged path, do not alter the index, do not stage, and do not commit",
-            "Retain or add exactly one `<!-- jarvis:git-pending -->` marker",
-            "defer the checkpoint, and permit normal Jarvis work",
-            "Only when the initial staged-path output is empty may you stage the exact explicitly approved onboarding source paths",
-            "After staging, run `git diff --cached --name-only` again",
-            "contains no path outside the explicitly approved onboarding source paths",
-            "the local profile must appear explicitly in that path list whenever its marker changes",
-            "Repeat this staged-path comparison after re-staging the local profile and before commit",
-            "do not automatically unstage or commit",
+            "The setup-card approval does not authorize changes to an existing repository",
+            "If the initial staged-path set is nonempty",
+            "leave the index byte-for-byte unchanged",
+            "Show raw Git state only on request",
+            "With an empty initial index",
+            "request one explicit approval",
+            "use `git add -- <approved-path>...`",
+            "verify that the staged set equals the approved literal set",
+            "Any unrelated or mismatched path defers the restore point without index cleanup",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
     def test_git_can_be_deferred_and_failures_are_recoverable(self):
         for phrase in [
-            "intentionally defers Git",
-            "Declining installation",
-            "does not block personal setup",
-            "Report the exact failed command",
-            "retain or add exactly one `<!-- jarvis:git-pending -->` marker",
+            "installation is declined, fails, or is unsupported",
+            "Missing Git never blocks personal onboarding or ordinary Jarvis work",
+            "local restore points are not active yet",
+            "Failure or deferral retains or restores exactly one `<!-- jarvis:git-pending -->` marker",
+            "ordinary work can continue",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
@@ -388,25 +444,27 @@ class FirstRunContractTest(unittest.TestCase):
 
     def test_git_pending_is_cleaned_before_approved_staging_and_restored_on_failure(self):
         for phrase in [
-            "remove the Git-pending marker before staging",
-            "successful checkpoint contains the clean profile state",
-            "Restore or retain `<!-- jarvis:git-pending -->`",
+            "Remove the Git-pending marker, re-stage only the local profile",
+            "A successful commit contains no Git-pending marker",
+            "Failure or deferral retains or restores exactly one `<!-- jarvis:git-pending -->` marker",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
-    def test_git_mutation_requires_checkpoint_consent(self):
+    def test_git_mutation_authorization_depends_on_repository_state(self):
         for phrase in [
-            "wait for explicit acceptance before any Git mutation",
-            "`git init -b main`, author configuration, hook-path configuration, staging, or commit",
-            "A declined or deferred checkpoint performs no Git mutation",
-            "performs no Git mutation",
+            "approved setup card authorizes the local restore-point outcome only for a verified fresh Lite package",
+            "need no separate checkpoint or baseline-inventory approval",
+            "Software installation changes the host and always needs its own explicit approval",
+            "The setup-card approval does not authorize changes to an existing repository",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
-    def test_withheld_baseline_approval_defers_without_staging(self):
+    def test_unexpected_content_defers_without_initializing_or_staging(self):
         for phrase in [
-            "Withheld or declined baseline approval means no `git add -A` and no commit",
-            "continue normal work",
+            "If any identity check fails or an unexpected path exists",
+            "do not run `git init`, configure Git, stage, or commit",
+            "Preserve all content",
+            "Ordinary Jarvis work may continue",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
@@ -422,53 +480,51 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "`git --version`: exit 0 means Git is available",
             "command-not-found means Git is missing",
-            "`git rev-parse --is-inside-work-tree`: exit 0 with output `true` means an existing worktree",
-            "only the expected not-a-repository result may lead to `git init -b main`",
-            "`git config --get user.name`, `git config --get user.email`, and `git config --get core.hooksPath`: exit 0 with nonempty output means configured",
-            "Exit 1 with empty output and no error is the expected missing-value state",
-            "`git diff --cached --quiet`: exit 0 means empty; exit 1 means changes",
-            "Any other exit code enters Git failure recovery",
+            "`git rev-parse --is-inside-work-tree`: exit 0 with `true` means an existing worktree",
+            "Only exit 128 with an explicit not-a-repository error is the expected missing-repository state",
+            "Exit 1 with empty output and no error means missing",
+            "exit 1 authorizes the commit",
+            "exit 0 means there is nothing to save",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
     def test_empty_staging_retains_marker_and_success_commits_marker_removal(self):
         for phrase in [
-            "Stage the approved scope while Git-pending remains",
-            "If the staged diff is empty, retain Git-pending, report that no checkpoint was made, and continue normal work",
-            "remove the Git-pending marker, re-stage the local profile, recheck, then commit",
-            "leaves no marker-removal change afterward",
+            "Ensure exactly one Git-pending marker",
+            "exit 0 means there is nothing to save",
+            "Failure or deferral retains or restores exactly one",
+            "A successful commit contains no Git-pending marker",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
-    def test_checkpoint_acceptance_materializes_one_marker_before_git_scope(self):
+    def test_setup_card_materializes_one_marker_before_fresh_git_scope(self):
         for phrase in [
-            "Explicit checkpoint acceptance authorizes adding or retaining exactly one `<!-- jarvis:git-pending -->` marker",
-            "before the first Git mutation and the displayed `git status --short` inventory",
-            "The approved scope therefore already includes that marker",
-            "Decline, an empty staged diff, or any Git failure retains or restores exactly one Git-pending marker",
+            "approved local restore-point outcome covers adding or retaining exactly one `<!-- jarvis:git-pending -->` marker",
+            "During an approved first run, add the marker before the first Git mutation",
+            "Do not ask for marker-only approval",
+            "Failure or deferral retains or restores exactly one",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
     def test_successful_commit_discloses_final_git_state(self):
         for phrase in [
-            "After a successful commit, run and display `git status --short`",
-            "Only empty output is evidence of a clean checkpoint",
-            "report the exact remaining state",
+            "After a commit, run `git status --short`",
+            "Empty output is evidence of a clean restore point",
+            "Report simply that the local restore point is ready",
+            "Offer the commit and status details only when requested",
+            "Report the affected paths in plain language",
             "make no automatic cleanup or extra commit",
-            "do not claim a clean checkpoint",
-            "require explicit approval before any recovery",
-            "If this status command errors, enter Git failure recovery",
+            "require explicit approval before recovery",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
     def test_partial_git_failure_preserves_index_and_requires_approved_recovery(self):
         for phrase in [
-            "Immediately run and display `git status --short`",
-            "Preserve the existing index; never blindly unstage",
-            "stop further Git mutations",
-            "Explain the exact staged and unstaged state",
-            "offer only an explicit user-approved recovery step",
-            "Normal Jarvis work may continue",
+            "Stop further Git mutations",
+            "preserve the existing index; never blindly unstage",
+            "local protection is pending and ordinary work can continue",
+            "Offer exact commands, staged and unstaged state",
+            "one bounded recovery action as technical details",
         ]:
             self.assertIn(phrase, self.contract_flat)
 
@@ -540,6 +596,7 @@ class FirstRunContractTest(unittest.TestCase):
             "second-run.md",
             "git-missing.md",
             "git-install.md",
+            "unexpected-fresh-content.md",
             "existing-repository.md",
             "staged-index.md",
         ]:
@@ -576,10 +633,11 @@ class FirstRunContractTest(unittest.TestCase):
         scenario = (SCENARIOS / "git-missing.md").read_text(encoding="utf-8")
         self.assertIn("`git --version` is command-not-found", scenario)
 
-    def test_git_defer_scenarios_approve_the_marker_write(self):
-        for name in ["git-missing.md", "git-install.md", "staged-index.md"]:
+    def test_git_defer_scenarios_keep_marker_state_internal(self):
+        for name in ["git-missing.md", "staged-index.md"]:
             scenario = " ".join(self.read_scenario(name).split())
-            self.assertIn("marker-only approval", scenario, name)
+            self.assertNotIn("marker-only approval", scenario, name)
+            self.assertIn("git-pending", scenario.lower(), name)
 
     def test_scenarios_exist(self):
         for name in [
@@ -587,6 +645,7 @@ class FirstRunContractTest(unittest.TestCase):
             "second-run.md",
             "git-missing.md",
             "git-install.md",
+            "unexpected-fresh-content.md",
             "existing-repository.md",
             "staged-index.md",
         ]:

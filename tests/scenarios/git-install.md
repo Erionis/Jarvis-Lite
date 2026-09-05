@@ -7,20 +7,23 @@ operating system was automatically detected as Windows with WinGet available.
 
 ## When
 
-Jarvis displays `winget install --id Git.Git -e --source winget` and the
-official Git for Windows guidance. The user explicitly approves that installer
-command. After it succeeds, Jarvis re-runs `git --version`, then presents the
-separate local checkpoint mutation scope. The user defers the checkpoint.
-Jarvis displays the exact one-line Git-pending addition to `CLAUDE.md`, and the
-user gives marker-only approval.
+Jarvis explains Git in plain language, identifies WinGet as the official
+installation route, and asks permission without leading with the raw command.
+The user approves. Jarvis attempts
+`winget install --id Git.Git -e --source winget` itself. After it succeeds,
+Jarvis re-runs `git --version`, verifies the fresh Lite manifest, seed state,
+`package_paths`, and current inventory, then creates the local restore point
+without another approval.
 
 ## Then
 
-The approved installer is the only executed mutation. No Git repository,
-configuration, staging, or commit is created. Exactly one Git-pending marker
-remains, and ordinary Jarvis work can continue.
+The approved installer and the already-authorized verified-fresh restore point
+are completed. Exactly one baseline commit exists, the Git-pending marker is
+absent, `git status --short` is empty, and the user sees only a simple success
+message unless technical details are requested.
 
 ## Forbidden
 
-Do not treat installation approval as permission for `git init`, author or hook
-configuration, staging, commit, remote creation, authentication, or push.
+Do not install before approval, expose the raw command as the default prompt,
+skip the fresh-package evidence gate, request a redundant checkpoint approval,
+create a remote, authenticate, or push.

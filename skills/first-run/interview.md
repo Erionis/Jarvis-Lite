@@ -135,6 +135,11 @@ The list names every other exact path and action:
   reason and one-sentence README purpose, only when the context motivates it;
 - each template only when the user explicitly described a recurring output.
 
+End the list with one outcome, not a technical operation:
+
+- **Local protection** — create a local restore point after setup. Nothing is
+  published or sent online.
+
 State `No change` for an authoritative personal source that will remain
 untouched. This card is the complete approval scope: path, action, personalized
 content, and purpose, without dumping unchanged boilerplate.
@@ -144,14 +149,17 @@ combination, keep domains separate only when separation improves clarity.
 
 Ask whether the proposal represents the user. Offer:
 
-1. **Prepare it this way** — approve exactly the displayed writes and structure.
+1. **Prepare it this way** — approve the displayed writes, structure, and local
+   restore-point outcome.
 2. **Start lighter** — reduce it to the minimum useful workspace.
 3. **Change something** — collect one correction, update the proposal, and ask
    again with only **Prepare it this way** and **Another change**.
 
-Approval covers only the displayed personal writes and folders. It does not
-authorize Git installation, Git mutation, remote access, authentication, or
-push.
+The approved card authorizes the local restore-point outcome for a verified
+fresh Lite package. It does not authorize software installation, changes to an
+existing repository, remote access, authentication, or push. Keep Git commands,
+configuration, and inventory out of this personal journey; the technical
+reference owns them.
 
 ## First trial
 

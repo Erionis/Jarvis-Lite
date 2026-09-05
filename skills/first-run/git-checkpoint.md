@@ -1,186 +1,200 @@
-# Local Git checkpoint
+# Local restore point
 
-Use this reference only after personal setup has verified, including a Git-only
-resume where personal onboarding was already completed. Git is optional. The
-checkpoint is a local recovery point, not a remote backup. Never create a
-remote, authenticate with GitHub, or push.
+Use this reference only after personal setup has verified, including a
+Git-only resume where personal onboarding was already completed. Git provides
+the local history, but the normal user-facing term is **local restore point**.
+It is not a remote backup. Never create a remote, authenticate with GitHub, or
+push.
 
-## Record a pending result
+## Authorization model
 
-Whenever this reference requires a pending result, resolve the marker state in
-the local profile before writing:
+The approved setup card authorizes the local restore-point outcome only for a
+verified fresh Lite package. In that branch, configuration, initialization,
+staging, and the first local commit need no separate checkpoint or
+baseline-inventory approval.
 
-- If exactly one `<!-- jarvis:git-pending -->` marker already exists, preserve
-  it without another write or approval.
-- If it is absent and checkpoint acceptance has not already approved it, show
-  the exact local-profile path and the one-line marker addition, then ask for
-  explicit marker-only approval before writing it. Marker-only approval
-  authorizes no Git installation or mutation.
-- If the user declines, leave the local profile unchanged, state that the
-  checkpoint is deferred without automatic marker-based resume, and permit
-  ordinary Jarvis work.
-- If more than one marker exists, report the exact count and require explicit
-  recovery approval before reducing it to one. Perform no Git mutation first.
+Software installation changes the host and always needs its own explicit
+approval. An existing repository or unexpected content is outside the fresh
+package authorization and follows the conservative branches below.
 
-Explicit checkpoint acceptance under Approve the mutation scope already covers
-the displayed marker addition; do not ask twice. Every instruction below to
-retain, add, or restore Git-pending follows this section. Removing Git-pending
-after a successful checkpoint is governed by the explicitly accepted checkpoint
-scope.
+## Keep pending state internal
+
+The approved local restore-point outcome covers adding or retaining exactly one
+`<!-- jarvis:git-pending -->` marker in the resolved local profile. Do not ask
+for marker-only approval. Preserve every non-marker line.
+
+- During an approved first run, add the marker before the first Git mutation.
+- On a Git-only resume, preserve the existing single marker without reopening
+  the personal interview.
+- Failure or deferral retains or restores exactly one
+  `<!-- jarvis:git-pending -->` marker.
+- A successful commit contains no Git-pending marker and leaves no marker-only
+  worktree change.
+- More than one marker is ambiguous recovery state. Report the exact count and
+  request recovery approval before reducing it; make no Git mutation first.
+
+The marker is implementation state. In the normal journey, report only whether
+local protection is ready or still pending.
 
 ## If Git is missing
 
 `git --version`: exit 0 means Git is available; command-not-found means Git is
-missing. Any other execution error enters Git failure recovery. Missing Git
-never blocks personal onboarding or ordinary Jarvis work.
+missing. Any other execution error enters failure recovery. Missing Git never
+blocks personal onboarding or ordinary Jarvis work.
 
-After verified personal setup, explain the detected platform and show exactly
-one matching installation command from the official Git guidance:
+After personal setup verifies, Name Git and explain it before asking for an
+installation decision. The explanation says that Git is a widely used open
+source tool that keeps a local history of file changes; it will come from an
+official source, creates no account, and does not publish or send the user's
+documents online. Name any broader system package before approval. Use the
+user's language and ask one plain-language question.
 
-- macOS: `xcode-select --install` — https://git-scm.com/install/mac
+Use this shape:
+
+> To create local restore points I need Git, a widely used open source tool
+> that keeps a history of changes to your files. I will install it from an
+> official source. It creates no account and does not publish or send your
+> documents online. May I install it?
+
+Select one verified platform path:
+
+- macOS: `xcode-select --install` — https://git-scm.com/install/mac. State
+  before approval that Apple's official route installs **Apple Command Line
+  Tools**, a broader developer-tool package that includes Git.
 - Windows with WinGet: `winget install --id Git.Git -e --source winget` —
-  https://git-scm.com/install/windows
+  https://git-scm.com/install/windows.
 - Debian or Ubuntu: `sudo apt-get install git` —
-  https://git-scm.com/install/linux
-- Fedora: `sudo dnf install git` — https://git-scm.com/install/linux
-- Arch Linux: `sudo pacman -S git` — https://git-scm.com/install/linux
-- openSUSE: `sudo zypper install git` — https://git-scm.com/install/linux
-- Alpine: `sudo apk add git` — https://git-scm.com/install/linux
+  https://git-scm.com/install/linux.
+- Fedora: `sudo dnf install git` — https://git-scm.com/install/linux.
+- Arch Linux: `sudo pacman -S git` — https://git-scm.com/install/linux.
+- openSUSE: `sudo zypper install git` — https://git-scm.com/install/linux.
+- Alpine: `sudo apk add git` — https://git-scm.com/install/linux.
 
-Before showing the Windows command, run `winget --version` as a read-only
-check. If WinGet is unavailable, show only the official Windows installation
-guide and do not invent another command. For Linux, resolve `/etc/os-release`
-and verify that the matching package-manager command exists with a read-only
-command lookup. If the detected package manager does not match the
-distribution, show only the official Linux installation guide. On macOS,
-verify that `xcode-select` exists before displaying its command; otherwise show
-only the official macOS guide.
+Before the question, verify the candidate without changing the system:
 
-Ask for explicit installation approval before executing it. Installation
-approval does not authorize any Git mutation. If installation is declined,
-fails, or cannot run in the current environment, retain or add exactly one
-`<!-- jarvis:git-pending -->` marker in the resolved local profile, report the
-exact command and result, and continue normally. Re-run `git --version` after
-the installer returns. Only a successful availability check may continue to
-checkpoint inspection.
+- On Windows run `winget --version`; without WinGet use only the official
+  Windows guide.
+- On Linux resolve `/etc/os-release` and confirm that the matching package
+  manager command exists; otherwise use only the official Linux guide.
+- On macOS confirm that `xcode-select` exists; otherwise use only the official
+  macOS guide.
 
-When an installer continues in a system dialog or another interactive process,
-wait for the user to confirm that installation finished before re-running the
-availability check.
+Ask for explicit installation approval without displaying the raw command by
+default. Offer technical details on request. After approval, attempt the
+verified official command yourself. Installation approval authorizes only that
+displayed software or system package; the approved setup card separately owns
+the verified-fresh restore point.
 
-For an unsupported or ambiguous platform, show https://git-scm.com/install/
-and do not guess a command. Declining installation does not block personal
-setup. If the user intentionally defers Git, treat it as a deferred checkpoint.
+If a password, system dialog, or runtime boundary prevents direct completion,
+guide the user one step at a time and wait for confirmation. Re-run
+`git --version` after the installer returns or the user confirms completion.
+Only an exit-0 availability check continues to repository inspection.
 
-## Inspect checkpoint state
+If installation is declined, fails, or is unsupported, keep one pending marker
+and continue normally. Say that the workspace is ready but local restore points
+are not active yet. Put the exact command, error, and technical state behind an
+offer to show details rather than leading with them.
 
-Once Git is available, perform these read-only checks before requesting any Git
-mutation:
+## Inspect repository state
 
-- `git rev-parse --is-inside-work-tree`: exit 0 with output `true` means an
-  existing worktree. Only exit 128 with an explicit not-a-repository error is
-  the expected missing-repository state; only the expected not-a-repository
-  result may lead to `git init -b main`.
+Once Git is available, run these read-only checks:
+
+- `git rev-parse --is-inside-work-tree`: exit 0 with `true` means an existing
+  worktree. Only exit 128 with an explicit not-a-repository error is the
+  expected missing-repository state.
 - `git config --get user.name`, `git config --get user.email`, and
-  `git config --get core.hooksPath`: exit 0 with nonempty output means
-  configured. Exit 1 with empty output and no error is the expected
-  missing-value state. Any other result enters Git failure recovery.
-- In an existing repository, run `git diff --cached --name-only`. Exit 0
-  provides the complete staged-path list, including an empty list. Any nonzero
-  result enters Git failure recovery.
+  `git config --get core.hooksPath`: exit 0 with a nonempty value means
+  configured. Exit 1 with empty output and no error means missing. Any other
+  result enters failure recovery.
+- In an existing repository, `git diff --cached --name-only` returns the full
+  staged path set. Any nonzero result enters failure recovery.
 
-If the initial staged-path output contains any entry, display every staged
-path, do not alter the index, do not stage, and do not commit. Retain or add
-exactly one `<!-- jarvis:git-pending -->` marker in the resolved local profile
-without staging it, defer the checkpoint, and permit normal Jarvis work.
+Never recreate or replace an existing repository.
 
-## Approve the mutation scope
+## Verify a fresh Lite package
 
-Offer the local checkpoint and wait for explicit acceptance before any Git
-mutation: `git init -b main`, author configuration, hook-path configuration,
-staging, or commit. Include local hook-path configuration in the displayed
-checkpoint scope.
+Use this branch only for the expected not-a-repository state. Before `git init`,
+verify all of the following:
 
-Reuse an existing nonempty repository-local or inherited author name and
-email. For an expected missing name, set only the missing repository-local
-author name to the confirmed Identity name with `git config --local user.name`.
-On a Git-only resume where no confirmed name is available, ask one narrow Git
-author-name question without reopening personal onboarding. For an expected
-missing email, set only the missing repository-local email to
-`jarvis@vault.local` with `git config --local user.email`. Display these exact
-local values before requesting checkpoint approval.
+1. The installed release manifest and `.jarvis-update/state.json` form a
+   coherent Jarvis Lite release manifest and seed state: product, release,
+   source commit, contract revision, manifest hash, and managed baseline agree.
+2. The manifest's `package_paths` is a sorted, duplicate-free list of safe
+   relative regular-file paths and includes both metadata files.
+3. Build the actual regular-file inventory below the workspace, excluding only
+   `.git` and harmless operating-system metadata already excluded by the
+   shipped `.gitignore`.
+4. Every actual path is in the shipped package paths plus the literal personal
+   paths approved during onboarding. Approved directory creation contributes
+   only its displayed README or template paths; it is not a wildcard.
 
-Explicit checkpoint acceptance authorizes adding or retaining exactly one
-`<!-- jarvis:git-pending -->` marker before the first Git mutation and the
-displayed `git status --short` inventory. The approved scope therefore already
-includes that marker. Preserve every non-marker local-profile line. A declined
-or deferred checkpoint performs no Git mutation, retains or adds the marker,
-and permits normal work.
+If any identity check fails or an unexpected path exists, do not run
+`git init`, configure Git, stage, or commit. Preserve all content. Explain in
+plain language that files outside the new Jarvis setup need review before they
+can enter the restore point, and offer technical inventory only on request.
+Ordinary Jarvis work may continue.
 
-## Initialize and configure
+## Create the verified fresh restore point
 
-- For only the expected not-a-repository state, run `git init -b main`. Never
-  recreate or replace an existing repository.
-- Apply only the missing repository-local author values displayed in the
-  approved scope.
-- If `.githooks/pre-commit` exists and hooksPath is missing, run
-  `git config --local core.hooksPath .githooks`. Reuse `.githooks` when it is
-  already configured. If another nonempty hook path is configured, preserve it
-  and do not overwrite custom Git configuration. Report that the Lite
-  large-file guard was not activated. If the shipped hook is missing, do not
-  configure a nonexistent path.
+Only this verified fresh-package branch may use `git add -A` automatically.
+The setup-card approval is already sufficient; do not expose author values,
+hook configuration, status output, or another Git choice in the normal journey.
 
-## Approve and stage exact content
+1. Ensure exactly one Git-pending marker, then run `git init -b main`.
+2. Reuse an existing nonempty repository-local or inherited author name and
+   email. Set only a missing local name to the confirmed Identity name. Set
+   only a missing local email to `jarvis@vault.local`.
+3. If `.githooks/pre-commit` exists and hooksPath is missing, run
+   `git config --local core.hooksPath .githooks`. Reuse `.githooks` when already
+   configured. Preserve any other nonempty custom hook path and report, in plain
+   language, that the Lite large-file guard was not activated.
+4. Run `git status --short` internally and confirm every candidate path remains
+   within the verified union. Run `git add -A` only after that check.
+5. Run `git diff --cached --name-only` and verify the staged set is nonempty
+   and contains nothing outside the same union. A mismatch enters failure
+   recovery without unstaging.
+6. Remove the Git-pending marker, re-stage only the local profile, repeat the
+   staged-path check, and run `git diff --cached --quiet`: exit 1 authorizes the
+   commit; exit 0 means there is nothing to save; every other exit enters
+   failure recovery.
+7. Commit with `git commit -m "chore: initialize my Jarvis"`.
 
-For a freshly initialized Jarvis directory, run `git status --short`, display
-the complete inventory, and require the user to explicitly approve the
-displayed full baseline. Only that fresh baseline approval authorizes
-`git add -A`. Withheld or declined baseline approval means no `git add -A` and
-no commit; retain Git-pending and continue normal work.
+## Existing repository
 
-In an existing repository, do not use `git add -A`; stage only explicitly
-approved onboarding sources or defer checkpointing. Before any onboarding
-staging or commit in an existing repository, run
-`git diff --cached --name-only`. Only when the initial staged-path output is
-empty may you stage the exact explicitly approved onboarding source paths.
-Display `git status --short`, obtain approval for a literal path list, and use
-only `git add -- <approved-path>...`. Because marker mutation is in the
-checkpoint scope, the local profile must appear explicitly in that path list
-whenever its marker changes.
+The setup-card approval does not authorize changes to an existing repository.
+Never use `git add -A` in this branch.
 
-After staging, run `git diff --cached --name-only` again and verify that it
-contains no path outside the explicitly approved onboarding source paths.
-Repeat this staged-path comparison after re-staging the local profile and
-before commit. A mismatch means: do not automatically unstage or commit;
-preserve the index and enter Git failure recovery.
+If the initial staged-path set is nonempty, leave the index byte-for-byte
+unchanged, stage and commit nothing, retain the pending marker, and defer the
+restore point. Say in plain language that another save operation is already in
+progress and was left untouched. Show raw Git state only on request.
 
-## Commit only a verified checkpoint
+With an empty initial index, continue only when the worktree changes consist of
+literal approved onboarding paths. Present those paths as the files Jarvis can
+include in a local restore point and request one explicit approval. After
+approval, use `git add -- <approved-path>...`, verify that the staged set equals
+the approved literal set, remove the pending marker, re-stage the local profile
+when it is in that set, verify again, and commit only a nonempty matching diff.
+Any unrelated or mismatched path defers the restore point without index cleanup.
 
-Stage the approved scope while Git-pending remains exactly once, then run
-`git diff --cached --quiet`: exit 0 means empty; exit 1 means changes. Any other
-exit code enters Git failure recovery. If the staged diff is empty, retain
-Git-pending, report that no checkpoint was made, and continue normal work.
+## Verify success
 
-For a nonempty approved diff, remove the Git-pending marker before staging the
-local profile again. This ensures the successful checkpoint contains the clean
-profile state and leaves no marker-removal change afterward. Then remove the
-Git-pending marker, re-stage the local profile, recheck, then commit. Only a
-nonempty rechecked staged diff authorizes
-`git commit -m "chore: initialize my Jarvis"`. Decline, an empty staged diff,
-or any Git failure retains or restores exactly one Git-pending marker.
+After a commit, run `git status --short`. Empty output is evidence of a clean
+restore point. Report simply that the local restore point is ready. Offer the
+commit and status details only when requested.
 
-After a successful commit, run and display `git status --short`. Only empty
-output is evidence of a clean checkpoint. Otherwise report the exact remaining
-state, make no automatic cleanup or extra commit, do not claim a clean
-checkpoint, and require explicit approval before any recovery. If this status
-command errors, enter Git failure recovery.
+Nonempty output or a status error means the restore point is not clean. Report
+the affected paths in plain language, make no automatic cleanup or extra
+commit, and require explicit approval before recovery.
 
-## Git failure recovery
+## Failure recovery
 
-Report the exact failed command or staged-path mismatch and preserve completed
-personal setup. Immediately run and display `git status --short`. Preserve the
-existing index; never blindly unstage, and stop further Git mutations. Restore
-or retain `<!-- jarvis:git-pending -->` in the resolved local profile without
-staging it. If that changes the worktree, display status again. Explain the
-exact staged and unstaged state and offer only an explicit user-approved
-recovery step. Normal Jarvis work may continue.
+Preserve completed personal setup. Stop further Git mutations, run
+`git status --short` when a repository now exists, and preserve the existing
+index; never blindly unstage. Failure or deferral retains or restores exactly
+one `<!-- jarvis:git-pending -->` marker without staging that recovery write.
+
+Tell the user first that local protection is pending and ordinary work can
+continue. Offer exact commands, staged and unstaged state, and one bounded
+recovery action as technical details. Never create a remote, authenticate, or
+push during recovery.
