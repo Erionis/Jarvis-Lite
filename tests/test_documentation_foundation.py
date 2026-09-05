@@ -52,6 +52,11 @@ class DocumentationFoundationTest(unittest.TestCase):
                 "../skills/",
                 "../.github/workflows/ci.yml",
             },
+            "docs/updates.md": {
+                "../README.md",
+                "../skills/adopt-capability/SKILL.md",
+                "../skills/jarvis-update/SKILL.md",
+            },
         }
 
         for relative_document, expected_targets in documents.items():
