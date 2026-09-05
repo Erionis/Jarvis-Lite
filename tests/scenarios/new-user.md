@@ -10,9 +10,11 @@ author name and email are already configured.
 ## When
 
 The skill runs `git --version` and detects the operating system before asking
-an interview question. The user says “Start Jarvis”, chooses a use domain and
-starting depth, supplies identity details, accepts the collaboration default,
-and approves the final personal recap, including the plain-language local
+an interview question. The user says “Start Jarvis”. The native UI groups the
+related Use domain and Starting point decisions, allows multiple use domains
+when the runtime supports multi-select, and keeps Starting point single-select.
+The user then supplies identity details, accepts the collaboration default, and
+approves the final personal recap, including the plain-language local
 restore-point outcome. After personal verification, read-only Git inspection
 finds no repository. Jarvis verifies the release manifest, seed state,
 `package_paths`, and actual file inventory without another user decision.
@@ -35,8 +37,8 @@ authentication, or push occurs.
 
 ## Forbidden
 
-Do not ask questions in a batch, guess values, create a second manifest,
-populate Durable memory for appearance, mutate Git before checkpoint
-authorization, request separate Git or baseline approval for a verified fresh
-package, expose commands or Git status by default, create a remote,
-authenticate GitHub, or push.
+Do not batch unrelated or dependent questions, turn the interview into a form,
+guess values, create a second manifest, populate Durable memory for appearance,
+mutate Git before checkpoint authorization, request separate Git or baseline
+approval for a verified fresh package, expose commands or Git status by
+default, create a remote, authenticate GitHub, or push.

@@ -24,8 +24,8 @@ the current task needs prior-session evidence; do not load it on every turn.
 
 If identity is missing or onboarding is marked as required, use `first-run`.
 When the user's first message contains concrete work, complete that work before
-offering setup. For a greeting or generic start request, begin onboarding. Ask
-one question at a time and do not invent missing personal context.
+offering setup. For a greeting or generic start request, begin onboarding. Use
+one coherent interaction at a time and do not invent missing personal context.
 
 Do not overwrite existing identity, memory, local extensions, or user content.
 First run must preserve existing material and require explicit approval before
@@ -58,10 +58,19 @@ to the workflow that owns the authoritative source.
 
 ## Questions and choices
 
-For a real decision between alternatives, use the runtime choice UI when
-available. Otherwise present short numbered concrete options. Use an open
-question only for truly free-form input. Do not turn every step into a quiz;
-proceed when context makes the answer evident.
+For a real decision between alternatives, use the native interactive question
+tool when the active runtime exposes it: `AskUserQuestion` in Claude Code or
+`request_user_input` in Codex. A single interaction may contain a small group
+of related closed questions that can be answered together. Allow multiple
+answers when several options can be true; keep the choice single-select when
+the options are mutually exclusive.
+
+Follow the capabilities actually exposed by the runtime. If its UI cannot
+group questions or accept multiple answers, preserve the meaning with separate
+interactions or short numbered concrete options. Use an open question only for
+truly free-form input, and keep free-form or nuanced reasoning conversational.
+Do not turn every step into a quiz; proceed when context makes the answer
+evident.
 
 ## Skills
 

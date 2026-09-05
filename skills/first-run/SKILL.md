@@ -45,8 +45,10 @@ exists, do not replace it.
 
 ## Personal interview
 
-Read and follow [interview.md](interview.md) for the full visible journey. Ask
-one question at a time and present one decision at a time. Use only direct
+Read and follow [interview.md](interview.md) for the full visible journey. Use
+one coherent interaction at a time: one free-form question, one decision, or a
+small group of related closed questions that can be answered together. Keep
+dependent questions separate until their context exists. Use only direct
 answers or explicitly confirmed choices; never infer personal facts from vague
 signals, free-form memory, or unrelated notes.
 

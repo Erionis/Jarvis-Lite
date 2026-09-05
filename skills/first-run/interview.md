@@ -3,10 +3,21 @@
 This reference defines the user-facing journey. `SKILL.md` owns preflight,
 filesystem writes, verification, markers, Git, and recovery.
 
-Use the runtime's choice UI when it has one. Otherwise show short numbered
-choices. Present one question or decision at a time. The recommended path uses
-four decision moments and no more than two free-form answers. A progressive
-path is a complete onboarding result, not an unfinished questionnaire.
+Use the native interactive question tool when the active runtime exposes it:
+`AskUserQuestion` in Claude Code or `request_user_input` in Codex. Otherwise
+show short numbered choices. Follow actual capabilities rather than assuming
+them from the runtime name. If the native UI cannot group questions, split the
+interaction without changing its meaning. If it cannot select multiple
+answers, use the single-select or numbered fallback defined below.
+
+Work through one coherent interaction at a time. It may contain one free-form
+question, one decision, or a small group of related closed questions that can
+be answered together. Allow multiple answers when several choices can be true.
+Keep mutually exclusive choices single-select. Keep free-form or nuanced
+reasoning conversational: the interactive UI supports the dialogue instead of
+turning it into a form. The recommended path still covers four decision
+moments, but it does not impose a fixed number of turns. A progressive path is
+a complete onboarding result, not an unfinished questionnaire.
 
 Use the user's evident language. If it is genuinely unclear, ask for the
 preferred language before the identity moment. Before the approval card, keep
@@ -14,19 +25,29 @@ Soul, memory, skills, frontmatter, and Git out of the personal interview.
 
 Use one visible-response shape throughout the personal interview. It contains
 only a short user-relevant orientation or factual reflection, followed by the
-single current question or decision. Keep runtime process, skill selection,
-preflight, marker, and no-write status out of the personal journey.
+current coherent question or decision group. Keep runtime process, skill
+selection, preflight, marker, and no-write status out of the personal journey.
 
 ## Opening
 
 Explain that Jarvis needs four things to prepare the workspace: where it will
 be used, who the user is, where to start, and how to collaborate. Say that the
-setup can stay light. The first user-facing response combines this opening with
-the Use domain question below so setup begins with one useful decision.
+setup can stay light. The first user-facing interaction combines this opening
+with Use domain and Starting point only when the runtime can group related
+questions. These two closed decisions are independent and can be answered
+together. Otherwise combine the opening with Use domain and ask Starting point
+next. Do not group a dependent question before its context exists; Identity,
+context detail, Collaboration, and recap approval remain later interactions.
 
 ## Use domain
 
-Ask where the user mainly wants to use Jarvis. Offer these choices:
+Ask where the user wants to use Jarvis. When multi-select is available, offer
+Work, Study, and Personal life and let the user select one or more. In a text
+fallback, invite one or more numbered choices. When the UI is single-select but
+has a free-form **Other** option, offer the three named domains and tell the
+user to use **Other** to name the combination. If neither multi-select nor a
+free-form **Other** option is available, use the numbered fallback rather than
+forcing a mixed answer into one domain.
 
 ### Work
 
@@ -44,8 +65,41 @@ Personal goals, projects, and organization.
 
 Keep domains separate when that makes the workspace clearer.
 
-Do not request a detailed motivation. This decision exists to shape the next
-question and prevent work-only assumptions.
+This is the semantic branch reached by multiple selected domains, a named
+combination in **Other**, or several numbered answers. Do not request a detailed
+motivation. This decision exists to shape the later Identity question and
+prevent work-only assumptions.
+
+## Starting point
+
+Ask how much context the user wants to provide now. This is mutually exclusive:
+keep it single-select even when the domain question accepts multiple answers.
+When the runtime supports grouped related questions, collect this selection in
+the opening interaction with Use domain. Otherwise collect it immediately
+after Use domain. Do not ask for the detailed context until after Identity.
+
+### Current priorities
+
+Mark this as recommended. After Identity, ask for one to three things that need
+attention over the next few weeks, including current state and next step when
+known. In the same answer, the user may name an existing source that Jarvis
+should not duplicate, such as a calendar, task manager, mailbox, or repository.
+
+Do not interrogate each item. Missing dates, people, and tools can emerge while
+working.
+
+### Full map
+
+After Identity, ask for the main areas, continuing initiatives, recurring
+commitments, and authoritative sources as if the user were briefing a new
+collaborator. Allow one follow-up only when missing information would materially
+change the visible structure proposal.
+
+### Learn while working
+
+After Identity, ask no more context questions. Confirm that Jarvis will prepare
+the essential workspace and learn naturally during real work. Never present the
+skipped map as setup debt.
 
 ## Identity
 
@@ -62,33 +116,6 @@ Do not split name, role, organization, and responsibility into separate turns.
 Use at most one clarification, and only when the name or minimum stable context
 cannot be determined. Reflect the answer back in one factual sentence without
 adding inferred biography.
-
-## Starting point
-
-Ask how much context the user wants to provide now. Offer these choices:
-
-### Current priorities
-
-Mark this as recommended. Ask for one to three things that need attention over
-the next few weeks, including current state and next step when known. In the
-same answer, the user may name an existing source that Jarvis should not
-duplicate, such as a calendar, task manager, mailbox, or repository.
-
-Do not interrogate each item. Missing dates, people, and tools can emerge while
-working.
-
-### Full map
-
-Ask for the main areas, continuing initiatives, recurring commitments, and
-authoritative sources as if the user were briefing a new collaborator. Allow
-one follow-up only when missing information would materially change the visible
-structure proposal.
-
-### Learn while working
-
-Ask no more context questions. Confirm that Jarvis will prepare the essential
-workspace and learn naturally during real work. Never present the skipped map
-as setup debt.
 
 ## Collaboration
 

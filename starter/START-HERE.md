@@ -6,6 +6,10 @@
    AI agent.
 3. Say `Start Jarvis` in your language.
 
+When available, Jarvis uses the agent application's interactive questions. It
+may group two independent setup choices and let you select several use domains;
+identity and anything nuanced stay in normal conversation.
+
 First run checks for Git automatically. For a verified fresh Lite package, the
 setup recap includes a local restore point; no second technical choice is
 needed. If Git is missing, Jarvis names it as the widely used open source tool

@@ -135,6 +135,21 @@ class StarterContractTest(unittest.TestCase):
         self.assertIn("Italian", rendered)
         self.assertNotIn("Main focus", rendered)
 
+    def test_soul_treats_interactive_questions_as_a_dialogue_tool(self):
+        template = " ".join(
+            self.read("99 - Jarvis/system/soul-template.md").split()
+        )
+        for phrase in [
+            "interactive questions as part of the dialogue",
+            "group related questions",
+            "allow multiple answers when several options can be true",
+            "nuanced reasoning open and conversational",
+            "helps the conversation rather than turning it into a form",
+        ]:
+            self.assertIn(phrase, template)
+        self.assertNotIn("AskUserQuestion", template)
+        self.assertNotIn("request_user_input", template)
+
     def test_core_assigns_stable_context_to_profile_and_nonduplicated_knowledge_to_memory(self):
         contract = self.read("99 - Jarvis/system/core-instructions.md")
         self.assertIn("stable local context in `CLAUDE.md`", contract)
@@ -162,20 +177,25 @@ class StarterContractTest(unittest.TestCase):
         for phrase in [
             "Read `CLAUDE.md`",
             MARKER,
-            "one question at a time",
+            "one coherent interaction at a time",
             "Do not overwrite",
         ]:
             self.assertIn(phrase, contract)
 
-    def test_canonical_contract_owns_runtime_neutral_choice_ux(self):
+    def test_canonical_contract_owns_capability_based_choice_ux(self):
         contract = " ".join(
             self.read("99 - Jarvis/system/core-instructions.md").split()
         )
         for phrase in [
             "real decision between alternatives",
-            "runtime choice UI when available",
+            "`AskUserQuestion` in Claude Code",
+            "`request_user_input` in Codex",
+            "small group of related closed questions",
+            "multiple answers when several options can be true",
+            "single-select when the options are mutually exclusive",
             "short numbered concrete options",
             "truly free-form input",
+            "nuanced reasoning conversational",
             "Do not turn every step into a quiz",
             "proceed when context makes the answer evident",
         ]:

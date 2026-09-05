@@ -3,7 +3,9 @@
 ## Purpose
 
 Creates the smallest safe personal starting point for a new Jarvis and records
-a local restore point when the Lite package can be verified as fresh.
+a local restore point when the Lite package can be verified as fresh. Native
+interactive questions may group related closed choices and accept multiple use
+domains; free-form and nuanced context stays conversational.
 
 ## Use it when
 

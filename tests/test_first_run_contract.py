@@ -45,8 +45,8 @@ class FirstRunContractTest(unittest.TestCase):
             [
                 "Opening",
                 "Use domain",
-                "Identity",
                 "Starting point",
+                "Identity",
                 "Collaboration",
                 "Recap and structure approval",
                 "First trial",
@@ -67,18 +67,49 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(f"### {branch}", text)
 
-    def test_interview_keeps_the_recommended_path_bounded(self):
+    def test_interview_uses_coherent_interactions_without_a_rigid_question_limit(self):
         text = " ".join(self.read_interview().split())
         self.assertIn("four decision moments", text)
-        self.assertIn("no more than two free-form answers", text)
-        self.assertIn("one question or decision at a time", text)
+        for phrase in [
+            "one coherent interaction at a time",
+            "small group of related closed questions",
+            "Allow multiple answers when several choices can be true",
+            "Keep mutually exclusive choices single-select",
+            "Keep free-form or nuanced reasoning conversational",
+        ]:
+            self.assertIn(phrase, text)
+        self.assertNotIn("one question or decision at a time", text)
 
-    def test_opening_and_domain_are_one_user_facing_turn(self):
+    def test_opening_groups_only_the_independent_setup_choices(self):
         text = " ".join(self.read_interview().split())
         for phrase in [
-            "The first user-facing response combines this opening with the Use domain question",
+            "The first user-facing interaction combines this opening with Use domain and Starting point",
+            "only when the runtime can group related questions",
             "contains only a short user-relevant orientation or factual reflection",
-            "followed by the single current question or decision",
+            "followed by the current coherent question or decision group",
+            "Do not group a dependent question before its context exists",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_interview_maps_native_question_tools_and_capability_fallbacks(self):
+        text = " ".join(self.read_interview().split())
+        for phrase in [
+            "`AskUserQuestion` in Claude Code",
+            "`request_user_input` in Codex",
+            "when the active runtime exposes it",
+            "If the native UI cannot group questions",
+            "If it cannot select multiple answers",
+            "short numbered choices",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_use_domain_preserves_combinations_with_single_select_runtimes(self):
+        text = " ".join(self.read_interview().split())
+        for phrase in [
+            "let the user select one or more",
+            "free-form **Other** option",
+            "use **Other** to name the combination",
+            "If neither multi-select nor a free-form **Other** option is available",
         ]:
             self.assertIn(phrase, text)
 
@@ -241,9 +272,9 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, staged)
 
-    def test_one_question_and_idempotency_rules_are_explicit(self):
+    def test_coherent_interaction_and_idempotency_rules_are_explicit(self):
         for phrase in [
-            "Ask one question at a time",
+            "Use one coherent interaction at a time",
             "Treat semantic equivalents of `Start Jarvis` in any language as the same trigger",
             "For the default starter, if `99 - Jarvis/memory/soul.md` already exists, do not replace it",
             "Remove `<!-- jarvis:onboarding-required -->` only after",
@@ -251,6 +282,22 @@ class FirstRunContractTest(unittest.TestCase):
             "render the complete Soul template in the confirmed language",
         ]:
             self.assertIn(phrase, self.contract_flat)
+
+    def test_journey_scenarios_allow_related_grouping_but_forbid_form_like_batches(self):
+        new_user = " ".join(self.read_scenario("new-user.md").split())
+        progressive = " ".join(self.read_scenario("progressive-user.md").split())
+        for phrase in [
+            "groups the related Use domain and Starting point decisions",
+            "allows multiple use domains when the runtime supports multi-select",
+            "Do not batch unrelated or dependent questions",
+        ]:
+            self.assertIn(phrase, new_user)
+        for phrase in [
+            "one coherent interaction",
+            "a small related decision group when useful",
+            "does not turn the conversation into a form",
+        ]:
+            self.assertIn(phrase, progressive)
 
     def test_git_and_os_detection_are_automatic_read_only_preflight(self):
         text = " ".join(self.text.split())

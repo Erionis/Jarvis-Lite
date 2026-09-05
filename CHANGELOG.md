@@ -11,6 +11,11 @@ This project uses Semantic Versioning.
   one authoritative home per fact, verified resume, a contract-declared Soul
   seed, a detailed Soul, a compact approval recap, and Git details loaded only
   after personal setup.
+- Made first-run questions capability-aware: Claude Code and Codex use their
+  native interactive controls when exposed, related closed decisions may be
+  grouped, compatible domains may be multi-select, and nuanced reasoning stays
+  conversational. The Soul template now treats those controls as dialogue
+  tools rather than a form.
 - Added automatic Git and platform preflight, informed approval before any
   system installation, and an automatic local restore point for a verified
   fresh package using shipped-path evidence. Pending state stays internal;

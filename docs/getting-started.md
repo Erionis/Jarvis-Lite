@@ -70,13 +70,21 @@ Jarvis-Lite/
 
 ## Say `Start Jarvis`
 
-Use your preferred language. First run presents four visible decisions, one at
-a time:
+Use your preferred language. First run presents four visible decisions in a
+small number of coherent interactions. When the active runtime supports it,
+the first interactive control can collect the two independent setup choices —
+Use domain and Starting point — together. Use domain accepts more than one
+answer; Starting point remains a single choice. A text fallback preserves the
+same meaning when those controls are unavailable.
 
 1. **Use domain** — work, study, personal life, or a combination.
-2. **Identity** — the small amount of explicit context needed to collaborate.
-3. **Starting point** — Current priorities (recommended), Full map, or Learn while working.
+2. **Starting point** — Current priorities (recommended), Full map, or Learn while working.
+3. **Identity** — the small amount of explicit context needed to collaborate.
 4. **Collaboration style** — use the default or state concrete differences.
+
+Identity, context that needs explanation, and nuanced decisions stay in normal
+conversation. The interactive controls help the dialogue; they do not turn
+onboarding into a form.
 
 Jarvis shows the exact personal files, folders, and templates it proposes
 before any personalized write. Review that recap and approve it, revise it, or
