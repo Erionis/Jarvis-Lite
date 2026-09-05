@@ -42,6 +42,10 @@ After approval, Jarvis creates scoped recovery, applies only the displayed
 plan, and runs focused verification. A general Doctor audit is not part of the
 update.
 
+The final report names the effective version and whether changes were updated,
+kept as overrides, postponed, blocked, or rolled back, with scoped recovery
+information when relevant.
+
 ## Older Lite without `jarvis-update`
 
 Use this path only with an official immutable Lite artifact:

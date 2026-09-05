@@ -75,7 +75,7 @@ a time:
 
 1. **Use domain** — work, study, personal life, or a combination.
 2. **Identity** — the small amount of explicit context needed to collaborate.
-3. **Starting depth** — progressive or a fuller initial map.
+3. **Starting point** — Current priorities (recommended), Full map, or Learn while working.
 4. **Collaboration style** — use the default or state concrete differences.
 
 Jarvis shows the exact personal files, folders, and templates it proposes
