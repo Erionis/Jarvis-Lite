@@ -2,69 +2,29 @@
 
 Easy to start. Yours to evolve.
 
-Jarvis Lite is a small, public, harness-agnostic starting point for a personal
-AI collaborator. It gives an agent a durable identity, memory, task radar,
-daily history, safe local Git checkpoints, and a focused set of reusable
-skills—all as readable Markdown.
+Jarvis Lite is a readable local-workspace foundation for a personal AI
+collaborator. It gives a compatible agent runtime durable identity, memory,
+current-work context, daily continuity, safe local checkpoints, and a small set
+of reusable skills—all as files you own.
 
-## Start in three steps
+## Is it for you?
 
-1. Download `Jarvis-Lite.zip` from the [latest release](https://github.com/Erionis/Jarvis-Lite/releases/latest).
-2. Extract the complete `Jarvis-Lite` folder, including the hidden `.claude`
-   and `.agents` directories.
-3. Open that folder in Codex, Claude Code, or OpenCode and say `Start Jarvis`.
+Jarvis Lite fits people who want a useful starting point without adopting a
+hosted knowledge system or a fixed way to organize projects. It can begin with
+almost no personal structure and evolve only from explicit needs.
 
-The first public release has not been published yet. Until it is available,
-use the source build below. First run uses four short decision moments and can
-start progressively or from a fuller map. It keeps identity, stable local
-context, current work, and durable memory in separate authoritative sources.
-It also checks Git and the operating system automatically, then offers optional
-platform-specific installation help and a separately approved local baseline.
-It never creates a remote or pushes automatically.
+It is not a standalone app, hosted service, sync or backup system, AI model, or
+universal project taxonomy. You use it through Codex, Claude Code, OpenCode, or
+another compatible agent runtime.
 
-## What is included
+## Try it safely
 
-The starter includes seven installed skills. Six use only the shared
-Markdown/filesystem contract; `jarvis-update` additionally uses the Python 3
-standard library for deterministic verification and recovery:
+The first public release has not been published yet. The source build is the
+currently verifiable path.
 
-- `briefing` — a grounded start-of-session view;
-- `first-run` — safe, conversational onboarding and an optional Git baseline;
-- `save-session` — a core Diary, future-work, handoff, and local-recovery
-  checkpoint followed by optional memory and workspace maintenance;
-- `handoff` — living continuity records that stay visible until work closes;
-- `jarvis-memory` — preview-first Identity and durable-memory curation;
-- `jarvis-doctor` — a read-only installation and contract audit;
-- `jarvis-update` — release-aware updates that preserve or negotiate local
-  customizations and always create scoped recovery before changing managed
-  files.
+### Build from source now
 
-Inbox organization is normal Jarvis work. It stays available without a
-separate command and can be offered after a successful session checkpoint.
-Raw files remain in Inbox until their destination is clear or approved; Lite
-does not impose a fixed project hierarchy.
-
-`adopt-capability` remains available in the source repository for people who
-already have a Jarvis and want to compare capabilities safely. `defuddle` and
-`playwright-cli` are under evaluation because they introduce external tools or
-provenance work; they are not bundled in the starter.
-
-## Runtime compatibility
-
-The release contains physical copies of the same installed skills in both
-runtime discovery locations:
-
-- `.agents/skills/` for Codex;
-- `.claude/skills/` for Claude Code;
-- both locations are understood by OpenCode.
-
-There are no symlinks, so the package survives normal ZIP extraction on macOS
-and Windows. The Jarvis behavior itself lives in
-`99 - Jarvis/system/core-instructions.md`; runtime files are thin adapters.
-
-## Build from source
-
-You need Git and Python 3. Clone the repository and assemble the user package:
+You need Git and Python 3:
 
 ```bash
 git clone https://github.com/Erionis/Jarvis-Lite.git
@@ -72,56 +32,104 @@ cd Jarvis-Lite
 python3 scripts/build_starter.py --output dist
 ```
 
-Open `dist/Jarvis-Lite/` in your agent. On Windows, run the same command with
-`py -3` if that is how Python is installed.
+Open `dist/Jarvis-Lite/` in your agent and say `Start Jarvis` in your language.
+On Windows, use `py -3` when that is the installed Python launcher.
 
-The repository's `skills/` directory is the canonical catalog. The builder
-copies only the installed allowlist into the release; generated mirrors are
-never edited by hand.
+### Release ZIP path
 
-## Updating Jarvis Lite
+When issue [#5](https://github.com/Erionis/Jarvis-Lite/issues/5) publishes the
+first release, the zero-terminal path will be:
 
-Say `/jarvis-update`. Jarvis shows the installed release identity, the newer
-official release, and its practical changes before asking for approval. A
-read-only preflight verifies the ZIP checksum and manifest, compares each
-managed component with its accepted baseline, and ignores unrelated workspace
-health.
+1. Download `Jarvis-Lite.zip` and its checksum from the official release.
+2. Verify the checksum and extract the complete folder, including hidden files.
+3. Open that folder in your agent and say `Start Jarvis`.
 
-The common path needs one confirmation. If a release overlaps a customized
-functional skill, Jarvis discusses one conflict at a time and lets you keep and
-adapt, replace, merge, or postpone it. Control-plane files such as the updater,
-Doctor, and system guardrails become canonical after their previous bytes are
-saved in recovery. Consumer-owned identity, memory, work, Diary, handoffs,
-Inbox, local extensions, and Git history are never release-managed.
+See [Get started with Jarvis Lite](docs/getting-started.md) for both acquisition
+paths, the exact staged workspace tree, and the four first-run decisions.
 
-The update records a scoped local recovery point, applies only the approved
-plan, and runs a focused verification without invoking Doctor. You can then ask
-to roll back that update. Rollback stops before mutation if an in-scope file
-has changed again since the update, so a newer local edit is not silently
-overwritten. If Python 3 is unavailable, updating is blocked with no consumer
-change; normal Jarvis work remains available.
+## What appears in the workspace
 
-For an older Lite without `jarvis-update`, download the official ZIP and
-checksum, verify and extract them outside the current workspace, then point
-your agent at the target artifact's `jarvis-update` skill. That first adoption
-establishes the managed baseline without replacing consumer-owned content. It
-proceeds only when the existing profile, Lite core marker, and both physical
-runtime mirrors identify a real Lite installation.
+```text
+Jarvis-Lite/
+├── 00 - Inbox/       material without a confirmed destination
+├── 01 - Diary/       curated daily history
+├── 99 - Jarvis/      memory, continuity, and system support
+├── CLAUDE.md         local context and capability map
+└── To Do.md          current and near-future work
+```
 
-## Already have a Jarvis?
+Runtime and update support also live in hidden package directories. First run
+adds Identity and Archive; optional domain folders appear only when explicitly
+approved. The [getting-started guide](docs/getting-started.md) shows the complete
+pre- and post-first-run shape.
 
-For a non-Lite Jarvis, point your agent at an immutable Jarvis Lite release or
-commit and ask it to compare capabilities semantically. Review the proposed `add`, `adapt`,
-`already present`, or `conflict` classification, then approve an exact patch
-only for the capabilities you want. Existing identity, memory, paths, local
-extensions, and Git history stay authoritative.
+## A day with Jarvis
 
-## Development
+| You say | Jarvis does | Local sources that may change |
+| --- | --- | --- |
+| `/briefing` | Reads declared evidence and recommends one grounded focus. | None; briefing is read-only. |
+| “Work on this decision note.” | Resolves and edits the task's authoritative source. | Only the named or confirmed task source. |
+| “Remember this preference.” | Classifies it, previews the exact change, and waits for approval. | None before confirmation; then only the approved Identity or Durable memory patch. |
+| `/save-session` | Records the result, future work, involved handoff, and available local checkpoint in the defined order. | Confirmed session sources and local Git history when available. |
+| `/handoff` | Creates or updates one living continuation record. | Only the selected handoff; listing remains read-only. |
+
+The [daily-use guide](docs/daily-use.md) explains the full start, work, close,
+handoff, and diagnostic journey.
+
+## Included and deliberately omitted
+
+The starter includes exactly seven installed skills:
+
+- `briefing` — grounded, read-only session orientation;
+- `first-run` — conversational onboarding and an optional local Git baseline;
+- `save-session` — Diary, future-work, handoff, and local-recovery closure;
+- `handoff` — living continuity across sessions;
+- `jarvis-memory` — preview-first Identity and durable-memory curation;
+- `jarvis-doctor` — a read-only contract and readiness audit;
+- `jarvis-update` — release-aware updates with scoped recovery.
+
+Inbox organization is normal Jarvis work and needs no separate skill. Lite does
+not install `ingest`, impose a fixed project hierarchy, or silently add optional
+extensions. `adopt-capability` remains repository-only for existing non-Lite
+Jarvis installations; the public [updates guide](docs/updates.md) explains that
+boundary. Optional extension references are neither installation nor trust
+decisions.
+
+## Local-first safety
+
+Identity, memory, work, history, handoffs, Inbox, local extensions, and Git
+history remain owned by the consumer workspace. Jarvis previews protected
+memory changes and asks before important, destructive, installation, or
+external actions. Updates create scoped recovery before changing managed files.
+
+A local Git checkpoint supports comparison and recovery; it is not a backup.
+Jarvis does not create a remote or push automatically. Local files do not imply
+local model inference: that depends on the runtime and model provider you use.
+
+## Compatibility and prerequisites
+
+The generated package contains physical copies of installed skills in
+`.agents/skills/` for Codex and `.claude/skills/` for Claude Code; OpenCode
+understands both locations. There are no symlinks, so ordinary ZIP extraction
+works across macOS and Windows.
+
+- Markdown/filesystem read and write access is the daily minimum.
+- The source builder and update helpers use the Python 3 standard library.
+- Git is required to acquire source and optional for consumer checkpoints.
+
+## Choose your path
+
+| You are | Continue with |
+| --- | --- |
+| New to Jarvis Lite | [Getting started](docs/getting-started.md) |
+| Using Lite day to day | [Daily use](docs/daily-use.md) |
+| Updating Lite or bringing a capability to another Jarvis | [Updates and adoption](docs/updates.md) |
+| Contributing | [Contribution workflow](CONTRIBUTING.md) |
+| Maintaining the repository or acting as a coding agent | [Architecture](docs/architecture.md) and [maintainer guide](AGENTS.md) |
+
+## Development, provenance, and license
 
 Changes follow issue → short-lived branch → pull request → CI → squash merge.
-See [CONTRIBUTING.md](CONTRIBUTING.md) for the complete public workflow and
-[docs/provenance.md](docs/provenance.md) for the reuse boundary.
-
-## License
-
-Jarvis Lite is released under the [MIT License](LICENSE).
+See [CONTRIBUTING.md](CONTRIBUTING.md) for the workflow,
+[provenance](docs/provenance.md) for the reuse boundary, and the
+[MIT License](LICENSE) for licensing terms.

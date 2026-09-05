@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import tempfile
 import unittest
 from pathlib import Path
@@ -9,6 +10,22 @@ from scripts.build_starter import INSTALLED_SKILLS, build_starter
 
 ROOT = Path(__file__).resolve().parents[1]
 CATALOG_ONLY = {"adopt-capability", "defuddle", "playwright-cli"}
+PRIVATE_PATTERNS = (
+    re.compile(r"/Users/[^/\s]+"),
+    re.compile(r"\b[A-Za-z0-9_-]+-Vault\b"),
+    re.compile(r"\b[a-z0-9.-]+\.lan\b", re.IGNORECASE),
+    re.compile(
+        r"\b(?:10\.(?:\d{1,3}\.){2}\d{1,3}|"
+        r"172\.(?:1[6-9]|2\d|3[01])\.(?:\d{1,3}\.)\d{1,3}|"
+        r"192\.168\.(?:\d{1,3}\.)\d{1,3})\b"
+    ),
+    re.compile(r"\b(?:handoff|session)-\d{4}-\d{2}-\d{2}\b", re.IGNORECASE),
+)
+LEGACY_MARKERS = (
+    "01 - Diario",
+    "99 - Jarvis/sistema",
+    "Read `PROFILE.md`",
+)
 
 
 class PublicContentTest(unittest.TestCase):
@@ -66,14 +83,22 @@ class PublicContentTest(unittest.TestCase):
                     set(INSTALLED_SKILLS),
                 )
 
-    def test_assembled_public_text_has_no_private_or_legacy_markers(self):
-        denied = [
-            "/Users/erionislamay",
-            "Erionis-Vault",
-            "01 - Diario",
-            "99 - Jarvis/sistema",
-            "Read `PROFILE.md`",
+    def test_public_documentation_has_no_private_markers(self):
+        documents = [
+            ROOT / "README.md",
+            ROOT / "AGENTS.md",
+            ROOT / "CONTRIBUTING.md",
+            *sorted((ROOT / "docs").glob("*.md")),
         ]
+        for path in documents:
+            content = path.read_text(encoding="utf-8")
+            for pattern in PRIVATE_PATTERNS:
+                self.assertIsNone(
+                    pattern.search(content),
+                    f"{pattern.pattern!r} in {path}",
+                )
+
+    def test_assembled_public_text_has_no_private_or_legacy_markers(self):
         with tempfile.TemporaryDirectory() as temporary:
             package = build_starter(ROOT, Path(temporary))
             for path in package.rglob("*"):
@@ -83,7 +108,12 @@ class PublicContentTest(unittest.TestCase):
                     content = path.read_text(encoding="utf-8")
                 except UnicodeDecodeError:
                     continue
-                for marker in denied:
+                for pattern in PRIVATE_PATTERNS:
+                    self.assertIsNone(
+                        pattern.search(content),
+                        f"{pattern.pattern!r} in {path}",
+                    )
+                for marker in LEGACY_MARKERS:
                     self.assertNotIn(marker, content, f"{marker!r} in {path}")
 
 
