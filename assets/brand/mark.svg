@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 218 250" role="img" aria-labelledby="title description">
+  <title id="title">Jarvis Lite mark</title>
+  <desc id="description">Four rising layers representing durable memory.</desc>
+  <g fill="#1B1B1B" transform="translate(0 -10)">
+    <path d="M10 115L52 132V225C52 235 44 241 35 237L10 227Z"/>
+    <path d="M62 80L104 97V207C104 217 96 223 87 219L62 209Z"/>
+    <path d="M114 45L156 62V189C156 199 148 205 139 201L114 191Z"/>
+    <path d="M166 10L208 27V171C208 181 200 187 191 183L166 173Z"/>
+  </g>
+</svg>

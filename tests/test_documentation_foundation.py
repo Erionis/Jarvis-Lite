@@ -36,6 +36,16 @@ def public_documents() -> list[Path]:
 
 
 class DocumentationFoundationTest(unittest.TestCase):
+    def test_readme_uses_self_contained_brand_assets(self):
+        readme = (ROOT / "README.md").read_text(encoding="utf-8")
+        self.assertIn('src="assets/brand/logo.svg"', readme)
+
+        for relative in ("assets/brand/logo.svg", "assets/brand/mark.svg"):
+            with self.subTest(asset=relative):
+                svg = (ROOT / relative).read_text(encoding="utf-8")
+                self.assertIn("<path", svg)
+                self.assertNotIn("<text", svg)
+
     def test_maintainer_navigation_links_resolve(self):
         documents = {
             "AGENTS.md": {
