@@ -24,6 +24,12 @@ one step at a time and shapes the workspace around your real needs.
   </a>
 </p>
 
+> [!IMPORTANT]
+> **Open the complete `Jarvis-Lite` folder in your AI runtime.** Jarvis lives in
+> this workspace: if Codex, Claude, or another agent is opened in a different
+> folder, it cannot load your Jarvis identity, memory, instructions, or
+> continuity. That is a normal AI session—not Jarvis.
+
 ## Is it for you?
 
 Jarvis Lite fits people who want a useful starting point without adopting a
@@ -75,6 +81,44 @@ installed Python launcher.
 
 See [Get started with Jarvis Lite](docs/getting-started.md) for both acquisition
 paths, the exact staged workspace tree, and the four first-run decisions.
+
+## Recommended setup
+
+Jarvis Lite works with different compatible agents, but the quality of its
+memory, continuity, and multi-step work depends heavily on the model and
+reasoning level you choose.
+
+For the intended Jarvis experience:
+
+- Prefer the official [Claude Desktop](https://claude.com/download) or
+  [Codex desktop app](https://learn.chatgpt.com/codex/app).
+- Use Claude Opus 5 with **High** reasoning, or Codex with **High** reasoning.
+  Lighter configurations may work, but can be less consistent on long,
+  context-heavy, or multi-step tasks.
+- In Claude Code, select **Auto mode** when working in a trusted workspace. In
+  the CLI, press `Shift+Tab` until `auto mode on` appears, or start Claude with
+  `claude --permission-mode auto`. Auto mode reduces approval interruptions
+  while keeping background safety checks.
+- Start with “Give me a briefing” and finish meaningful sessions with “Save and
+  close” to preserve continuity.
+- Keep passwords, API keys, and other secrets outside Markdown files. Use your
+  operating system keychain, environment variables, or a secret manager.
+
+### Building with Jarvis
+
+If you use Jarvis to prototype apps, code, or new products, create a `lab/`
+folder and exclude it from the Jarvis workspace Git history:
+
+```text
+Jarvis-Lite/
+└── lab/                  ignored by the Jarvis workspace repository
+    ├── first-project/    its own Git repository
+    └── second-project/   its own Git repository
+```
+
+Add `/lab/` to the root `.gitignore`, then initialize each project inside it as
+an independent Git repository. This keeps Jarvis memory and workspace history
+separate from the source code and history of each project.
 
 ## What appears in the workspace
 
