@@ -1,0 +1,150 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  package:
+    name: package
+    runs-on: ubuntu-latest
+    outputs:
+      release-version: ${{ steps.source.outputs.version }}
+      source-commit: ${{ steps.source.outputs.commit }}
+    steps:
+      - name: Check out the tagged repository history
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Validate the semantic tag and main ancestry
+        id: source
+        shell: bash
+        run: |
+          git fetch --no-tags origin main:refs/remotes/origin/main
+          version=$(python -c 'import sys; from scripts.build_release import version_from_tag; print(version_from_tag(sys.argv[1]))' "$GITHUB_REF_NAME")
+          commit=$(git rev-list -n 1 "$GITHUB_REF_NAME")
+          git merge-base --is-ancestor "$commit" refs/remotes/origin/main
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "commit=$commit" >> "$GITHUB_OUTPUT"
+
+      - name: Run the complete repository contract
+        run: python -m unittest discover -s tests -p 'test_*.py' -v
+
+      - name: Build the release twice
+        shell: bash
+        run: |
+          python scripts/build_release.py --tag "$GITHUB_REF_NAME" --source-commit "${{ steps.source.outputs.commit }}" --output "$RUNNER_TEMP/release-a"
+          python scripts/build_release.py --tag "$GITHUB_REF_NAME" --source-commit "${{ steps.source.outputs.commit }}" --output "$RUNNER_TEMP/release-b"
+
+      - name: Prove deterministic release bytes
+        shell: bash
+        run: |
+          cmp "$RUNNER_TEMP/release-a/Jarvis-Lite.zip" "$RUNNER_TEMP/release-b/Jarvis-Lite.zip"
+          cmp "$RUNNER_TEMP/release-a/Jarvis-Lite.zip.sha256" "$RUNNER_TEMP/release-b/Jarvis-Lite.zip.sha256"
+
+      - name: Verify the packaged release before upload
+        shell: bash
+        run: >-
+          python scripts/verify_release.py
+          --archive "$RUNNER_TEMP/release-a/Jarvis-Lite.zip"
+          --checksum "$RUNNER_TEMP/release-a/Jarvis-Lite.zip.sha256"
+          --expected-version "${{ steps.source.outputs.version }}"
+          --expected-commit "${{ steps.source.outputs.commit }}"
+          --extract-to "$RUNNER_TEMP/clean-install-ubuntu"
+
+      - name: Upload the exact release assets
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-assets
+          path: |
+            ${{ runner.temp }}/release-a/Jarvis-Lite.zip
+            ${{ runner.temp }}/release-a/Jarvis-Lite.zip.sha256
+          if-no-files-found: error
+          retention-days: 1
+
+  smoke:
+    name: extract-${{ matrix.os }}
+    needs: package
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os:
+          - macos-latest
+          - windows-latest
+    steps:
+      - name: Check out verification code
+        uses: actions/checkout@v7
+
+      - name: Set up Python
+        uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+
+      - name: Download the packaged release
+        uses: actions/download-artifact@v8
+        with:
+          name: release-assets
+          path: ${{ runner.temp }}/release
+
+      - name: Verify and extract the complete clean package
+        run: >-
+          python scripts/verify_release.py
+          --archive "${{ runner.temp }}/release/Jarvis-Lite.zip"
+          --checksum "${{ runner.temp }}/release/Jarvis-Lite.zip.sha256"
+          --expected-version "${{ needs.package.outputs.release-version }}"
+          --expected-commit "${{ needs.package.outputs.source-commit }}"
+          --extract-to "${{ runner.temp }}/clean-install"
+
+  draft:
+    name: draft-release
+    needs:
+      - package
+      - smoke
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download the verified release assets
+        uses: actions/download-artifact@v8
+        with:
+          name: release-assets
+          path: ${{ runner.temp }}/release
+
+      - name: Stop if this tag already has a release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: |
+          if gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "A GitHub Release already exists for $GITHUB_REF_NAME." >&2
+            exit 1
+          fi
+
+      - name: Create the draft GitHub Release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        shell: bash
+        run: >-
+          gh release create "$GITHUB_REF_NAME"
+          "$RUNNER_TEMP/release/Jarvis-Lite.zip"
+          "$RUNNER_TEMP/release/Jarvis-Lite.zip.sha256"
+          --repo "$GITHUB_REPOSITORY"
+          --verify-tag
+          --draft
+          --generate-notes
+          --title "Jarvis Lite $GITHUB_REF_NAME"

@@ -16,6 +16,7 @@ class RepositoryContractTest(unittest.TestCase):
             ".github/ISSUE_TEMPLATE/task.yml",
             ".github/pull_request_template.md",
             ".github/workflows/ci.yml",
+            ".github/workflows/release.yml",
             ".gitattributes",
             ".gitignore",
             "CHANGELOG.md",
