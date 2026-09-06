@@ -9,6 +9,8 @@ from pathlib import Path
 
 
 PACKAGE_NAME = "Jarvis-Lite"
+PACKAGE_MANIFEST_VERSION = 1
+SOURCE_REPOSITORY = "https://github.com/Erionis/Jarvis-Lite"
 INSTALLED_SKILLS = (
     "briefing",
     "first-run",
@@ -62,6 +64,26 @@ def _managed_metadata(relative: str) -> tuple[str, str] | None:
         )
         return ownership, skill
     return None
+
+
+def _write_package_identity(
+    package: Path,
+    *,
+    release_version: str,
+    source_commit: str,
+) -> None:
+    identity = {
+        "installed_skills": list(INSTALLED_SKILLS),
+        "manifest_version": PACKAGE_MANIFEST_VERSION,
+        "product": "jarvis-lite",
+        "release_version": release_version,
+        "source_commit": source_commit,
+        "source_repository": SOURCE_REPOSITORY,
+    }
+    (package / "jarvis-lite.json").write_text(
+        json.dumps(identity, indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
 
 
 def _write_update_metadata(
@@ -194,6 +216,11 @@ def build_starter(
                 ignore=shutil.ignore_patterns("__pycache__", "*.pyc", "*.pyo"),
             )
 
+    _write_package_identity(
+        target,
+        release_version=release_version,
+        source_commit=source_commit,
+    )
     _write_update_metadata(
         target,
         release_version=release_version,

@@ -28,6 +28,44 @@ def digest(path: Path) -> str:
 
 
 class BuildStarterTest(unittest.TestCase):
+    def test_release_build_writes_exact_public_package_identity(self):
+        from scripts.build_starter import build_starter
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(
+                ROOT,
+                Path(temporary),
+                release_version="0.1.0",
+                source_commit="a" * 40,
+            )
+            identity_path = package / "jarvis-lite.json"
+            self.assertTrue(identity_path.is_file())
+            identity = json.loads(identity_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(
+                identity,
+                {
+                    "installed_skills": list(INSTALLED),
+                    "manifest_version": 1,
+                    "product": "jarvis-lite",
+                    "release_version": "0.1.0",
+                    "source_commit": "a" * 40,
+                    "source_repository": "https://github.com/Erionis/Jarvis-Lite",
+                },
+            )
+
+    def test_source_build_writes_explicit_unreleased_package_identity(self):
+        from scripts.build_starter import build_starter
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(ROOT, Path(temporary))
+            identity_path = package / "jarvis-lite.json"
+            self.assertTrue(identity_path.is_file())
+            identity = json.loads(identity_path.read_text(encoding="utf-8"))
+
+            self.assertEqual(identity["release_version"], "unreleased")
+            self.assertEqual(identity["source_commit"], "unreleased")
+
     def test_release_manifest_lists_every_shipped_regular_file(self):
         from scripts.build_starter import build_starter
 

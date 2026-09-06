@@ -10,7 +10,7 @@ content, or technical upstream relationships.
 | Canonical contract | Jarvis Lite implementation | Shared principles, independently tested behavior |
 | Starter structure | Jarvis Lite implementation | Public templates only |
 | Skills | Jarvis Lite implementation | Each shipped skill has a public adoption card |
-| Build and tests | Jarvis Lite implementation | Python standard library and public fixtures only |
+| Build, release, and tests | Jarvis Lite implementation | Python standard library, official GitHub actions, and public fixtures only |
 
 The public starter currently ships `briefing`, `first-run`, `save-session`,
 `handoff`, `jarvis-memory`, `jarvis-doctor`, and `jarvis-update`. The

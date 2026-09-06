@@ -12,16 +12,22 @@ source, then rebuild.
 | --- | --- |
 | [`starter/`](../starter/) | Consumer skeleton and runtime adapter source. |
 | [`skills/`](../skills/) | Canonical reusable skill implementations. |
-| [`scripts/`](../scripts/) | Deterministic package assembly. |
+| [`scripts/`](../scripts/) | Deterministic package assembly, release archives, and artifact verification. |
 | [`tests/`](../tests/) | Executable public and package contracts. |
 | [`docs/`](.) | Public user journeys, maintainer architecture, and provenance. |
-| [`.github/`](../.github/) | Review templates and continuous-integration configuration. |
+| [`.github/`](../.github/) | Review templates, continuous integration, and draft-release automation. |
 
 The generated release manifest separates two inventories. `managed_files`
 defines the files and hashes owned by the update contract. `package_paths`
 lists every regular file shipped in the package so first run can use it as a
 fresh-package safety gate before creating local history. The broader path list
 does not expand updater ownership.
+
+Every assembled package also contains `jarvis-lite.json`, the small public
+identity used at the artifact boundary. It names the product, manifest format,
+release version, source repository and commit, and ordered installed skills.
+Source builds state `unreleased`; a release build receives its version from the
+semantic tag and never adds a timestamp or machine identity.
 
 ## Canonical owners
 
@@ -33,11 +39,13 @@ does not expand updater ownership.
 - Consumer behavior: [starter core instructions](../starter/99%20-%20Jarvis/system/core-instructions.md).
 - Skill behavior: [`skills/`](../skills/).
 - Package selection and assembly: [`scripts/build_starter.py`](../scripts/build_starter.py).
+- Deterministic ZIP and checksum: [`scripts/build_release.py`](../scripts/build_release.py).
+- Artifact integrity and clean extraction: [`scripts/verify_release.py`](../scripts/verify_release.py).
 - Contribution workflow: [`CONTRIBUTING.md`](../CONTRIBUTING.md).
 - Provenance: [`docs/provenance.md`](provenance.md).
-- Release automation: [`scripts/build_starter.py`](../scripts/build_starter.py)
-  owns deterministic assembly and release metadata; [CI](../.github/workflows/ci.yml)
-  owns continuous verification.
+- Continuous verification: [CI](../.github/workflows/ci.yml).
+- Tag validation, cross-platform smoke gates, and draft creation:
+  [Release workflow](../.github/workflows/release.yml).
 
 ## Public documentation map
 
@@ -61,6 +69,6 @@ documentation impact** with its reason.
 | Core | [`starter/99 - Jarvis/system/`](../starter/99%20-%20Jarvis/system/) | [`README.md`](../README.md), [daily use](daily-use.md), this architecture | Core and repository-contract tests |
 | Skill | [`skills/`](../skills/) | Skill README, the affected public journey, [extensions](extensions.md), [`README.md`](../README.md), this architecture | Focused skill tests, full suite |
 | Starter or first run | [`starter/`](../starter/) and [`skills/first-run/`](../skills/first-run/) | [getting started](getting-started.md), [`README.md`](../README.md), this architecture | Starter-contract, first-run, and build tests |
-| Build | [`scripts/build_starter.py`](../scripts/build_starter.py) | [getting started](getting-started.md), [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build tests, full suite |
+| Build | [`scripts/build_starter.py`](../scripts/build_starter.py) and [`scripts/build_release.py`](../scripts/build_release.py) | [getting started](getting-started.md), [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build and artifact-verification tests, full suite |
 | Update or adoption | [`skills/jarvis-update/`](../skills/jarvis-update/) and [`skills/adopt-capability/`](../skills/adopt-capability/) | [updates](updates.md), [`README.md`](../README.md), this architecture | Update tests, full suite |
-| Release | Builder and [CI](../.github/workflows/ci.yml) | [`README.md`](../README.md), [getting started](getting-started.md), [`CHANGELOG.md`](../CHANGELOG.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Release/update tests, full suite, CI |
+| Release | [`scripts/build_release.py`](../scripts/build_release.py), [`scripts/verify_release.py`](../scripts/verify_release.py), and [Release workflow](../.github/workflows/release.yml) | [`README.md`](../README.md), [getting started](getting-started.md), [`CHANGELOG.md`](../CHANGELOG.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Release/update tests, deterministic double build, macOS and Windows extraction, full suite |

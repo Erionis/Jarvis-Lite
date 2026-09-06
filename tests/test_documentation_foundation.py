@@ -51,15 +51,17 @@ class DocumentationFoundationTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, architecture)
 
-    def test_readme_uses_self_contained_wordmark(self):
+    def test_readme_uses_repository_owned_brand_assets(self):
         readme = (ROOT / "README.md").read_text(encoding="utf-8")
         self.assertIn('src="assets/brand/logo.svg"', readme)
+        self.assertIn('src="assets/brand/download-button.svg"', readme)
 
         brand_root = ROOT / "assets" / "brand"
         self.assertEqual(
             {path.name for path in brand_root.iterdir() if path.is_file()},
             {
                 "README.md",
+                "download-button.svg",
                 "logo.png",
                 "logo.svg",
                 "social-preview.png",
