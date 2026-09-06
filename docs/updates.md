@@ -10,10 +10,9 @@ authorizes an automatic install or replacement.
 | Older Jarvis Lite without the updater | The updater from the target official artifact | Establish the managed baseline, then update. |
 | A Jarvis that is not Lite | Repository-only `adopt-capability` | Compare and adopt only selected capabilities. |
 
-The first public release is not published yet. Until issue
-[#5](https://github.com/Erionis/Jarvis-Lite/issues/5) publishes an official ZIP
-and checksum, source builds are useful for evaluation but are not presented as
-a published update artifact.
+Only a published GitHub Release ZIP with its matching checksum is an official
+update artifact. A source build remains useful for development and evaluation,
+but does not substitute for that immutable release boundary.
 
 ## Current Jarvis Lite
 
@@ -52,7 +51,8 @@ information when relevant.
 
 Use this path only with an official immutable Lite artifact:
 
-1. Download the official ZIP and its published checksum when they exist.
+1. Download the official ZIP and its checksum from the
+   [latest published release](https://github.com/Erionis/Jarvis-Lite/releases/latest).
 2. Verify the artifact using the release's own checksum instructions.
 3. Extract it outside the current consumer workspace.
 4. Point the agent at the target artifact's `jarvis-update` skill.

@@ -11,6 +11,12 @@ collaborator. It gives a compatible agent runtime durable identity, memory,
 current-work context, daily continuity, safe local restore points, and a small set
 of reusable skills—all as files you own.
 
+<p align="center">
+  <a href="https://github.com/Erionis/Jarvis-Lite/releases/latest/download/Jarvis-Lite.zip">
+    <img src="assets/brand/download-button.svg" alt="Download Jarvis Lite" width="430">
+  </a>
+</p>
+
 ## Is it for you?
 
 Jarvis Lite fits people who want a useful starting point without adopting a
@@ -21,14 +27,27 @@ It is not a standalone app, hosted service, sync or backup system, AI model, or
 universal project taxonomy. You use it through Codex, Claude Code, OpenCode, or
 another compatible agent runtime.
 
-## Try it safely
+## Download and start
 
-The first public release has not been published yet. The source build is the
-currently verifiable path.
+The release ZIP is the simplest path. You do not need Git or Python to get the
+workspace:
 
-### Build from source now
+1. Download `Jarvis-Lite.zip` from the latest published release using the
+   button above.
+2. Extract the ZIP into a new location. Keep the complete `Jarvis-Lite` folder;
+   do not merge it into an existing workspace.
+3. Open that folder in Codex, Claude Code, OpenCode, or another compatible agent
+   runtime.
+4. Say `Start Jarvis` in your language.
 
-You need Git and Python 3:
+The button resolves to the latest published release. The
+[release page](https://github.com/Erionis/Jarvis-Lite/releases/latest) also
+provides `Jarvis-Lite.zip.sha256` for an optional integrity check.
+
+### Build from source
+
+Contributors and technical users can build the same workspace locally with Git
+and Python 3:
 
 ```bash
 git clone https://github.com/Erionis/Jarvis-Lite.git
@@ -36,17 +55,8 @@ cd Jarvis-Lite
 python3 scripts/build_starter.py --output dist
 ```
 
-Open `dist/Jarvis-Lite/` in your agent and say `Start Jarvis` in your language.
-On Windows, use `py -3` when that is the installed Python launcher.
-
-### Release ZIP path
-
-When issue [#5](https://github.com/Erionis/Jarvis-Lite/issues/5) publishes the
-first release, the zero-terminal path will be:
-
-1. Download `Jarvis-Lite.zip` and its checksum from the official release.
-2. Verify the checksum and extract the complete folder, including hidden files.
-3. Open that folder in your agent and say `Start Jarvis`.
+Open `dist/Jarvis-Lite/` in your agent. On Windows, use `py -3` when that is the
+installed Python launcher.
 
 See [Get started with Jarvis Lite](docs/getting-started.md) for both acquisition
 paths, the exact staged workspace tree, and the four first-run decisions.
@@ -126,8 +136,9 @@ works across macOS and Windows.
 
 - Markdown/filesystem read and write access is the daily minimum.
 - The source builder and update helpers use the Python 3 standard library.
-- Git is required only for the source-build path. For the release ZIP path,
-  Jarvis handles local restore-point setup during first run.
+- Git and Python are not required to download or open the release ZIP. Jarvis
+  handles local restore-point setup during first run and asks before any system
+  installation.
 
 ## Choose your path
 

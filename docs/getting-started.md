@@ -11,10 +11,53 @@ build the package over an existing Jarvis or another directory with user files.
 
 | Path | Current state | Requirements |
 | --- | --- | --- |
-| Release ZIP | Intended zero-terminal path; pending issue [#5](https://github.com/Erionis/Jarvis-Lite/issues/5) | Compatible agent runtime and filesystem access |
-| Source build | Available and verifiable now | Runtime, Git, and Python 3 |
+| Release ZIP | Recommended | Compatible agent runtime and filesystem access |
+| Source build | Contributor and technical fallback | Runtime, Git, and Python 3 |
 
-### Build from source now
+### Download the release ZIP
+
+1. Download the ready-to-use
+   [`Jarvis-Lite.zip`](https://github.com/Erionis/Jarvis-Lite/releases/latest/download/Jarvis-Lite.zip).
+2. Extract it into a new location. The archive already contains one complete
+   `Jarvis-Lite` folder.
+3. Open that folder in your agent runtime and continue with
+   [Say `Start Jarvis`](#say-start-jarvis).
+
+Do not extract over an existing Jarvis installation or another folder that
+contains personal files. Normal ZIP extraction preserves the hidden runtime
+directories included inside the package.
+
+#### Optional checksum verification
+
+The checksum confirms that the downloaded ZIP matches the official release
+asset. Download
+[`Jarvis-Lite.zip.sha256`](https://github.com/Erionis/Jarvis-Lite/releases/latest/download/Jarvis-Lite.zip.sha256)
+into the same directory as the ZIP.
+
+On macOS:
+
+```bash
+shasum -a 256 -c Jarvis-Lite.zip.sha256
+```
+
+On Linux:
+
+```bash
+sha256sum -c Jarvis-Lite.zip.sha256
+```
+
+On Windows PowerShell:
+
+```powershell
+$expected = (Get-Content .\Jarvis-Lite.zip.sha256).Split()[0]
+$actual = (Get-FileHash .\Jarvis-Lite.zip -Algorithm SHA256).Hash.ToLower()
+$actual -eq $expected
+```
+
+The result should be `OK` on macOS or Linux and `True` on Windows. If it is not,
+delete both files and download them again from the official release page.
+
+### Build from source
 
 ```bash
 git clone https://github.com/Erionis/Jarvis-Lite.git
@@ -25,16 +68,6 @@ python3 scripts/build_starter.py --output dist
 On Windows, use `py -3` when that is the installed Python launcher. The
 canonical builder is [`scripts/build_starter.py`](../scripts/build_starter.py).
 Open `dist/Jarvis-Lite/`, not the source repository, for personal use.
-
-### Use the release ZIP when it is published
-
-When issue #5 publishes the first release:
-
-1. Download `Jarvis-Lite.zip` and its checksum from the official release.
-2. Verify the checksum using that release's instructions.
-3. Extract the complete folder without dropping hidden files.
-
-The latest-release link is not presented as available before publication.
 
 ## Open the complete workspace
 

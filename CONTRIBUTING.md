@@ -93,6 +93,52 @@ initial `.jarvis-update/state.json`; source builds use the explicit
 the stable semantic version and full source commit instead of editing those
 files afterward.
 
+## Cutting a release
+
+Releases use stable semantic tags in the form `vMAJOR.MINOR.PATCH`. The tag is
+the version authority and its commit must be contained in `main`.
+
+Before creating a tag, build the two release assets locally from a clean current
+`main`:
+
+```bash
+python3 scripts/build_release.py \
+  --tag v0.1.0 \
+  --source-commit "$(git rev-parse HEAD)" \
+  --output dist/release
+```
+
+This creates exactly `Jarvis-Lite.zip` and `Jarvis-Lite.zip.sha256`. The builder
+refuses to replace existing assets. Verify and clean-extract them with:
+
+```bash
+python3 scripts/verify_release.py \
+  --archive dist/release/Jarvis-Lite.zip \
+  --checksum dist/release/Jarvis-Lite.zip.sha256 \
+  --expected-version 0.1.0 \
+  --expected-commit "$(git rev-parse HEAD)" \
+  --extract-to dist/clean-install
+```
+
+After local validation, create and push the exact tag:
+
+```bash
+git tag v0.1.0
+git push origin v0.1.0
+```
+
+The Release workflow reruns the complete test suite, proves deterministic ZIP
+bytes, verifies clean extraction on GitHub-hosted macOS and Windows runners, and
+creates one draft GitHub Release with the two assets. An existing Release for
+the tag is a stop condition. Inspect and download-test the draft before using
+GitHub's explicit **Publish release** action; no workflow publishes releases.
+
+After publication, the stable user download URL is:
+
+```text
+https://github.com/Erionis/Jarvis-Lite/releases/latest/download/Jarvis-Lite.zip
+```
+
 ## Documentation impact
 
 Update durable documentation only when understanding or behavior changes.

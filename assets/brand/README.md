@@ -5,6 +5,9 @@
   export.
 - `social-preview.svg` is the editable 2:1 repository-sharing canvas;
   `social-preview.png` is the upload-ready export.
+- `download-button.svg` is the self-hosted README call to action for the stable
+  latest-release ZIP link. Its filled teal surface keeps the control visible on
+  both light and dark GitHub themes.
 - The letters `A` and `I` highlight the AI identity in E4 Teal `#007373`.
 - The remaining letters use E4 Black `#1A171B`; the background is white
   `#FFFFFF`.
@@ -20,3 +23,5 @@ repository.
 Keep the proportions, spacing, and color distinction between `AI` and the
 remaining letters intact. The opaque white canvas preserves the approved
 contrast on both light and dark interfaces without maintaining a second logo.
+The download button uses live text with Jost and portable fallbacks rather than
+embedding font software; keep its wording and direct release link accessible.

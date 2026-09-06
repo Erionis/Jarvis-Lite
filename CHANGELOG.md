@@ -4,6 +4,14 @@ This project uses Semantic Versioning.
 
 ## Unreleased
 
+## 0.1.0 - 2026-09-06
+
+- Added deterministic semantic-tag release builds with a portable ZIP, external
+  SHA-256 checksum, embedded package identity, cross-platform extraction gates,
+  and draft-only GitHub publication.
+- Made the ready-to-use release ZIP the primary public path, with a prominent
+  self-hosted download control and checksum instructions.
+
 - Restored the English numbered starter layout with `00 - Inbox`,
   `01 - Diary`, `99 - Jarvis`, and `To Do.md`.
 - Added one canonical capability contract with thin runtime adapters.
