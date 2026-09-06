@@ -4,12 +4,19 @@
   <img src="assets/brand/logo.svg" alt="Jarvis Lite" width="640">
 </p>
 
-Easy to start. Yours to evolve.
+**Your personal AI assistant. Easy to start. Yours to evolve.**
 
-Jarvis Lite is a readable local-workspace foundation for a personal AI
-collaborator. It gives a compatible agent runtime durable identity, memory,
-current-work context, daily continuity, safe local restore points, and a small set
-of reusable skills—all as files you own.
+Jarvis Lite turns a compatible AI agent into a personal assistant that
+remembers who you are, how you work, what matters to you, and where you left
+off.
+
+It helps you organize ideas, decisions, tasks, and knowledge; keeps continuity
+across sessions; and creates safe local restore points. Everything lives in
+readable Markdown files you own and can change at any time.
+
+Download the ready-to-use ZIP, open the folder in Codex, Claude Code, OpenCode,
+or another compatible AI agent, and say `Start Jarvis`. Jarvis gets to know you
+one step at a time and shapes the workspace around your real needs.
 
 <p align="center">
   <a href="https://github.com/Erionis/Jarvis-Lite/releases/latest/download/Jarvis-Lite.zip">
@@ -39,6 +46,14 @@ workspace:
 3. Open that folder in Codex, Claude Code, OpenCode, or another compatible agent
    runtime.
 4. Say `Start Jarvis` in your language.
+
+> [!NOTE]
+> **You do not need Git to start.** If you want to install it beforehand, use
+> the official guide for [macOS](https://git-scm.com/install/mac) or
+> [Windows](https://git-scm.com/install/windows). Otherwise, let Jarvis handle
+> it during first run: it checks whether Git is available, explains how Git
+> enables local restore points, and asks before attempting the official
+> installation for your operating system.
 
 The button resolves to the latest published release. The
 [release page](https://github.com/Erionis/Jarvis-Lite/releases/latest) also
