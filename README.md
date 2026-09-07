@@ -32,13 +32,15 @@ one step at a time and shapes the workspace around your real needs.
 
 ## Is it for you?
 
-Jarvis Lite fits people who want a useful starting point without adopting a
-hosted knowledge system or a fixed way to organize projects. It can begin with
-almost no personal structure and evolve only from explicit needs.
+Jarvis Lite is a good fit if you want:
 
-It is not a standalone app, hosted service, sync or backup system, AI model, or
-universal project taxonomy. You use it through Codex, Claude Code, OpenCode, or
-another compatible agent runtime.
+- a personal assistant that remembers your context and picks up where you left off;
+- your notes, decisions, and tasks as plain Markdown you own and can edit anywhere;
+- to start with almost no structure and add it only when a real need appears.
+
+It is not a hosted service, a sync or backup system, an AI model, or a fixed
+project template — and not a standalone app: you use it through Codex, Claude
+Code, OpenCode, or another compatible agent runtime.
 
 ## Download and start
 
@@ -166,9 +168,18 @@ pre- and post-first-run shape.
 
 ## A day with Jarvis
 
-Natural-language requests work across supported runtimes. Slash aliases are
-optional runtime conveniences: Codex may reserve slash-prefixed input for its
-own client commands, so an ordinary sentence is the reliable default.
+You can talk to Jarvis in plain sentences; slash aliases are optional (see
+[daily use](docs/daily-use.md)).
+
+A quick example. You open the workspace and say:
+
+> **You:** Give me a briefing.
+>
+> **Jarvis:** Two open items in *Future work*, and an active handoff on the
+> pricing note. Nothing new in Inbox. I'd resume the pricing note — that's where
+> you stopped yesterday. That, or the open items first?
+
+Everything Jarvis reads and writes is a Markdown file you can open yourself.
 
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
@@ -204,7 +215,7 @@ decisions.
 ## Local-first safety
 
 Identity, memory, work, history, handoffs, Inbox, local extensions, and Git
-history remain owned by the consumer workspace. Jarvis previews protected
+history remain owned by your workspace. Jarvis previews protected
 memory changes and asks before important, destructive, installation, or
 external actions. Updates create scoped recovery before changing managed files.
 

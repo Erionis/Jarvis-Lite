@@ -18,10 +18,9 @@ but does not substitute for that immutable release boundary.
 
 Say `Check for Jarvis updates`. Jarvis first shows the installed release
 identity, the target release, and the practical changes. Where recognized,
-`/jarvis-update` is an optional alias; Codex may reserve slash-prefixed input
-for its own client commands. The preflight is read-only: it verifies the target
-artifact and compares only release-managed files with the accepted local
-baseline.
+`/jarvis-update` is an optional alias for the same request. The preflight is
+read-only: it verifies the target artifact and compares only release-managed
+files with the accepted local baseline.
 
 The common path has one approval for the exact update plan. If a functional
 skill overlaps a local customization, Jarvis stops on that component and asks
@@ -34,10 +33,10 @@ how to proceed.
 | Merge | Approve one explicit combined version rather than choosing either side wholesale. |
 | Postpone | Leave that component unchanged and continue only where the remaining plan is safe. |
 
-Control-plane components such as the updater, Doctor, and shared guardrails
-follow the target release after their previous bytes are saved. Identity,
+The parts Jarvis manages — the updater, Doctor, and shared guardrails — follow
+the target release after their previous bytes are saved. Identity,
 durable memory, current work, Daily history, handoffs, Inbox, local extensions,
-and Git history remain consumer-owned.
+and Git history stay yours.
 
 After approval, Jarvis creates scoped recovery, applies only the displayed
 plan, and runs focused verification. A general Doctor audit is not part of the
@@ -54,14 +53,14 @@ Use this path only with an official immutable Lite artifact:
 1. Download the official ZIP and its checksum from the
    [latest published release](https://github.com/Erionis/Jarvis-Lite/releases/latest).
 2. Verify the artifact using the release's own checksum instructions.
-3. Extract it outside the current consumer workspace.
+3. Extract it outside your current workspace.
 4. Point the agent at the target artifact's `jarvis-update` skill.
 5. Let the target updater verify that the existing workspace is genuinely Lite.
 6. Review and approve the exact adoption plan.
 
 The target updater must recognize the Lite profile, core marker, and both
 physical runtime mirrors before it establishes a baseline. A source that cannot
-prove those boundaries must stop without changing the consumer.
+prove those boundaries must stop without changing your workspace.
 
 ## A Jarvis that is not Lite
 
@@ -74,10 +73,19 @@ approve the exact patch. Existing identity, memory, paths, local extensions,
 and Git history stay authoritative. This path is capability adoption, not an
 update and not an automatic installation.
 
+Copy-ready prompt for your existing Jarvis:
+
+> This is the reference version of Jarvis: https://github.com/Erionis/Jarvis-Lite.
+> Read the README section "Already have a Jarvis?" and docs/updates.md, then walk
+> me through adopting the useful capabilities here, starting from the latest
+> published release. Propose what to take, classify each item, and ask my
+> approval for every change. Don't touch my identity, memory, Diary, handoffs,
+> Inbox, local extensions, or Git history.
+
 ## Interruption, recovery, and rollback
 
-An interrupted update is not reported as successful. Jarvis re-reads the
-consumer and recovery evidence before deciding whether it can resume, verify,
+An interrupted update is not reported as successful. Jarvis re-reads your
+workspace and the recovery evidence before deciding whether it can resume, verify,
 or stop safely.
 
 Recovery is scoped to files involved in the approved update. A rollback checks
@@ -85,7 +93,7 @@ those files again before mutation and stops if any of them changed after the
 update; newer local work is never silently overwritten. Git may add a local
 recovery layer, but it is not a backup and no remote or push is implied.
 
-If Python 3 is unavailable, the update stops before changing the consumer.
+If Python 3 is unavailable, the update stops before changing your workspace.
 Ordinary Markdown-based Jarvis work remains available.
 
 ## Canonical mechanics
