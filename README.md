@@ -82,6 +82,29 @@ installed Python launcher.
 See [Get started with Jarvis Lite](docs/getting-started.md) for both acquisition
 paths, the exact staged workspace tree, and the four first-run decisions.
 
+## Already have a Jarvis?
+
+If you already run a Jarvis from before Lite, don't unzip this over it and don't
+run an incremental update against it. Instead, **adopt** the pieces you want from
+a published Lite release — a one-time, review-each-change process that leaves
+your workspace intact.
+
+1. Open your existing Jarvis folder in your agent (Codex, Claude Code, OpenCode,
+   or another compatible runtime).
+2. Use the latest published release as your source: the
+   [latest release](https://github.com/Erionis/Jarvis-Lite/releases/latest). It
+   is a fixed, verifiable snapshot, so what you review is exactly what you adopt.
+3. Ask it to adopt the useful capabilities from that release. Jarvis proposes
+   what to take, shows how each item is classified, and asks you to approve every
+   change.
+
+Your workspace stays yours: identity, memory, Diary, handoffs, Inbox, local
+extensions, and Git history are never overwritten — at most Jarvis asks to *keep
+and adapt* where something overlaps.
+
+See [Updates and adoption](docs/updates.md) for the full `adopt-capability`
+walkthrough and its boundaries.
+
 ## Recommended setup
 
 Jarvis Lite works with different compatible agents, but the quality of its
