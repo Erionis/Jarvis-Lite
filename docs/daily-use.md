@@ -33,8 +33,8 @@ or invent urgency. An unresolved source is reported as a limit on the answer.
 | “Update the decision note for this project.” | Resolves the task's authoritative source, applies the bounded change, and verifies it. | Only the named or confirmed task source. |
 | “Keep this for later,” without a clear destination | Preserves the material in the declared Inbox until its destination is clear or approved. | The declared Inbox only when a write was requested or approved. |
 
-Inbox organization is normal Jarvis work. Lite does not install an `ingest`
-command or impose a universal project hierarchy.
+Inbox organization is normal Jarvis work. Lite does not impose a universal
+project hierarchy.
 
 ## Remember, correct, or forget something
 
