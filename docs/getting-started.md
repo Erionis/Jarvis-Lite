@@ -177,9 +177,19 @@ unexpected pre-existing files are never silently included in a new history.
 
 ## Try one real item
 
-Use one small, non-sensitive item: ask Jarvis to summarize it, place it in the
-right authoritative source, or identify what would change before writing. You
-can also stop immediately with a ready workspace.
+Pick one small, non-sensitive thing you're actually dealing with — a note to
+file, a decision to record, a takeaway to keep — and say it in plain words:
+
+> **You:** Keep this for later: after today's review we decided to pitch the
+> phased rollout instead of the big-bang launch — lower risk, and easier to get
+> budget signed off.
+>
+> **Jarvis:** That reads like a decision worth remembering, not just an Inbox
+> note. Want me to save it to durable memory, or file it under the project?
+> I'll show you the exact text first.
+
+Jarvis classifies it, shows what it would write, and waits for your approval.
+You can also stop here with a ready workspace and return later.
 
 Continue with [daily use](daily-use.md). Read [updates and adoption](updates.md)
 before changing Jarvis itself.

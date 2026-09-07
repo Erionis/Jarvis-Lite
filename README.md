@@ -140,16 +140,14 @@ A quick example. You open the workspace and say:
 
 Everything Jarvis reads and writes is a Markdown file you can open yourself.
 
-| You say | Jarvis does | Local sources that may change |
-| --- | --- | --- |
-| “Give me a briefing.” | Reads declared evidence and recommends one grounded focus. | None; briefing is read-only. |
-| “Work on this decision note.” | Resolves and edits the task's authoritative source. | Only the named or confirmed task source. |
-| “Remember this preference.” | Classifies it, previews the exact change, and waits for approval. | None before confirmation; then only the approved Identity or Durable memory patch. |
-| “Save and close.” | Records the result, future work, involved handoff, and available local restore point in the defined order. | Confirmed session sources and local Git history when available. |
-| “Create a handoff.” | Creates or updates one living continuation record. | Only the selected handoff; listing remains read-only. |
+| You say | Jarvis does |
+| --- | --- |
+| “Give me a briefing.” | Reads your declared evidence and recommends one grounded focus. Read-only. |
+| “Work on this note.” | Resolves and edits the one authoritative source for that task. |
+| “Save and close.” | Records the result, updates future work and any handoff, and offers a local restore point. |
 
-The [daily-use guide](docs/daily-use.md) explains the full start, work, close,
-handoff, and diagnostic journey.
+That's the daily spine. The [daily-use guide](docs/daily-use.md) adds
+remembering facts, handoffs across sessions, and the read-only health check.
 
 ## Recommended setup
 
