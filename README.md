@@ -113,8 +113,11 @@ reasoning level you choose.
 
 For the intended Jarvis experience:
 
-- Prefer the official [Claude Desktop](https://claude.com/download) or
-  [Codex desktop app](https://learn.chatgpt.com/codex/app).
+- Run a desktop app in its coding mode: the
+  [Claude desktop app](https://claude.com/download) in **Code** mode, or the
+  [Codex desktop app](https://learn.chatgpt.com/codex/app) in **Codex** mode —
+  the mode that opens your workspace folder and runs multi-step work. Both links
+  are the official app downloads.
 - Use Claude Opus 5 with **High** reasoning, or Codex with **High** reasoning.
   Lighter configurations may work, but can be less consistent on long,
   context-heavy, or multi-step tasks.
