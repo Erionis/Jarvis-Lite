@@ -194,8 +194,9 @@ The starter includes exactly seven installed skills:
 - `jarvis-update` — release-aware updates with scoped recovery.
 
 Inbox organization is normal Jarvis work and needs no separate skill. Lite does
-not impose a fixed project hierarchy or silently add optional extensions. `adopt-capability` remains repository-only for existing non-Lite
-Jarvis installations; the public [updates guide](docs/updates.md) explains that
+not impose a fixed project hierarchy or silently add optional extensions.
+`adopt-capability` remains repository-only for existing non-Lite Jarvis
+installations; the public [updates guide](docs/updates.md) explains that
 boundary. The [external references](docs/extensions.md) page names optional
 projects without treating them as installation, compatibility, or trust
 decisions.
