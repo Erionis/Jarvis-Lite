@@ -50,7 +50,9 @@ workspace:
 2. Extract the ZIP into a new location. Keep the complete `Jarvis-Lite` folder;
    do not merge it into an existing workspace.
 3. Open that folder in Codex, Claude Code, OpenCode, or another compatible agent
-   runtime.
+   runtime, and set the extracted `Jarvis-Lite` folder as the working folder —
+   in the Claude desktop app with the **working directory** button, in the Codex
+   desktop app as its **workspace**.
 4. Say `Start Jarvis` in your language.
 
 > [!NOTE]
