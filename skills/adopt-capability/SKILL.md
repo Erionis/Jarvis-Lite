@@ -27,8 +27,9 @@ Do not require a remote or GitHub account. A clean local repository at a
 resolved commit is sufficient.
 
 Read the selected source skill's complete `SKILL.md` and human adoption card.
-Do not import private files or history. Preserve all public license and
-provenance obligations carried by the selected release.
+The adoption card is the `README.md` beside the skill's `SKILL.md`. Do not
+import private files or history. Preserve all public license and provenance
+obligations carried by the selected release.
 
 ## Semantic inventory
 

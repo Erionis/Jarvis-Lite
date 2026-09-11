@@ -98,9 +98,11 @@ your workspace intact.
 2. Use the latest published release as your source: the
    [latest release](https://github.com/Erionis/Jarvis-Lite/releases/latest). It
    is a fixed, verifiable snapshot, so what you review is exactly what you adopt.
-3. Ask it to adopt the useful capabilities from that release. Jarvis proposes
-   what to take, shows how each item is classified, and asks you to approve every
-   change.
+3. Ask it to read [`skills/adopt-capability/SKILL.md`](skills/adopt-capability/SKILL.md)
+   at that release's tag first: it is the adoption contract, and it lives in the
+   repository, not in the release ZIP. Then ask it to adopt the useful
+   capabilities. Jarvis proposes what to take, shows how each item is
+   classified, and asks you to approve every change.
 
 Your workspace stays yours: identity, memory, Diary, handoffs, Inbox, local
 extensions, and Git history are never overwritten — at most Jarvis asks to *keep
