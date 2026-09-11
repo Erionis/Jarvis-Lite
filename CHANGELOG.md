@@ -2,12 +2,16 @@
 
 This project uses Semantic Versioning.
 
-## Unreleased
+## 0.1.1 - 2026-09-11
 
 - Fixed `jarvis-memory` so a time-bounded "remember" (event, deadline, or
   delivery) is routed to `Future work` and the project note by a horizon test
   that precedes classification; the skill description now names the durable
   fact instead of the verb.
+- Reworked the README and `docs/updates.md` as onboarding: value before setup,
+  a recommended Jarvis setup with desktop apps in coding mode, working-folder
+  guidance for ZIP users, an onboarding path for an existing non-Lite Jarvis,
+  and removal of a stray `ingest` reference carried over from Vanilla.
 
 ## 0.1.0 - 2026-09-06
 
