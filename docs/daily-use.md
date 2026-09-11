@@ -41,6 +41,7 @@ project hierarchy.
 | You say | Jarvis does | Local sources that may change |
 | --- | --- | --- |
 | “Remember this preference.” | Classifies the fact, finds its authoritative home, shows the proposed text or diff, and waits. | None before explicit confirmation; then only the approved Identity or Durable memory patch. |
+| “Remember it: the event is on the 8th and we have work to do until then.” | Applies the horizon test first: a fact with an end date, deadline, or delivery goes to Future work and the project note, with no durable-memory proposal. | Only Future work or the project note, through the workflow that owns it. |
 | “Correct this remembered fact.” | Shows before/after, identifies affected links, and offers save, edit, or do not save. | Only the confirmed target. |
 | “What do you remember about this?” | Reads the declared source and answers from evidence. | None. Consultation is read-only. |
 

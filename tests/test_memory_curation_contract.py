@@ -159,6 +159,21 @@ class MemoryCurationContractTest(unittest.TestCase):
         )
         self.assertIn("separate `jarvis-memory` request with a preview", doctor)
 
+    def test_horizon_test_precedes_classification(self):
+        text = self.flat("skills/jarvis-memory/SKILL.md")
+        for phrase in [
+            "does not select the source",
+            "horizon",
+            "end date",
+            "do not propose `Durable memory`",
+        ]:
+            self.assertIn(phrase, text)
+        self.assertLess(text.index("horizon"), text.index("one authoritative home"))
+        self.assertRegex(
+            self.read("skills/jarvis-memory/SKILL.md"),
+            r"(?m)^description:.*durable fact",
+        )
+
     def test_repository_and_starter_ignore_common_secret_files(self):
         for relative in [".gitignore", "starter/.gitignore"]:
             lines = self.read(relative).splitlines()
@@ -187,6 +202,12 @@ class MemoryCurationContractTest(unittest.TestCase):
                 "non-overlapping concurrent edit",
                 "semantic overlap",
                 "does not write",
+            ],
+            "memory-time-bounded": [
+                "end date",
+                "Future work",
+                "project note",
+                "does not propose durable memory",
             ],
             "memory-secrets": [
                 "verified Git-ignored destination",

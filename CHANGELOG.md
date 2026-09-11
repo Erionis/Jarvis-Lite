@@ -4,6 +4,11 @@ This project uses Semantic Versioning.
 
 ## Unreleased
 
+- Fixed `jarvis-memory` so a time-bounded "remember" (event, deadline, or
+  delivery) is routed to `Future work` and the project note by a horizon test
+  that precedes classification; the skill description now names the durable
+  fact instead of the verb.
+
 ## 0.1.0 - 2026-09-06
 
 - Added deterministic semantic-tag release builds with a portable ZIP, external

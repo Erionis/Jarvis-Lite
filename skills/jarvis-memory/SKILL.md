@@ -1,6 +1,6 @@
 ---
 name: jarvis-memory
-description: Use when a user asks Jarvis to remember, forget, correct, or consult durable context, or when a Jarvis workflow surfaces a stable candidate.
+description: Use when a user asks to keep, correct, forget, or consult a durable fact in Identity or Durable memory, or when a workflow surfaces a stable candidate; a time-bounded remember belongs to Future work.
 ---
 
 # Jarvis Memory
@@ -11,11 +11,15 @@ without invoking this workflow. Direct reads stay direct. Consultation is
 read-only and never authorizes a change.
 
 Resolve `Durable memory` through the consumer's declared capability map and
-resolve `Identity` the same way. Paths and names can differ. If a role required
+resolve `Identity` the same way. If a role required
 for the current intent is missing, ambiguous, or points to a missing source,
 stop without inventing a fallback; block only that action.
 
 ## Classify before proposing
+
+The verb "remember" does not select the source; the horizon does. A fact with
+an end date, deadline, or delivery belongs in `Future work` plus the project
+note: do not propose `Durable memory`.
 
 Search the existing content, index, and likely primary source first. Keep each
 fact in one authoritative source—one authoritative home:
