@@ -76,11 +76,17 @@ update and not an automatic installation.
 Copy-ready prompt for your existing Jarvis:
 
 > This is the reference version of Jarvis: https://github.com/Erionis/Jarvis-Lite.
-> Read the README section "Already have a Jarvis?" and docs/updates.md, then walk
-> me through adopting the useful capabilities here, starting from the latest
-> published release. Propose what to take, classify each item, and ask my
-> approval for every change. Don't touch my identity, memory, Diary, handoffs,
-> Inbox, local extensions, or Git history.
+> Before proposing anything, read skills/adopt-capability/SKILL.md at the latest
+> release tag, and for every skill you consider read its SKILL.md and the
+> README.md beside it (its adoption card). If you cannot browse, ask me to clone
+> the repository at that tag and read the same files locally. Then walk me through
+> adopting the useful capabilities from that release: propose what to take,
+> classify each item, and ask my approval for every change. Don't touch my
+> identity, memory, Diary, handoffs, Inbox, local extensions, or Git history.
+
+If your agent cannot browse the web, clone this repository at the release tag
+and point the agent at the same files in that local copy: the adoption contract
+above, and each candidate skill's `SKILL.md` with the `README.md` beside it.
 
 ## Interruption, recovery, and rollback
 
