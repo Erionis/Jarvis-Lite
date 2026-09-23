@@ -8,8 +8,8 @@
 - `download-button.svg` is the self-hosted README call to action for the stable
   latest-release ZIP link. Its filled teal surface keeps the control visible on
   both light and dark GitHub themes.
-- The letters `A` and `I` highlight the AI identity in E4 Teal `#007373`.
-- The remaining letters use E4 Black `#1A171B`; the background is white
+- The letters `A` and `I` highlight the AI identity in teal `#007373`.
+- The remaining letters use near-black `#1A171B`; the background is white
   `#FFFFFF`.
 
 The wordmark uses Jost Semi 600 and the descriptor uses Jost Medium 500,

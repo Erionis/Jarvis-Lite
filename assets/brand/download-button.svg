@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 160" role="img" aria-labelledby="title description">
   <title id="title">Download Jarvis Lite</title>
-  <desc id="description">E4 teal download button for the ready-to-use Jarvis Lite ZIP package.</desc>
+  <desc id="description">Teal download button for the ready-to-use Jarvis Lite ZIP package.</desc>
   <rect x="8" y="12" width="704" height="140" rx="32" fill="#1A171B" opacity="0.18"/>
   <rect x="8" y="8" width="704" height="140" rx="32" fill="#007373"/>
   <circle cx="88" cy="78" r="43" fill="#FFFFFF" opacity="0.14"/>

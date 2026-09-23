@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" role="img" aria-labelledby="title description">
   <title id="title">Jarvis Lite</title>
-  <desc id="description">Jarvis Lite wordmark centered on a white social-preview canvas, with the letters A and I highlighted in E4 teal.</desc>
+  <desc id="description">Jarvis Lite wordmark centered on a white social-preview canvas, with the letters A and I highlighted in teal.</desc>
   <metadata>Social preview derived from the Jarvis Lite wordmark. Glyph outlines derive from Jost at indestructible-type/Jost commit 35f141c970538f1ed0f235789c19156b3ce2a762, licensed under SIL OFL 1.1.</metadata>
   <rect width="1280" height="640" fill="#FFFFFF"/>
   <g transform="translate(172 158) scale(.9)">
