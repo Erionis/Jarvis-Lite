@@ -2,7 +2,7 @@
 
 This project uses Semantic Versioning.
 
-## 0.2.0 - unreleased
+## 0.2.0 - 2026-10-16
 
 - Added the optional Jarvis cockpit plugin (`plugins/jarvis-cockpit`, version
   0.8.0) for the Claude Code desktop app on macOS: Recap, Diary, To Do, Files,
