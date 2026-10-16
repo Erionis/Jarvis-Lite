@@ -728,6 +728,41 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertTrue((ROOT / "tests/scenarios" / name).is_file(), name)
 
+    def test_cockpit_is_offered_last_and_only_where_it_runs(self):
+        cockpit = (ROOT / "skills/first-run/cockpit.md").read_text(encoding="utf-8")
+        flat = " ".join(cockpit.split())
+        conditions = flat[flat.index("## When to offer it"):flat.index("## The offer")]
+        for condition in (
+            "is Claude Code",
+            "CLAUDE_CODE_ENTRYPOINT",
+            "claude-desktop",
+            "uname -s",
+            "Darwin",
+            "`claude` command",
+            "claude plugin list",
+            "jarvis-cockpit",
+        ):
+            self.assertIn(condition, conditions)
+        offer = flat[flat.index("## The offer"):flat.index("## After installing")]
+        for disclosure in ("only in the desktop app", "from GitHub", "user's Claude Code settings", "two short commands"):
+            self.assertIn(disclosure, offer)
+        self.assertLess(offer.index("explicit yes"), offer.index("claude plugin install"))
+        self.assertEqual(flat.count("claude plugin install"), 1)
+        self.assertIn(
+            "claude plugin install jarvis-cockpit --marketplace Erionis/Jarvis-Lite --scope project",
+            cockpit,
+        )
+        for forbidden in (" -y", "--yes", "--scope user"):
+            self.assertNotIn(forbidden, flat)
+        self.assertIn("claude plugin uninstall jarvis-cockpit --scope project", cockpit)
+        self.assertIn("claude plugin marketplace remove jarvis-lite", cockpit)
+        interview = self.read_interview()
+        guide = interview[interview.index("## Continuity guide"):]
+        self.assertGreater(guide.index("[cockpit.md](cockpit.md)"), guide.index("“save and close”"))
+        self.assertTrue(interview.rstrip().endswith("for the optional cockpit."))
+        self.assertGreater(self.text.index("[cockpit.md](cockpit.md)"), self.text.index("## Safety check"))
+        self.assertIn("no remote, authentication, or push was attempted", self.text)
+
 
 if __name__ == "__main__":
     unittest.main()

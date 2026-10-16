@@ -12,6 +12,8 @@ source, then rebuild.
 | --- | --- |
 | [`starter/`](../starter/) | Consumer skeleton and runtime adapter source. |
 | [`skills/`](../skills/) | Canonical reusable skill implementations. |
+| [`plugins/`](../plugins/) | Optional plugins published through the repository marketplace, outside the starter package. |
+| [`.claude-plugin/`](../.claude-plugin/) | The repository's plugin marketplace listing. |
 | [`scripts/`](../scripts/) | Deterministic package assembly, release archives, and artifact verification. |
 | [`tests/`](../tests/) | Executable public and package contracts. |
 | [`docs/`](.) | Public user journeys, maintainer architecture, and provenance. |
@@ -36,6 +38,7 @@ semantic tag and never adds a timestamp or machine identity.
 - Daily user lifecycle: [`docs/daily-use.md`](daily-use.md).
 - Updates and capability adoption: [`docs/updates.md`](updates.md).
 - Optional tooling boundary: [`docs/extensions.md`](extensions.md).
+- Optional cockpit plugin: [`docs/cockpit.md`](cockpit.md).
 - Consumer behavior: [starter core instructions](../starter/99%20-%20Jarvis/system/core-instructions.md).
 - Skill behavior: [`skills/`](../skills/).
 - Package selection and assembly: [`scripts/build_starter.py`](../scripts/build_starter.py).
@@ -56,19 +59,21 @@ semantic tag and never adds a timestamp or machine identity.
 | Work with Lite each day | [`docs/daily-use.md`](daily-use.md) | Start, work, memory, close, handoff, and diagnostics. |
 | Update Lite or adopt selected capabilities | [`docs/updates.md`](updates.md) | User choices and outcomes; skill files retain executable mechanics. |
 | Explore optional tools | [`docs/extensions.md`](extensions.md) | Included capabilities and external references without compatibility or support claims. |
+| Use the optional cockpit | [`docs/cockpit.md`](cockpit.md) | What it shows, install and removal, what it writes and keeps. |
 | Change or review the repository | This architecture and [`AGENTS.md`](../AGENTS.md) | Source boundaries, ownership, and maintainer navigation. |
 
 ## Documentation ownership
 
-Documentation impact is classified for every core, skill, starter, build, and
-release change. A change that needs no durable update must still record **No
-documentation impact** with its reason.
+Documentation impact is classified for every core, skill, starter, build,
+plugin, and release change. A change that needs no durable update must still
+record **No documentation impact** with its reason.
 
 | Change | Implementation source | Documentation to review | Validation to run |
 | --- | --- | --- | --- |
 | Core | [`starter/99 - Jarvis/system/`](../starter/99%20-%20Jarvis/system/) | [`README.md`](../README.md), [daily use](daily-use.md), this architecture | Core and repository-contract tests |
 | Skill | [`skills/`](../skills/) | Skill README, the affected public journey, [extensions](extensions.md), [`README.md`](../README.md), this architecture | Focused skill tests, full suite |
 | Starter or first run | [`starter/`](../starter/) and [`skills/first-run/`](../skills/first-run/) | [getting started](getting-started.md), [`README.md`](../README.md), this architecture | Starter-contract, first-run, and build tests |
+| Plugin | [`plugins/jarvis-cockpit/`](../plugins/jarvis-cockpit/) and [`.claude-plugin/`](../.claude-plugin/) | [cockpit](cockpit.md), [extensions](extensions.md), [`README.md`](../README.md), [`CHANGELOG.md`](../CHANGELOG.md), this architecture | `claude plugin test` and `claude plugin validate` in the plugin folder, plugin-contract and public-content tests, full suite |
 | Build | [`scripts/build_starter.py`](../scripts/build_starter.py) and [`scripts/build_release.py`](../scripts/build_release.py) | [getting started](getting-started.md), [`README.md`](../README.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Build and artifact-verification tests, full suite |
 | Update or adoption | [`skills/jarvis-update/`](../skills/jarvis-update/) and [`skills/adopt-capability/`](../skills/adopt-capability/) | [updates](updates.md), [`README.md`](../README.md), this architecture | Update tests, full suite |
 | Release | [`scripts/build_release.py`](../scripts/build_release.py), [`scripts/verify_release.py`](../scripts/verify_release.py), and [Release workflow](../.github/workflows/release.yml) | [`README.md`](../README.md), [getting started](getting-started.md), [`CHANGELOG.md`](../CHANGELOG.md), [`CONTRIBUTING.md`](../CONTRIBUTING.md), this architecture | Release/update tests, deterministic double build, macOS and Windows extraction, full suite |

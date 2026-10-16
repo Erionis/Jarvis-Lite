@@ -122,6 +122,12 @@ class BuildStarterTest(unittest.TestCase):
                     digest(git_reference),
                     digest(ROOT / "skills/first-run/git-checkpoint.md"),
                 )
+                cockpit_reference = mirror / "first-run" / "cockpit.md"
+                self.assertTrue(cockpit_reference.is_file())
+                self.assertEqual(
+                    digest(cockpit_reference),
+                    digest(ROOT / "skills/first-run/cockpit.md"),
+                )
 
             self.assertTrue((package / ".claude/settings.json").is_file())
             self.assertTrue((package / "01 - Diary/README.md").is_file())

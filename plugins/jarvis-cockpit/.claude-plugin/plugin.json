@@ -1,0 +1,7 @@
+{
+  "name": "jarvis-cockpit",
+  "version": "0.8.0",
+  "description": "Jarvis cockpit for the Claude Code desktop app: Recap (today, last session and next step; while working, what Jarvis is doing), Diary, To Do, Files, Reading and Memories, beside the chat.",
+  "author": { "name": "Erion Islamay" },
+  "types": "./types/index.d.ts"
+}

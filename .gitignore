@@ -12,3 +12,6 @@ dist/
 *.pem
 *.key
 credentials.json
+
+# Types the engine writes next to a plugin loaded for development.
+plugins/*/.claude-plugin/types/
