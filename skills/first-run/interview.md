@@ -233,3 +233,5 @@ End with a short guide adapted to the structure that actually exists:
 
 Do not tell the user to maintain Jarvis internals manually. Do not promise that
 all work stays local when the active runtime may use remote services.
+
+Then follow [cockpit.md](cockpit.md) for the optional cockpit.

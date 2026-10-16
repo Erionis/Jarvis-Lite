@@ -19,6 +19,19 @@ non-Lite Jarvis compare and selectively adopt a public Lite capability. It is
 maintained in this repository but is deliberately absent from the generated
 starter.
 
+## Repository-owned optional plugin
+
+[`jarvis-cockpit`](../plugins/jarvis-cockpit/) is an optional panel for the
+Claude Code desktop app on macOS: a recap of today and the last session, To Do,
+Diary, Memories, and the workspace files beside the chat. It is a Claude Code
+plugin maintained in this repository, with its own tests, and the repository is
+also its plugin marketplace
+([`marketplace.json`](../.claude-plugin/marketplace.json)).
+
+It is not part of the starter: the generated package does not include it, and
+installing it is a separate, explicit choice. See [Cockpit](cockpit.md) for what
+it shows, what it writes and keeps, and how to install and remove it.
+
 ## External references
 
 The following projects are not shipped, tested, recommended, or supported by

@@ -2,6 +2,20 @@
 
 This project uses Semantic Versioning.
 
+## 0.2.0 - unreleased
+
+- Added the optional Jarvis cockpit plugin (`plugins/jarvis-cockpit`, version
+  0.8.0) for the Claude Code desktop app on macOS: Recap, Diary, To Do, Files,
+  Reading, and Memories beside the chat, in Italian or English as the
+  workspace's identity says, with the Terminal mascot and a replaceable one
+  (`cockpit-mascot` skill).
+- Made the repository a plugin marketplace (`.claude-plugin/marketplace.json`);
+  the starter package does not include the plugin.
+- First run now offers the cockpit at the end, only in the Claude Code desktop
+  app on macOS and only after an explicit yes.
+- The prompt for adopting Jarvis Lite capabilities into an existing Jarvis now
+  names the adoption contract and its local-clone fallback (#34).
+
 ## 0.1.1 - 2026-09-11
 
 - Fixed `jarvis-memory` so a time-bounded "remember" (event, deadline, or

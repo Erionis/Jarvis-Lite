@@ -3,7 +3,9 @@
 Jarvis Lite's public implementation is owned and versioned by this repository.
 Earlier personal prototypes and independent team products may inform product
 principles, but Jarvis Lite does not import their files, Git history, private
-content, or technical upstream relationships.
+content, or technical upstream relationships. The cockpit plugin is the declared
+exception: the maintainer contributed it from a personal prototype as new files,
+without that prototype's history or private content.
 
 | Public area | Origin | Reuse rule |
 |---|---|---|
@@ -11,6 +13,7 @@ content, or technical upstream relationships.
 | Starter structure | Jarvis Lite implementation | Public templates only |
 | Skills | Jarvis Lite implementation | Each shipped skill has a public adoption card |
 | Build, release, and tests | Jarvis Lite implementation | Python standard library, official GitHub actions, and public fixtures only |
+| Cockpit plugin | Jarvis Lite implementation, contributed by the maintainer from a personal prototype without its history or private content | Public fixtures only; third-party code keeps its notice (LICENSE-filetree, MIT) |
 
 The public starter currently ships `briefing`, `first-run`, `save-session`,
 `handoff`, `jarvis-memory`, `jarvis-doctor`, and `jarvis-update`. The

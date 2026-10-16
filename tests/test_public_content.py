@@ -26,6 +26,26 @@ LEGACY_MARKERS = (
     "99 - Jarvis/sistema",
     "Read `PROFILE.md`",
 )
+PLUGIN_ROOTS = (ROOT / "plugins", ROOT / ".claude-plugin")
+# The maintainer's first name and handle: public, but they belong only in the manifests and licences,
+# never in the plugin's code, tests, or skills. Tokens are runs of ASCII letters and digits.
+NAME_TOKENS = frozenset({"Erion", "Erionis"})
+TOKEN = re.compile(r"[A-Za-z0-9]+")
+# The maintainer's name is legitimate in each plugin's manifest, the marketplace listing and licences.
+NAME_ALLOWED = re.compile(r"(?:plugins/[^/]+/)?\.claude-plugin/(?:plugin|marketplace)\.json")
+# Finder writes these on a Mac; git ignores them and they are not part of the repository.
+FINDER_FILES = {".DS_Store"}
+
+
+def has_maintainer_name(content: str) -> bool:
+    return not NAME_TOKENS.isdisjoint(TOKEN.findall(content))
+
+
+def is_generated(path: Path) -> bool:
+    # Claude Code writes its own types into <plugin>/.claude-plugin/types/ when it loads the plugin;
+    # git ignores them and they are not part of the repository.
+    parts = path.relative_to(ROOT).parts
+    return len(parts) > 3 and parts[0] == "plugins" and parts[2] == ".claude-plugin" and parts[3] == "types"
 
 
 class PublicContentTest(unittest.TestCase):
@@ -208,6 +228,28 @@ class PublicContentTest(unittest.TestCase):
                     )
                 for marker in LEGACY_MARKERS:
                     self.assertNotIn(marker, content, f"{marker!r} in {path}")
+
+    def test_plugin_files_have_no_private_markers(self):
+        files = [
+            path
+            for root in PLUGIN_ROOTS
+            for path in sorted(root.rglob("*"))
+            if path.is_file() and not is_generated(path) and path.name not in FINDER_FILES
+        ]
+        self.assertTrue(files, "no plugin files found")
+        for path in files:
+            try:
+                content = path.read_text(encoding="utf-8")
+            except UnicodeDecodeError:
+                self.fail(f"not UTF-8 text: {path}")
+            for pattern in PRIVATE_PATTERNS:
+                self.assertIsNone(pattern.search(content), f"{pattern.pattern!r} in {path}")
+            for marker in LEGACY_MARKERS:
+                self.assertNotIn(marker, content, f"{marker!r} in {path}")
+            relative = path.relative_to(ROOT).as_posix()
+            if NAME_ALLOWED.fullmatch(relative) or path.name.startswith("LICENSE"):
+                continue
+            self.assertFalse(has_maintainer_name(content), f"maintainer name in {path}")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,12 @@
+{
+  "name": "jarvis-lite",
+  "owner": { "name": "Erion Islamay" },
+  "description": "Optional plugins for Jarvis Lite.",
+  "plugins": [
+    {
+      "name": "jarvis-cockpit",
+      "source": "./plugins/jarvis-cockpit",
+      "description": "Optional cockpit panel for Jarvis Lite in the Claude Code desktop app on macOS."
+    }
+  ]
+}

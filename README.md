@@ -209,6 +209,23 @@ online repository or publish your files. If Git is missing, Jarvis explains what
 it is and asks before trying to install it. Local files do not imply local model
 inference: that depends on the runtime and model provider you use.
 
+## Cockpit (optional, Claude Code desktop app on macOS)
+
+The cockpit is an optional panel beside the chat. It shows today, the last
+session, and the next step to resume, then your To Do, Diary, workspace files,
+and Jarvis's memories.
+
+First run offers to install the cockpit. To install it yourself, run
+`claude plugin install jarvis-cockpit --marketplace Erionis/Jarvis-Lite --scope project`
+from the workspace folder, then open the workspace in the desktop app. The
+panel opens at your first message; `/jarvis` brings it back if you close it.
+You can change the mascot: ask Jarvis.
+
+It makes no model calls and keeps a short record of recent sessions on your Mac;
+see [docs/cockpit.md](docs/cockpit.md).
+
+macOS only for now, in the Claude Code desktop app.
+
 ## Compatibility and prerequisites
 
 The generated package contains physical copies of installed skills in

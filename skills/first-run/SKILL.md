@@ -172,4 +172,5 @@ and no remote, authentication, or push was attempted.
 
 After the local restore point is completed, deferred, unavailable, or safely
 failed, continue with the First trial and Continuity guide from the interview
-reference.
+reference, then the optional [cockpit.md](cockpit.md), which asks its own
+question.
