@@ -1,6 +1,6 @@
 ---
 name: first-run
-description: Use when the declared identity source is missing, an onboarding or Git-pending marker is present, or a user begins onboarding naturally, including “Start Jarvis” in any language.
+description: Use when the declared identity source is missing, an onboarding or Git-pending marker is present, a user begins onboarding naturally, including “Start Jarvis” in any language, or a user asks to enable local restore points.
 ---
 
 # First run
@@ -39,6 +39,10 @@ problem. Do not fall back to a conventional path.
 - If Identity is absent or onboarding-required exists, complete or reconcile
   personal onboarding first, even when Git-pending also exists.
 
+The default starter ships both markers. Git-pending stays until Local restore
+point reaches a terminal result, so a session that ends between personal setup
+and the restore point resumes only the restore point next time.
+
 Treat semantic equivalents of `Start Jarvis` in any language as the same
 trigger. For the default starter, if `99 - Jarvis/memory/soul.md` already
 exists, do not replace it.
@@ -51,6 +55,61 @@ small group of related closed questions that can be answered together. Keep
 dependent questions separate until their context exists. Use only direct
 answers or explicitly confirmed choices; never infer personal facts from vague
 signals, free-form memory, or unrelated notes.
+
+## Stages and re-entry
+
+First run is one journey of ordered stages. A stage is resolved only by its
+named outcome:
+
+1. **Use domain** — one or more domains selected.
+2. **Starting point** — one starting depth selected.
+3. **Identity** — a name plus the minimum stable context for the branch.
+4. **Context detail** — the requested priorities or map given, or explicitly
+   skipped; Learn while working resolves it at once.
+5. **Collaboration** — the default accepted or explicit differences given.
+6. **Recap approval** — a displayed recap approved.
+7. **Personal setup** — the approved writes applied and verified.
+8. **Local restore point** — completed, deferred, unavailable, safely failed,
+   or declined.
+9. **First trial and Continuity guide** — offered and given.
+10. **Optional cockpit** — offered, or skipped by its own conditions.
+
+Stages 1 to 6 live only in the conversation, because nothing personal is
+written before recap approval. From stage 7 on, the markers carry the pending
+state across sessions.
+
+A message that does not produce a stage's outcome leaves that stage open:
+
+- A partial answer resolves only what it answers. Ask again only the missing
+  part of a grouped interaction.
+- A digression, question, or concrete request gets its answer or its work
+  first. When that work needs nothing more from the user, the same response
+  closes with the question of the first open stage, introduced by one short
+  line that says where setup stands.
+- When the requested work itself needs the user's input, ask for that input
+  and add one line that names the open setup stage and says you will return to
+  it. The first later response whose work needs nothing from the user closes
+  with that stage's question.
+- When work done in a digression supplies a likely answer to an open stage,
+  such as action items that fit Current priorities, propose it as that answer
+  and ask for confirmation instead of asking from scratch.
+- An explicit "you choose" or "I don't know" resolves the stage with its
+  default.
+- A stage the user skips without answering is asked once more, in one short
+  sentence that names its default. If it stays unanswered, apply the default
+  and show it in the recap: Use domain stays unspecified with a name-only
+  Identity question, Starting point becomes Learn while working, Context detail
+  stays empty, and Collaboration uses the default.
+- Identity has no default. While the name is missing, keep the stage open and
+  say that setup continues when the user shares how to be addressed.
+- When the user asks to pause or stop setup, stop asking. The next start
+  resumes from the first open stage.
+
+Until the last stage, every response closes with the question of the first
+open stage or, while requested work waits for the user's input, the one line
+that names it. Only a request to pause ends this. Never offer the First trial,
+give the Continuity guide, or call the workspace ready while an earlier stage
+is open.
 
 Make no personalized filesystem write before the user approves the final
 visible recap. Approval covers only the literal personal paths, content
@@ -139,8 +198,13 @@ that the capability map is intact; that the approved visible structure matches
 the recap; and verify that no onboarding placeholder remains.
 
 Remove `<!-- jarvis:onboarding-required -->` only after every verification
-passes. Preserve every non-marker line. Re-read `CLAUDE.md` and prove that the
-onboarding marker count is zero before reporting completion.
+passes. Preserve every non-marker line. In the same edit, leave exactly one
+`<!-- jarvis:git-pending -->`, adding it when the profile lacks one, unless the
+approved recap declined Local protection; then remove every Git-pending marker
+in that edit instead. The profile never holds neither marker while Local
+restore point is unresolved. Re-read `CLAUDE.md` and prove that the onboarding
+marker count is zero and the Git-pending count is one, or zero after a declined
+Local protection, before reporting completion.
 
 A failed or incomplete verification retains exactly one onboarding marker.
 Report the exact missing or mismatched path and make no blind rewrite. Do not
@@ -150,8 +214,9 @@ claim that the workspace is ready.
 
 Only after verification, record that personal setup is complete internally.
 Do not yet offer the First trial or lead with Git. Continue to Local restore
-point; missing or deferred local protection never invalidates the
-completed personal setup.
+point in the same turn: it is the next stage, not an optional follow-up.
+Missing or deferred local protection never invalidates the completed personal
+setup.
 
 ## Local restore point
 
@@ -160,8 +225,11 @@ only after personal setup verification, including a Git-only resume where
 onboarding is already complete. Pass it the resolved local-profile path, the
 confirmed Identity name when available, the literal approved personal paths,
 the Git and operating-system preflight results, and the installed release
-manifest and seed-state paths. Follow that reference through one completed,
-deferred, unavailable, or safely failed local restore-point result.
+manifest and seed-state paths. On a Git-only resume in a later session, the
+earlier recap is no longer in context: pass no approved personal paths, and the
+reference asks for the paths it needs. Follow that reference through one
+completed, deferred, unavailable, safely failed, or declined local
+restore-point result.
 
 ## Safety check
 
@@ -170,7 +238,7 @@ that the existing Soul was retained when present, only explicit fields and
 marker lines changed, onboarding is either safely complete or visibly pending,
 and no remote, authentication, or push was attempted.
 
-After the local restore point is completed, deferred, unavailable, or safely
-failed, continue with the First trial and Continuity guide from the interview
+After the local restore point is completed, deferred, unavailable, safely
+failed, or declined, continue with the First trial and Continuity guide from the interview
 reference, then the optional [cockpit.md](cockpit.md), which asks its own
 question.

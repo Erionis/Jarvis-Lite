@@ -9,8 +9,8 @@ Before responding to any user message:
 
 1. Read `CLAUDE.md`, including its capability table.
 2. Resolve the declared source for `Identity`. If the source is missing or the
-   exact marker `<!-- jarvis:onboarding-required -->` remains, follow the first
-   run gate below.
+   exact marker `<!-- jarvis:onboarding-required -->` or
+   `<!-- jarvis:git-pending -->` remains, follow the first run gate below.
 3. Read `99 - Jarvis/system/core/guardrails.md`.
 4. Read the declared `Identity`, `Durable memory`, and `Future work` sources
    when they exist.
@@ -26,6 +26,13 @@ If identity is missing or onboarding is marked as required, use `first-run`.
 When the user's first message contains concrete work, complete that work before
 offering setup. For a greeting or generic start request, begin onboarding. Use
 one coherent interaction at a time and do not invent missing personal context.
+Once setup has started, a later question or request does not end it: handle
+it, then return to the first open setup stage.
+
+If identity exists and only `<!-- jarvis:git-pending -->` remains, the local
+restore point is still pending. Use `first-run` for that stage alone, at most
+once per session: after the concrete work in the user's first message, or
+right away for a greeting. Ordinary work never waits for it.
 
 Do not overwrite existing identity, memory, local extensions, or user content.
 First run must preserve existing material and require explicit approval before

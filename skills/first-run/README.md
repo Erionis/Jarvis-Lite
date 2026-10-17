@@ -11,7 +11,8 @@ stays conversational and never uses a one-option placeholder.
 ## Use it when
 
 The declared identity is missing, an onboarding or Git-pending marker remains
-in the local profile, or the user naturally starts Jarvis in their own language.
+in the local profile, the user naturally starts Jarvis in their own language,
+or the user asks to enable local restore points.
 
 ## Dependencies
 

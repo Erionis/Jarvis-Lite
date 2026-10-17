@@ -13,6 +13,9 @@ verified fresh Lite package. In that branch, configuration, initialization,
 staging, and the first local commit need no separate checkpoint or
 baseline-inventory approval.
 
+That authorization lives in the session that displayed the card. A later
+session needs the restore-point question below.
+
 Software installation changes the host and always needs its own explicit
 approval. An existing repository or unexpected content is outside the fresh
 package authorization and follows the conservative branches below.
@@ -23,9 +26,15 @@ The approved local restore-point outcome covers adding or retaining exactly one
 `<!-- jarvis:git-pending -->` marker in the resolved local profile. Do not ask
 for marker-only approval. Preserve every non-marker line.
 
-- During an approved first run, add the marker before the first Git mutation.
+- The default starter ships the marker. Personal setup verification keeps it,
+  or adds it when the profile lacks one, in the same edit that removes the
+  onboarding marker, so it is in place before the first Git mutation.
 - On a Git-only resume, preserve the existing single marker without reopening
   the personal interview.
+- An explicit decline of local restore points, in the recap or at the
+  restore-point question, removes every Git-pending marker and makes no Git
+  mutation. A later request for restore points adds one marker back and
+  resumes this reference.
 - Failure or deferral retains or restores exactly one
   `<!-- jarvis:git-pending -->` marker.
 - A successful commit contains no Git-pending marker and leaves no marker-only
@@ -93,7 +102,8 @@ Only an exit-0 availability check continues to repository inspection.
 If installation is declined, fails, or is unsupported, keep one pending marker
 and continue normally. Say that the workspace is ready but local restore points
 are not active yet. Put the exact command, error, and technical state behind an
-offer to show details rather than leading with them.
+offer to show details rather than leading with them. A plain no is a deferral:
+the restore-point question in a later session offers the permanent opt-out.
 
 ## Inspect repository state
 
@@ -128,11 +138,16 @@ verify all of the following:
    paths approved during onboarding. Approved directory creation contributes
    only its displayed README or template paths; it is not a wildcard.
 
-If any identity check fails or an unexpected path exists, do not run
-`git init`, configure Git, stage, or commit. Preserve all content. Explain in
-plain language that files outside the new Jarvis setup need review before they
-can enter the restore point, and offer technical inventory only on request.
-Ordinary Jarvis work may continue.
+When the identity checks pass but unexpected paths exist, such as a note the
+user asked for during the interview, ask the restore-point question below and
+list those paths. Its approval adds exactly the displayed paths to the verified
+union.
+
+If any identity check fails or an unexpected path exists without that
+approval, do not run `git init`, configure Git, stage, or commit. Preserve all
+content. Explain in plain language that files outside the new Jarvis setup
+need review before they can enter the restore point, and offer technical
+inventory only on request. Ordinary Jarvis work may continue.
 
 ## Create the verified fresh restore point
 
@@ -170,12 +185,46 @@ restore point. Say in plain language that another save operation is already in
 progress and was left untouched. Show raw Git state only on request.
 
 With an empty initial index, continue only when the worktree changes consist of
-literal approved onboarding paths. Present those paths as the files Jarvis can
+literal approved onboarding paths or, on a Git-only resume, of the paths the
+restore-point question displays. Present those paths as the files Jarvis can
 include in a local restore point and request one explicit approval. After
 approval, use `git add -- <approved-path>...`, verify that the staged set equals
 the approved literal set, remove the pending marker, re-stage the local profile
 when it is in that set, verify again, and commit only a nonempty matching diff.
 Any unrelated or mismatched path defers the restore point without index cleanup.
+
+## Restore-point question
+
+Ask this one plain-language question when a restore point needs paths that no
+current approval covers: unexpected paths in a fresh folder, or any Git-only
+resume. Run the read-only checks first, so the question names only what can
+actually happen. Say that local restore points are not active yet, then offer:
+
+1. **Create it now** — recommended. Name in plain language the files outside
+   the shipped package that it will include, grouped by folder when the list
+   is long. When Git is missing, also give the explanation and any broader
+   package from If Git is missing.
+2. **Not now** — keep it pending; it returns in a later session.
+3. **Don't use restore points** — stop asking; the user can ask for them
+   later.
+
+**Create it now** approves exactly the displayed software and paths, and the
+matching branch above continues with them. **Not now** keeps exactly one
+marker. **Don't use restore points** removes every Git-pending marker,
+preserves every non-marker line, and makes no Git mutation. When no branch can
+proceed, because a package identity check fails, installation is unsupported,
+or the existing index is not empty, say so in one line, offer the reason on
+request, and offer only **Not now** and **Don't use restore points**.
+
+## Resume in a later session
+
+A Git-only resume starts when Identity exists, the onboarding marker is absent,
+and Git-pending remains. The setup card belonged to an earlier session and
+does not authorize Git mutations here. Repeat the read-only checks, including
+Git availability, the operating system, repository state, and the actual file
+inventory, then ask the restore-point question. Its displayed paths replace
+the onboarding paths in the fresh-package union or the approved literal set
+of an existing repository.
 
 ## Verify success
 

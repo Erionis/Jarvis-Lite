@@ -9,6 +9,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 STARTER = ROOT / "starter"
 MARKER = "<!-- jarvis:onboarding-required -->"
+GIT_MARKER = "<!-- jarvis:git-pending -->"
 
 REQUIRED_STARTER_FILES = (
     ".githooks/pre-commit",
@@ -54,6 +55,7 @@ class StarterContractTest(unittest.TestCase):
     def test_local_profile_declares_visible_capabilities(self):
         profile = self.read("CLAUDE.md")
         self.assertEqual(profile.count(MARKER), 1)
+        self.assertEqual(profile.count(GIT_MARKER), 1)
         for role, path in {
             "Identity": "99 - Jarvis/memory/soul.md",
             "Soul template": "99 - Jarvis/system/soul-template.md",
@@ -179,6 +181,20 @@ class StarterContractTest(unittest.TestCase):
             MARKER,
             "one coherent interaction at a time",
             "Do not overwrite",
+        ]:
+            self.assertIn(phrase, contract)
+
+    def test_core_gate_keeps_setup_and_pending_restore_point_alive(self):
+        contract = " ".join(
+            self.read("99 - Jarvis/system/core-instructions.md").split()
+        )
+        for phrase in [
+            f"`{MARKER}` or `{GIT_MARKER}` remains, follow the first run gate below",
+            "Once setup has started, a later question or request does not end it",
+            "return to the first open setup stage",
+            f"If identity exists and only `{GIT_MARKER}` remains, the local restore point is still pending",
+            "at most once per session",
+            "Ordinary work never waits for it",
         ]:
             self.assertIn(phrase, contract)
 

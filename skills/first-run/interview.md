@@ -1,7 +1,8 @@
 # First-run interview
 
 This reference defines the user-facing journey. `SKILL.md` owns preflight,
-filesystem writes, verification, markers, Git, and recovery.
+the stage list and re-entry after digressions, filesystem writes,
+verification, markers, Git, and recovery.
 
 Use the native interactive question tool only when the active runtime exposes
 it and the user faces a real decision with at least two genuinely distinct
@@ -176,6 +177,9 @@ End the list with one outcome, not a technical operation:
 
 - **Local protection** — create a local restore point after setup. Nothing is
   published or sent online.
+
+**Start lighter** keeps Local protection. Only an explicit request removes it;
+the approved card then records local restore points as declined.
 
 State `No change` for an authoritative personal source that will remain
 untouched. This card is the complete approval scope: path, action, personalized
