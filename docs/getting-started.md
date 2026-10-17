@@ -119,6 +119,11 @@ Identity, context that needs explanation, and nuanced decisions stay in normal
 conversation. The interactive controls help the dialogue; they do not turn
 onboarding into a form.
 
+You can ask for something else mid-setup. Jarvis handles it, then returns to
+the open question. A question you skip is asked once more with its default,
+which the recap then shows. Only your name has no default. Say that you want
+to pause, and Jarvis stops asking until you start again.
+
 Jarvis shows the exact personal files, folders, and templates it proposes
 before any personalized write. Review that recap and approve it, revise it, or
 stop. Silence is not approval.
@@ -174,6 +179,12 @@ terminal commands hidden unless you ask for technical details.
 Declining or being unable to install Git does not undo the personal setup:
 Jarvis marks only the restore point as pending. An existing repository or
 unexpected pre-existing files are never silently included in a new history.
+
+While the restore point is pending — the session ended first, or the folder
+holds files the recap did not show, such as a note saved during setup — Jarvis
+asks at most once per session. It lists the files it would include and offers
+**Create it now**, **Not now**, or **Don't use restore points**. The last one
+stops the question until you ask for local restore points yourself.
 
 ## Try one real item
 

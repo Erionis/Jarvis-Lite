@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import unittest
 from pathlib import Path
 
@@ -172,6 +173,120 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
+    def test_stages_cover_the_whole_journey_in_order(self):
+        section = self.text[
+            self.text.index("## Stages and re-entry"):self.text.index("Make no personalized filesystem write")
+        ]
+        stages = re.findall(r"^\d+\. \*\*(.+?)\*\*", section, re.MULTILINE)
+        self.assertEqual(
+            stages,
+            [
+                "Use domain",
+                "Starting point",
+                "Identity",
+                "Context detail",
+                "Collaboration",
+                "Recap approval",
+                "Personal setup",
+                "Local restore point",
+                "First trial and Continuity guide",
+                "Optional cockpit",
+            ],
+        )
+
+    def test_reentry_returns_to_the_first_open_stage(self):
+        for phrase in [
+            "A message that does not produce a stage's outcome leaves that stage open",
+            "A partial answer resolves only what it answers",
+            "Ask again only the missing part of a grouped interaction",
+            "When that work needs nothing more from the user, the same response closes with the question of the first open stage",
+            "When the requested work itself needs the user's input, ask for that input and add one line that names the open setup stage",
+            "propose it as that answer and ask for confirmation instead of asking from scratch",
+            "An explicit \"you choose\" or \"I don't know\" resolves the stage with its default",
+            "asked once more, in one short sentence that names its default",
+            "Starting point becomes Learn while working",
+            "Identity has no default",
+            "When the user asks to pause or stop setup, stop asking",
+            "Until the last stage, every response closes with the question of the first open stage",
+            "Never offer the First trial, give the Continuity guide, or call the workspace ready while an earlier stage is open",
+        ]:
+            self.assertIn(phrase, self.flat)
+
+    def test_marker_handoff_never_leaves_the_profile_without_a_marker(self):
+        for phrase in [
+            "The default starter ships both markers",
+            "In the same edit, leave exactly one `<!-- jarvis:git-pending -->`, adding it when the profile lacks one",
+            "unless the approved recap declined Local protection",
+            "The profile never holds neither marker while Local restore point is unresolved",
+            "the Git-pending count is one, or zero after a declined Local protection",
+            "Continue to Local restore point in the same turn: it is the next stage, not an optional follow-up",
+        ]:
+            self.assertIn(phrase, self.flat)
+
+    def test_restore_point_question_covers_unexpected_paths_and_later_sessions(self):
+        headings = [line[3:] for line in self.git_text.splitlines() if line.startswith("## ")]
+        self.assertIn("Restore-point question", headings)
+        self.assertIn("Resume in a later session", headings)
+        self.assertLess(
+            headings.index("Existing repository"), headings.index("Restore-point question")
+        )
+        for phrase in [
+            "That authorization lives in the session that displayed the card",
+            "ask the restore-point question below and list those paths",
+            "Its approval adds exactly the displayed paths to the verified union",
+            "**Create it now**",
+            "**Not now**",
+            "**Don't use restore points**",
+            "approves exactly the displayed software and paths",
+            "offer only **Not now** and **Don't use restore points**",
+            "does not authorize Git mutations here",
+            "Its displayed paths replace the onboarding paths",
+            "A plain no is a deferral",
+        ]:
+            self.assertIn(phrase, self.contract_flat)
+
+    def test_declined_restore_points_remove_the_marker_until_requested(self):
+        interview = " ".join(self.read_interview().split())
+        self.assertIn("**Start lighter** keeps Local protection", interview)
+        self.assertIn("records local restore points as declined", interview)
+        for phrase in [
+            "removes every Git-pending marker and makes no Git mutation",
+            "A later request for restore points adds one marker back",
+        ]:
+            self.assertIn(phrase, self.contract_flat)
+        frontmatter = self.text.split("---", 2)[1]
+        self.assertIn("asks to enable local restore points", frontmatter)
+
+    def test_reentry_and_restore_point_scenarios_define_terminal_behavior(self):
+        digression = " ".join(self.read_scenario("interview-digression.md").split())
+        unanswered = " ".join(self.read_scenario("interview-unanswered.md").split())
+        resume = " ".join(self.read_scenario("restore-point-resume.md").split())
+        declined = " ".join(self.read_scenario("restore-point-declined.md").split())
+        for phrase in [
+            "closes with the priorities question",
+            "proposes them as that answer",
+            "are not asked again",
+        ]:
+            self.assertIn(phrase, digression)
+        for phrase in [
+            "asks again only for the Starting point",
+            "applies Learn while working and shows it in the recap",
+            "keeps that stage open",
+        ]:
+            self.assertIn(phrase, unanswered)
+        for phrase in [
+            "resumes only the Local restore point, once in this session",
+            "asks the restore-point question",
+            "Do not treat the earlier setup card as approval in this session",
+        ]:
+            self.assertIn(phrase, resume)
+        for phrase in [
+            "removes every Git-pending marker",
+            "Later sessions do not ask again",
+            "adds exactly one Git-pending marker back",
+        ]:
+            self.assertIn(phrase, declined)
+
     def test_soul_rendering_translates_the_complete_template(self):
         text = " ".join(self.text.split())
         self.assertIn(
@@ -211,6 +326,10 @@ class FirstRunContractTest(unittest.TestCase):
             "unexpected-fresh-content.md",
             "existing-repository.md",
             "staged-index.md",
+            "interview-digression.md",
+            "interview-unanswered.md",
+            "restore-point-resume.md",
+            "restore-point-declined.md",
         ]:
             self.assertTrue((SCENARIOS / name).is_file(), name)
 
@@ -432,7 +551,7 @@ class FirstRunContractTest(unittest.TestCase):
         text = self.contract_flat
         for phrase in [
             "Continue to Local restore point",
-            "After the local restore point is completed, deferred, unavailable, or safely failed",
+            "After the local restore point is completed, deferred, unavailable, safely failed, or declined",
             "continue with the First trial and Continuity guide",
         ]:
             self.assertIn(phrase, text)
@@ -577,7 +696,8 @@ class FirstRunContractTest(unittest.TestCase):
     def test_setup_card_materializes_one_marker_before_fresh_git_scope(self):
         for phrase in [
             "approved local restore-point outcome covers adding or retaining exactly one `<!-- jarvis:git-pending -->` marker",
-            "During an approved first run, add the marker before the first Git mutation",
+            "The default starter ships the marker",
+            "in the same edit that removes the onboarding marker, so it is in place before the first Git mutation",
             "Do not ask for marker-only approval",
             "Failure or deferral retains or restores exactly one",
         ]:
@@ -676,6 +796,10 @@ class FirstRunContractTest(unittest.TestCase):
             "unexpected-fresh-content.md",
             "existing-repository.md",
             "staged-index.md",
+            "interview-digression.md",
+            "interview-unanswered.md",
+            "restore-point-resume.md",
+            "restore-point-declined.md",
         ]:
             scenario = (SCENARIOS / name).read_text(encoding="utf-8")
             headings = [

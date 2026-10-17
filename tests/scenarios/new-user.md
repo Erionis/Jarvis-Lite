@@ -2,8 +2,10 @@
 
 ## Given
 
-The declared Identity source is absent, `<!-- jarvis:onboarding-required -->`
-is present, and the declared Durable memory and Future work files are readable.
+The declared Identity source is absent, the starter's
+`<!-- jarvis:onboarding-required -->` and `<!-- jarvis:git-pending -->` markers
+are both present, and the declared Durable memory and Future work files are
+readable.
 Git is available, this folder is not yet a repository, and the inherited Git
 author name and email are already configured.
 
@@ -25,7 +27,8 @@ The skill writes identity and collaboration only to the declared Identity
 source, writes stable local context only to `CLAUDE.md`, writes current
 priorities only to the declared Future work source, and leaves Durable memory
 nearly empty. It creates only the approved visible structure and removes the
-onboarding marker only after re-reading every approved output.
+onboarding marker only after re-reading every approved output, keeping the
+Git-pending marker in the same edit.
 
 It automatically initializes the local repository, activates the shipped hook
 when no custom hook path exists, stages the verified full baseline while
