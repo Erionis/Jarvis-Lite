@@ -2,6 +2,19 @@
 
 This project uses Semantic Versioning.
 
+## 0.2.1 - 2026-10-17
+
+- First run no longer loses its remaining questions after a digression, a
+  skipped answer, or a pause. The interview follows ordered stages, returns to
+  the first open one after other work, and applies announced defaults to
+  skipped stages; only the name has no default (#39).
+- The local restore point can no longer be silently lost. The starter ships
+  the pending marker, files created during setup are listed for approval, and
+  a pending restore point is offered at most once per later session with
+  **Create it now**, **Not now**, or **Don't use restore points** (#39).
+- `jarvis-doctor` now reports a pending, declined, or ambiguous local restore
+  point while staying read-only (#41).
+
 ## 0.2.0 - 2026-10-16
 
 - Added the optional Jarvis cockpit plugin (`plugins/jarvis-cockpit`, version
