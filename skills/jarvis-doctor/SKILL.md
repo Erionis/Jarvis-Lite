@@ -36,10 +36,31 @@ configure Git; never perform repair as a side effect.
    only as the onboarding marker. A Doctor request is concrete user work:
    complete the bounded read-only diagnosis before offering setup. When
    Identity is missing or the onboarding marker is present, do not bypass first
-   run: report `Bootstrap blocked` and route to `first-run`. A missing
-   non-Identity capability is unavailable and does not authorize a fallback
-   source. A missing optional capability is not automatically an error; an
-   invalid declared target is.
+   run: report `Bootstrap blocked` and route to `first-run`. While first run is
+   routed, Git-pending markers belong to that route; do not report them
+   separately. A missing non-Identity capability is unavailable and does not
+   authorize a fallback source. A missing optional capability is not
+   automatically an error; an invalid declared target is.
+3. Once Identity exists and the onboarding marker is absent, count exact
+   `<!-- jarvis:git-pending -->` markers in the resolved local profile. The
+   marker is restore-point state owned by `first-run`, not a bootstrap blocker.
+   - Exactly one marker: the local restore point is pending. Say so in plain
+     language as `optional evolution`: ordinary work continues, and the user
+     can ask Jarvis to enable local restore points. Lead with that state, keep
+     the marker as technical evidence, and route the action to the
+     restore-point question in `first-run`.
+   - Zero markers and no Git repository: restore points were declined or never
+     set up. Report it as one neutral line within the inspected scope, with no
+     label, action, or reminder.
+   - Zero markers in a Git repository: no restore-point finding.
+   - More than one marker: report the exact count as ambiguous restore-point
+     state, labeled `error`. Recovery belongs to `first-run`, which asks for
+     approval before reducing it.
+
+   Establish repository presence only with read-only evidence, such as
+   `git rev-parse --is-inside-work-tree`. Missing Git counts as no repository
+   and is not a finding. Do not ask the restore-point question, add or remove a
+   marker, or initialize Git.
 
 ## 2. Verify structure and readiness
 

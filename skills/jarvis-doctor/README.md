@@ -14,7 +14,8 @@ may not be ready, or a user wants a full or naturally focused integrity check.
 
 The consumer's semantic capability map, bootstrap contract, guardrails, and
 declared sources are the only authority required. The audit is dependency-free
-and does not depend on a starter layout or remote service.
+and does not depend on a starter layout or remote service. Git, when available,
+is optional read-only evidence for the local restore-point state.
 
 ## Files it may change
 

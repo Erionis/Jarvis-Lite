@@ -212,6 +212,72 @@ class SafetySkillsTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, text)
 
+    def test_doctor_reports_the_local_restore_point_state(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "Once Identity exists and the onboarding marker is absent, count exact `<!-- jarvis:git-pending -->` markers in the resolved local profile",
+            "restore-point state owned by `first-run`, not a bootstrap blocker",
+            "Exactly one marker: the local restore point is pending",
+            "Say so in plain language as `optional evolution`",
+            "route the action to the restore-point question in `first-run`",
+            "the user can ask Jarvis to enable local restore points",
+            "Zero markers and no Git repository: restore points were declined or never set up",
+            "one neutral line within the inspected scope, with no label, action, or reminder",
+            "Zero markers in a Git repository: no restore-point finding",
+            "More than one marker: report the exact count as ambiguous restore-point state, labeled `error`",
+            "which asks for approval before reducing it",
+            "While first run is routed, Git-pending markers belong to that route",
+        ]:
+            self.assertIn(phrase, text)
+
+    def test_doctor_restore_point_check_stays_read_only(self):
+        text = " ".join(self.read("jarvis-doctor").split())
+        for phrase in [
+            "Establish repository presence only with read-only evidence, such as `git rev-parse --is-inside-work-tree`",
+            "Missing Git counts as no repository and is not a finding",
+            "Do not ask the restore-point question, add or remove a marker, or initialize Git",
+        ]:
+            self.assertIn(phrase, text)
+        card = " ".join(self.read_card("jarvis-doctor").split())
+        self.assertIn(
+            "Git, when available, is optional read-only evidence for the local restore-point state",
+            card,
+        )
+
+    def test_doctor_restore_point_contract_matches_first_run(self):
+        doctor = " ".join(self.read("jarvis-doctor").split())
+        first_run = self.read("first-run")
+        checkpoint = (SKILLS / "first-run" / "git-checkpoint.md").read_text(
+            encoding="utf-8"
+        )
+        frontmatter = first_run.split("---", 2)[1].strip().splitlines()
+        description = dict(line.split(": ", 1) for line in frontmatter)["description"]
+
+        self.assertIn("asks to enable local restore points", description)
+        self.assertIn("enable local restore points", doctor)
+        for shared in ["<!-- jarvis:git-pending -->", "restore-point question"]:
+            self.assertIn(shared, checkpoint)
+            self.assertIn(shared, doctor)
+        self.assertIn("More than one marker is ambiguous recovery state", checkpoint)
+        getting_started = " ".join(
+            (ROOT / "docs" / "getting-started.md").read_text(encoding="utf-8").split()
+        )
+        self.assertIn(
+            "It also tells you whether the local restore point is still pending",
+            getting_started,
+        )
+
+    def test_doctor_scenarios_have_the_exact_contract_headings(self):
+        names = sorted((ROOT / "tests" / "scenarios").glob("doctor-*.md"))
+        self.assertIn("doctor-restore-point.md", [path.name for path in names])
+        for path in names:
+            headings = [
+                line[3:]
+                for line in path.read_text(encoding="utf-8").splitlines()
+                if line.startswith("## ")
+            ]
+            self.assertEqual(headings, ["Given", "When", "Then", "Forbidden"], path.name)
+
     def test_doctor_reports_verified_scope_without_overclaiming_health(self):
         text = " ".join(self.read("jarvis-doctor").split())
         for phrase in [
@@ -269,6 +335,19 @@ class SafetySkillsTest(unittest.TestCase):
             "doctor-semantic-noise": [
                 "preferences and descriptive present-tense prose",
                 "no false finding",
+            ],
+            "doctor-restore-point": [
+                "exactly one `<!-- jarvis:git-pending -->` marker",
+                "reports `Jarvis operational`",
+                "the local restore point is pending",
+                "enable local restore points",
+                "`optional evolution`",
+                "zero Git-pending markers and no Git repository",
+                "with no label, action, or reminder",
+                "two Git-pending markers",
+                "exact count of 2 as ambiguous restore-point state",
+                "reports `Jarvis partially operational`",
+                "Do not ask the restore-point question",
             ],
         }
         for name, phrases in expected.items():

@@ -211,7 +211,8 @@ before changing Jarvis itself.
 - Jarvis reports the exact missing or mismatched path instead of claiming the
   workspace is ready.
 - Say `Check the Jarvis installation` for a read-only bounded audit; it does
-  not repair files. Where recognized, `/jarvis-doctor` is an optional alias.
+  not repair files. It also tells you whether the local restore point is still
+  pending. Where recognized, `/jarvis-doctor` is an optional alias.
 - Missing Git limits source acquisition or the local restore point, not ordinary
   Markdown work.
 - Missing Python 3 blocks source builds and updates, not ordinary Markdown work.
