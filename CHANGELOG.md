@@ -2,7 +2,7 @@
 
 This project uses Semantic Versioning.
 
-## Unreleased
+## 0.3.0 - 2026-10-19
 
 - Completing or superseding a handoff now archives the selected record, also
   when closed by save-session. History and link destinations are preserved;
