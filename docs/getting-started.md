@@ -89,6 +89,7 @@ Jarvis-Lite/
 ├── 99 - Jarvis/
 ├── AGENTS.md
 ├── CLAUDE.md
+├── jarvis-lite.json
 ├── START-HERE.md
 └── To Do.md
 ```
