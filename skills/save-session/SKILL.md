@@ -107,7 +107,11 @@ refresh current state, evidence, next action, and `updated:`, keeping
 `status: active`. With certain completion evidence, set `status: completed`,
 `completed:`, and `updated:`. If completion remains ambiguous, ask whether to
 keep it active or complete it. Always leave every other handoff unchanged.
-Never delete or archive a handoff automatically.
+When completing the current record, apply the handoff skill's
+[Archive on closure](../handoff/SKILL.md#archive-on-closure) procedure, including
+reference checks and verification. Record the actual final path and both sides
+of the move in the operation ledger. Report deferred archival without undoing
+the saved closure state. Never delete the record or sweep historical handoffs.
 
 ## 5. Verify the content checkpoint
 

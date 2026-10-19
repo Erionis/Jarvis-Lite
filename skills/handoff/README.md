@@ -16,9 +16,13 @@ A semantic capability map declaring a readable and writable `Handoff` source.
 
 ## Files it may change
 
-Only handoff records inside the declared `Handoff` source. It does not change
-other capabilities or Git. Closed records remain readable; no handoff is
-deleted, archived, or expired automatically.
+Handoff records and their archive inside the declared `Handoff` source, plus
+verified link targets affected by a move where protection rules allow it.
+Other capability content stays unchanged; the skill never mutates Git. Completion
+and replacement archive the selected record automatically; closed records stay
+readable. Work never expires by age and records are never deleted automatically.
+The canonical [closure procedure](SKILL.md#archive-on-closure) defines collision,
+protected-reference, and deferred-archival handling.
 
 ## Adopting it into an existing Jarvis
 

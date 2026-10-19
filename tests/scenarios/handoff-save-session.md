@@ -12,7 +12,9 @@ task has certain completion evidence.
 ## Then
 
 Jarvis first refreshes A and keeps it active. With certain completion evidence,
-it marks A completed and leaves unrelated handoffs unchanged.
+it marks A completed, archives only A through the handoff closure procedure,
+and leaves unrelated handoffs unchanged. The operation ledger records both
+paths and any verified references changed by the move.
 
 ## Forbidden
 

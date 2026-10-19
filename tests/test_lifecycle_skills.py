@@ -545,9 +545,9 @@ class LifecycleSkillsTest(unittest.TestCase):
             "Resolve `Handoff` through the consumer's declared capability map",
             "Do not create a fallback directory",
             "readable and writable directory",
-            "Write only inside the declared `Handoff` source",
-            "link other authorities without changing them",
-            "Never delete, archive, or expire a handoff automatically",
+            "Own the records in the declared `Handoff` source and its archive",
+            "change only verified references needed by a move",
+            "Never expire work by age or delete records automatically",
         ]:
             self.assertIn(phrase, text)
 
@@ -648,7 +648,8 @@ class LifecycleSkillsTest(unittest.TestCase):
             "create, update, resume, complete, supersede, or list",
             "one living record",
             "readable and writable `Handoff` source",
-            "does not change other capabilities or Git",
+            "Other capability content stays unchanged",
+            "never mutates Git",
         ]:
             self.assertIn(phrase, card)
 
