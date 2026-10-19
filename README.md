@@ -146,7 +146,7 @@ Everything Jarvis reads and writes is a Markdown file you can open yourself.
 | --- | --- |
 | “Give me a briefing.” | Reads your declared evidence and recommends one grounded focus. Read-only. |
 | “Work on this note.” | Resolves and edits the one authoritative source for that task. |
-| “Save and close.” | Records the result, updates future work and any handoff, and offers a local restore point. |
+| “Save and close.” | Records the result, updates future work and any handoff, and creates a local restore point when Git is configured and its safety checks pass. |
 
 That's the daily spine. The [daily-use guide](docs/daily-use.md) adds
 remembering facts, handoffs across sessions, and the read-only health check.
