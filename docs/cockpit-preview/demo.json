@@ -1,0 +1,53 @@
+{
+  "now": "2026-10-19T09:30:00+02:00",
+  "roles": {
+    "Identity": "99 - Jarvis/memory/soul.md",
+    "Durable memory": "99 - Jarvis/memory/MEMORY.md",
+    "Future work": "To Do.md",
+    "Daily history": "01 - Diary/",
+    "Handoff": "99 - Jarvis/handoffs/",
+    "Inbox": "00 - Inbox/"
+  },
+  "handoff": {
+    "file": "99 - Jarvis/handoffs/handoff-2026-10-18-atlas-launch.md",
+    "topic": "Atlas launch brief",
+    "ageDays": 1,
+    "state": "Two rollout options compared. The draft is ready for review.",
+    "next": "Choose the rollout option and finish the one-page brief."
+  },
+  "todo": "# To Do\n\n## Now\n\n- [ ] **Atlas launch brief** — Choose the rollout option before today's review.\n- [ ] **October reading notes** — Turn the three takeaways into a short note.\n- [x] **Workshop outline** — First draft ready.\n\n## Next\n\n- [ ] **Workshop examples** — Pick two practical exercises.\n- [ ] **Reading list** — Add the next book.\n\n## Waiting\n\n- [ ] **Launch illustrations** — Waiting for the draft sketches.\n",
+  "memories": [
+    {
+      "file": "project_atlas.md",
+      "name": "Atlas launch",
+      "description": "A small product launch, with a phased rollout and a clear review process.",
+      "group": "projects",
+      "links": ["feedback_writing_style.md", "reference_review_checklist.md", "reference_product_decisions.md"],
+      "fresh": "changed"
+    },
+    {
+      "file": "feedback_writing_style.md",
+      "name": "Writing style",
+      "description": "Lead with the decision. Keep the brief to one page.",
+      "group": "preferences",
+      "links": ["project_atlas.md"],
+      "fresh": null
+    },
+    {
+      "file": "reference_review_checklist.md",
+      "name": "Review checklist",
+      "description": "Audience, scope, evidence, and the next decision.",
+      "group": "references",
+      "links": ["project_atlas.md"],
+      "fresh": null
+    },
+    {
+      "file": "reference_product_decisions.md",
+      "name": "Product decisions",
+      "description": "Keep one authoritative note for each lasting decision.",
+      "group": "references",
+      "links": ["project_atlas.md"],
+      "fresh": "new"
+    }
+  ]
+}

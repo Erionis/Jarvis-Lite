@@ -13,6 +13,7 @@ without that prototype's history or private content.
 | Starter structure | Jarvis Lite implementation | Public templates only |
 | Skills | Jarvis Lite implementation | Each shipped skill has a public adoption card |
 | Build, release, and tests | Jarvis Lite implementation | Python standard library, official GitHub actions, and public fixtures only |
+| Cockpit documentation previews | Repository-owned cockpit views and SVGs, a browser adapter, and fictional demo data | Optional Node.js, Python 3, and Playwright CLI maintainer tooling; no personal workspace capture or external media |
 | Cockpit plugin | Jarvis Lite implementation, contributed by the maintainer from a personal prototype without its history or private content | Public fixtures only; third-party code keeps its notice (LICENSE-filetree, MIT) |
 
 The public starter currently ships `briefing`, `first-run`, `save-session`,
