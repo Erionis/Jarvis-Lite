@@ -17,6 +17,7 @@ source, then rebuild.
 | [`scripts/`](../scripts/) | Deterministic package assembly, release archives, and artifact verification. |
 | [`tests/`](../tests/) | Executable public and package contracts. |
 | [`docs/`](.) | Public user journeys, maintainer architecture, and provenance. |
+| [`docs/cockpit-preview/`](cockpit-preview/) | Optional maintainer renderer and fictional fixture for the cockpit documentation images; outside shipped packages. |
 | [`.github/`](../.github/) | Review templates, continuous integration, and draft-release automation. |
 
 The generated release manifest separates two inventories. `managed_files`

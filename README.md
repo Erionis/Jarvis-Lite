@@ -215,6 +215,12 @@ The cockpit is an optional panel beside the chat. It shows today, the last
 session, and the next step to resume, then your To Do, Diary, workspace files,
 and Jarvis's memories.
 
+![Jarvis cockpit beside an illustrative chat, showing today's work, the last session, and a next step ready to resume.](docs/images/cockpit-overview.png)
+
+*Preview with fictional data, rendered from the cockpit's existing components.
+The surrounding chat and window frame are illustrative. See the
+[cockpit guide](docs/cockpit.md) for closer views.*
+
 First run offers to install the cockpit. To install it yourself, run
 `claude plugin install jarvis-cockpit --marketplace Erionis/Jarvis-Lite --scope project`
 from the workspace folder, then open the workspace in the desktop app. The

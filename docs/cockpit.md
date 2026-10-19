@@ -18,6 +18,34 @@ can see where you left off without asking.
 The panel speaks the language of your workspace: Italian when your identity
 says Italian is your language, English otherwise.
 
+## A closer look
+
+These browser-rendered previews use the cockpit's existing view components
+and fictional workspace data. Text spacing and controls can differ slightly
+in the desktop app.
+
+### Recap: pick up where you left off
+
+See what needs attention today, the result of the last session, and one next
+step. **Resume** prepares the continuation prompt; you decide when to send it.
+
+![Recap with a launch brief due today, a saved previous session, and a handoff ready to resume.](images/cockpit-recap.png)
+
+### To Do: keep current work within reach
+
+Read the declared Future work source, check an item off, or add another in
+its section. The panel updates the same Markdown file that Jarvis uses.
+
+![To Do with Now, Next, and Waiting sections, an already completed item, and Add controls.](images/cockpit-todo.png)
+
+### Memories: follow the connections
+
+Open a memory to see its description, linked notes, and their small map.
+Memories are read-only here; **Ask for a change** routes an update request
+through Jarvis.
+
+![A fictional Atlas launch memory linked to writing style, a review checklist, and product decisions, with a relationship graph.](images/cockpit-memories.png)
+
 ## Install and remove
 
 First run offers to install the cockpit at the end of onboarding. To install it
@@ -72,3 +100,6 @@ macOS only for now. The panel draws in the Claude Code desktop app; in a
 terminal session it shows a single line. Trash in the Files tab uses the
 `/usr/bin/trash` command of recent macOS versions; where it is missing, the
 cockpit reports the error and moves nothing.
+
+Maintainers can [regenerate these previews](cockpit-preview/README.md) from the
+demo fixture and current plugin components.
