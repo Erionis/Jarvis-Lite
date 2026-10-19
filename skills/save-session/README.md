@@ -22,7 +22,8 @@ already made it available and configured.
 Completed chronology goes only to the declared `Daily history` source, in one
 local-day file that preserves frontmatter, custom sections, and unrelated
 entries. The skill may patch evidenced items in the declared `Future work`
-source, refresh or complete only the handoff used in this session, and
+source, refresh or complete only the handoff used in this session, archive it
+on completion through the handoff skill with verified references, and
 checkpoint the whole dedicated workspace in a local Git recovery point. Only
 after that core result may it route stable signals through `jarvis-memory` and
 offer optional Inbox maintenance or observed structural maintenance. Memory

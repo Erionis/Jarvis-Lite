@@ -13,8 +13,8 @@ still open and once after certain completion evidence.
 
 On the open path, resume keeps the record active, save-session refreshes it,
 and it remains visible as active continuity. On the completed path,
-save-session marks the same record completed and it no longer appears as active
-continuity in briefing.
+save-session marks the same record completed, archives it with its references
+intact, and it no longer appears as active continuity in briefing.
 
 ## Forbidden
 

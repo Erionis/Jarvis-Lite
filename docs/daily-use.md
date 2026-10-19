@@ -66,11 +66,16 @@ restore point incomplete. No push happens automatically. See the canonical
 | --- | --- | --- |
 | “Create a handoff.” | Creates or updates one living continuation record with state, evidence, and the next action. | The selected Handoff record after confirmation where required. |
 | “Resume the handoff.” | Selects a relevant active record, re-reads its evidence, and refreshes continuity without hiding it. | The resumed and updated timestamps of that record. |
-| “Complete the handoff.” | Marks the selected record completed while preserving its history. | The selected Handoff record. |
+| “Complete the handoff.” | Completes and archives the selected record while preserving its history and links. | The selected record, its archive, and verified references where allowed. |
 | “List the handoffs.” | Lists active, completed, superseded, and invalid records. | None. Listing is read-only. |
 
 A handoff stays active until work completes or an intentional replacement
-supersedes it. The canonical lifecycle lives in
+supersedes it. Completion also archives the current-session record during
+“Save and close.” The archive defaults to `archive/` inside the declared
+Handoff directory; an explicitly declared consumer archive takes precedence.
+Listing includes closed history without moving it. Ordinary briefing skips
+the archive. Historical cleanup is a separate request.
+The canonical lifecycle lives in
 [`handoff`](../skills/handoff/SKILL.md).
 
 ## Check the installation without repairing it

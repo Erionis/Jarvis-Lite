@@ -2,6 +2,13 @@
 
 This project uses Semantic Versioning.
 
+## Unreleased
+
+- Completing or superseding a handoff now archives the selected record, also
+  when closed by save-session. History and link destinations are preserved;
+  ordinary briefing excludes the archive and listing includes it read-only.
+  Open work never expires by age, and updates do not sweep old user records.
+
 ## 0.2.1 - 2026-10-17
 
 - First run no longer loses its remaining questions after a digression, a

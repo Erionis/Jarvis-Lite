@@ -25,7 +25,9 @@ Resolve through the local capability map:
    frontmatter contains `status: active`. A missing or unknown status is not
    active; report it as a discrepancy. Treat each distinct active Handoff with
    an unfinished next action as a candidate. Do not select between multiple
-   active Handoffs by recency alone.
+   active Handoffs by recency alone. Exclude `archive/` from ordinary briefing
+   and ignore `type: document-pointer` redirects when counting handoffs or
+   reporting missing lifecycle fields.
 6. `Inbox` supplies untriaged item names plus explicit deadlines, dependencies,
    constraints, or waiting states. Inbox is attention-only and never a
    priority candidate. An unresolved Inbox limits only attention and triage
