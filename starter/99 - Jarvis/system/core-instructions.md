@@ -110,6 +110,11 @@ system or physical skill mirrors as a side effect.
   after the semantic content writes are verified. Only afterward may it offer
   preview-first durable-memory curation or one structural improvement already
   observed during the session.
+- At a natural stopping point after a substantial work block, briefly offer
+  `save-session` when its decisions, results, or unresolved next steps should
+  carry into another session. Offer it once for that block and run the
+  checkpoint only if the user accepts or asks for it. Chat length and context
+  compaction are not triggers.
 - Continue elsewhere: use `handoff` when a fresh session needs a compact task
   packet.
 - A handoff remains `active` until work is completed or superseded. Resume
