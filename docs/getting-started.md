@@ -104,7 +104,14 @@ Jarvis-Lite/
 
 ## Say `Start Jarvis`
 
-Use your preferred language. First run presents four visible decisions in a
+Use your preferred language. First run first asks whether to keep a temporary
+local setup draft. If you agree, Jarvis records confirmed answers in this
+workspace so a new chat can continue at the open question, then removes the
+draft after setup. If you decline, answers stay only in the current chat and
+a new chat may need to ask again. This choice does not approve the final
+personal setup.
+
+The interview then presents four visible decisions in a
 small number of coherent interactions. When the active runtime supports it,
 the first interactive control can collect the two independent setup choices —
 Use domain and Starting point — together. Use domain accepts more than one
@@ -125,9 +132,9 @@ the open question. A question you skip is asked once more with its default,
 which the recap then shows. Only your name has no default. Say that you want
 to pause, and Jarvis stops asking until you start again.
 
-Jarvis shows the exact personal files, folders, and templates it proposes
-before any personalized write. Review that recap and approve it, revise it, or
-stop. Silence is not approval.
+Jarvis shows the exact personal files, folders, and templates it proposes,
+including the full Soul text it will create. Review that recap and approve it,
+revise it, or stop. Silence is not approval.
 
 The full behavioral contract lives in [`first-run`](../skills/first-run/SKILL.md),
 and the visible questions live in the

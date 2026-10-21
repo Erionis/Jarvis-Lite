@@ -27,8 +27,9 @@ be answered together. Allow multiple answers when several choices can be true.
 Keep mutually exclusive choices single-select. Keep free-form or nuanced
 reasoning conversational: the interactive UI supports the dialogue instead of
 turning it into a form. The recommended path still covers four decision
-moments, but it does not impose a fixed number of turns. A progressive path is
-a complete onboarding result, not an unfinished questionnaire.
+moments about personal setup, plus the separate continuity choice; it does not
+impose a fixed number of turns. A progressive path is a complete onboarding
+result, not an unfinished questionnaire.
 
 Use the user's evident language. If it is genuinely unclear, ask for the
 preferred language before the identity moment. Before the approval card, keep
@@ -41,8 +42,16 @@ selection, preflight, marker, and no-write status out of the personal journey.
 
 ## Opening
 
-Explain that Jarvis needs four things to prepare the workspace: where it will
-be used, who the user is, where to start, and how to collaborate. Say that the
+First ask the Setup continuity choice defined in `SKILL.md`. Say in the
+user's language: "I can keep your setup answers in a temporary file in this
+workspace and remove it when setup is complete, so we can pick up in another
+chat. Would you like that, or keep them in this chat only?" Use the native
+choice UI when available. The temporary-file option is recommended; both
+choices are valid. If the user declines, do not create a draft. This decision
+is separate from the approval of the final setup.
+
+Then explain that Jarvis needs four things to prepare the workspace: where it
+will be used, who the user is, where to start, and how to collaborate. Say that the
 setup can stay light. The first user-facing interaction combines this opening
 with Use domain and Starting point only when the runtime can group related
 questions. These two closed decisions are independent and can be answered
@@ -160,9 +169,13 @@ understood before preparing anything. Show four short blocks:
 
 Then show the approved-change list. Its Identity line names the standard Soul
 template, confirmed name, confirmed language, and explicit collaboration
-differences. The complete rendered Soul appears only after an explicit preview
-request; after showing it, ask for approval again. The default card does not
-repeat unchanged standard template text.
+differences. When Identity is missing, render the complete Soul template in
+the confirmed language and show the complete rendered Soul as a readable
+preview before asking for approval, without waiting for a special request.
+The preview is the exact approved rendering to write after approval; do not
+shorten it, merely describe it, or change its bytes between preview and write.
+If a new session begins before approval, show the full preview again. If
+Identity already exists, state `No change` and do not preview a replacement.
 
 The list names every other exact path and action:
 
@@ -183,7 +196,8 @@ the approved card then records local restore points as declined.
 
 State `No change` for an authoritative personal source that will remain
 untouched. This card is the complete approval scope: path, action, personalized
-content, and purpose, without dumping unchanged boilerplate.
+content, and purpose. The full Soul preview is required when it will be created;
+unchanged text in other files need not be repeated.
 
 For **Current priorities** or **Full map**, when two or more selected domains
 each have confirmed stable context that can hold continuing material, propose

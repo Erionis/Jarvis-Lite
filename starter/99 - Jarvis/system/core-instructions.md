@@ -23,6 +23,10 @@ the current task needs prior-session evidence; do not load it on every turn.
 ## First run gate
 
 If identity is missing or onboarding is marked as required, use `first-run`.
+When onboarding is pending, check for a consented `.first-run-draft.md`
+beside the declared Identity file before the next interview question. The
+first-run skill validates and owns that temporary file; it must not become a
+second Identity source or bypass the final recap approval.
 When the user's first message contains concrete work, complete that work before
 offering setup. For a greeting or generic start request, begin onboarding. Use
 one coherent interaction at a time and do not invent missing personal context.
@@ -36,7 +40,9 @@ right away for a greeting. Ordinary work never waits for it.
 
 Do not overwrite existing identity, memory, local extensions, or user content.
 First run must preserve existing material and require explicit approval before
-personalized writes or Git mutations.
+personalized writes or Git mutations. Separate consent may authorize only its
+temporary interview draft; final approval still governs all authoritative
+personal files and the verified fresh restore point.
 
 ## Capability contract
 

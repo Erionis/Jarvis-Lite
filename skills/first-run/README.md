@@ -31,7 +31,9 @@ unexpected file always uses a conservative, separately reviewed path.
 The local profile and the Identity and Future work paths declared there,
 limited to a missing Soul, approved stable-context placeholders, approved
 current-work entries in the declared `Future work` active section, and
-onboarding or Git-pending markers. It may also create
+onboarding or Git-pending markers. With separate consent, it may create a
+temporary `.first-run-draft.md` beside the declared Identity, then remove
+it after verified setup or an explicit discard. It may also create
 `98 - Archive/README.md`, up to four approved numbered domain folders with
 READMEs, and templates for explicitly recurring outputs. Multiple domains with
 confirmed continuing context receive separate folders in the default recap;

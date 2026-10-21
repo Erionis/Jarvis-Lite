@@ -15,7 +15,9 @@ Before the interview, inspect the consumer without changing it:
 
 1. Read the local profile (`CLAUDE.md` in the default starter) and resolve the
    Identity, Durable memory, Future work, Inbox, and Soul template paths from
-   the consumer contract.
+   the consumer contract. The temporary first-run draft, when used, is
+   `.first-run-draft.md` beside the resolved Identity file; it is provisional
+   interview state, never another Identity source.
 2. Read every resolved source that exists and inspect the declared Inbox.
    Count both marker types only in the resolved local profile. A marker
    mentioned in installed system instructions, skill references, or
@@ -47,6 +49,44 @@ Treat semantic equivalents of `Start Jarvis` in any language as the same
 trigger. For the default starter, if `99 - Jarvis/memory/soul.md` already
 exists, do not replace it.
 
+## Temporary interview draft
+
+Before collecting personal answers, ask one plain decision: save setup progress
+in a temporary local draft so a new session can resume, or keep it only in this
+conversation. Explain that the draft contains the confirmed setup answers,
+stays in the workspace, and is removed after setup; the conversation-only
+choice cannot resume those answers in a new session. This is explicit consent
+for this one temporary file, not approval for Identity, profile, future-work,
+structure, or Git writes. Do not create the draft until the user chooses to
+save progress. If the user declines, keep the stage state in conversation and
+do not imply cross-session resume.
+
+Use the path `.first-run-draft.md` beside the declared Identity file, never a
+fallback source. The draft begins with `# Jarvis first-run draft` and records
+`Consent: save progress`, the confirmed language, each resolved interview
+stage and its concise user-confirmed answer, any explicitly skipped stage, and
+the first open stage. Do not copy raw conversation, detour content, secrets, or
+unconfirmed inferences. Update it after each resolved stage and before starting
+a requested detour when the user's message supplies a stage answer. Re-read it
+before deciding the next setup question, including after a detour.
+
+On a new session, read a draft only if the header and consent line match this
+contract and the onboarding marker remains. Reconcile its answers with the
+actual Identity and profile state, then resume at the first open stage; do not
+ask resolved questions again. If it is missing, invalid, or conflicts with
+actual files, do not guess: report the discrepancy and continue only from
+confirmed state. If an unrelated file already occupies the draft path, do not
+overwrite or delete it; continue in conversation and explain the limit. Never
+write, replace, or remove a draft without its explicit consent record.
+
+If the user explicitly discards setup, remove the consented draft and stop.
+If the user merely pauses, retain it. After approved personal files verify,
+remove the draft and verify absence before removing the onboarding marker or
+inspecting the fresh-package inventory for Git. If removal fails, keep
+onboarding pending and report the path; never stage the draft. The shipped
+`.gitignore` also excludes the draft from ordinary staging during an
+interrupted setup.
+
 ## Personal interview
 
 Read and follow [interview.md](interview.md) for the full visible journey. Use
@@ -61,6 +101,7 @@ signals, free-form memory, or unrelated notes.
 First run is one journey of ordered stages. A stage is resolved only by its
 named outcome:
 
+0. **Setup continuity** — local draft consent granted or declined.
 1. **Use domain** — one or more domains selected.
 2. **Starting point** — one starting depth selected.
 3. **Identity** — a name plus the minimum stable context for the branch.
@@ -74,9 +115,9 @@ named outcome:
 9. **First trial and Continuity guide** — offered and given.
 10. **Optional cockpit** — offered, or skipped by its own conditions.
 
-Stages 1 to 6 live only in the conversation, because nothing personal is
-written before recap approval. From stage 7 on, the markers carry the pending
-state across sessions.
+With draft consent, stages 1 to 6 persist only in the temporary draft until
+recap approval. Without it, those stages live only in the conversation. From
+stage 7 on, the markers and actual files carry pending state across sessions.
 
 A message that does not produce a stage's outcome leaves that stage open:
 
@@ -102,8 +143,9 @@ A message that does not produce a stage's outcome leaves that stage open:
   stays empty, and Collaboration uses the default.
 - Identity has no default. While the name is missing, keep the stage open and
   say that setup continues when the user shares how to be addressed.
-- When the user asks to pause or stop setup, stop asking. The next start
-  resumes from the first open stage.
+- When the user asks to pause or stop setup, stop asking. With a valid draft,
+  the next start resumes from the first open stage. Without one, explain that
+  a new session will need the answers again.
 
 Until the last stage, every response closes with the question of the first
 open stage or, while requested work waits for the user's input, the one line
@@ -111,9 +153,11 @@ that names it. Only a request to pause ends this. Never offer the First trial,
 give the Continuity guide, or call the workspace ready while an earlier stage
 is open.
 
-Make no personalized filesystem write before the user approves the final
-visible recap. Approval covers only the literal personal paths, content
-summary, folders, templates, and local restore-point outcome displayed in that
+Make no authoritative personalized filesystem write before the user approves
+the final visible recap. The separately consented temporary draft is the sole
+exception and never authorizes applying its answers. Approval covers only the
+literal personal paths, content summary, folders, templates, and local
+restore-point outcome displayed in that
 recap. For a verified fresh Lite package, that outcome also authorizes the
 internal local-history mutations defined in the Git reference. It never
 authorizes software installation, an existing repository mutation, remote
@@ -180,8 +224,10 @@ starting over:
 
 - If Identity exists, preserve it byte for byte and complete only the missing
   approved scope. Do not mine it or another file for unconfirmed answers.
-- If interruption happened before recap approval, no partial answers were
-  persisted; restart the interview from the first unresolved decision.
+- If interruption happened before recap approval, use a valid consented draft
+  to recover the resolved answers; otherwise restart from the first decision
+  whose answer is not confirmed in the current conversation. Show a fresh
+  recap and full Soul preview; the draft is never approval.
 - If interruption happened after approved writes began, re-read the actual
   files, show a missing-only recap, and require approval for that remaining
   literal scope. Do not rewrite completed items.
@@ -197,7 +243,9 @@ Verify that Identity, Durable memory, and Future work resolve and are readable;
 that the capability map is intact; that the approved visible structure matches
 the recap; and verify that no onboarding placeholder remains.
 
-Remove `<!-- jarvis:onboarding-required -->` only after every verification
+Remove a consented draft and verify its absence after checking the personal
+outputs and before removing `<!-- jarvis:onboarding-required -->`. Remove the
+`<!-- jarvis:onboarding-required -->` marker only after every verification
 passes. Preserve every non-marker line. In the same edit, leave exactly one
 `<!-- jarvis:git-pending -->`, adding it when the profile lacks one, unless the
 approved recap declined Local protection; then remove every Git-pending marker
