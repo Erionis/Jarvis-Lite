@@ -55,6 +55,12 @@ and project knowledge in its project-owned source.
 | --- | --- | --- |
 | “Save and close.” | Records the day's result, updates future work and the involved handoff, then creates and reports the available local restore point. Only afterward does it offer optional Inbox maintenance, which requires its own explicit confirmation. | Daily history, Future work, the involved Handoff, and local Git history for the core save; confirmed Inbox targets only for later maintenance. |
 
+After a substantial work block reaches a natural stopping point, Jarvis
+briefly offers this checkpoint when its decisions, results, or unresolved
+next steps should carry into another session. The offer makes no changes;
+Jarvis saves only if you accept or ask. It offers once for that block, based
+on the work rather than chat length or context compaction.
+
 The core save closes before optional memory or structural proposals.
 Those proposals keep their own confirmation and do not make a successful
 restore point incomplete. No push happens automatically. See the canonical
