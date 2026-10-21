@@ -126,9 +126,23 @@ Never recreate or replace an existing repository.
 Use this branch only for the expected not-a-repository state. Before `git init`,
 verify all of the following:
 
-1. The installed release manifest and `.jarvis-update/state.json` form a
-   coherent Jarvis Lite release manifest and seed state: product, release,
-   source commit, contract revision, manifest hash, and managed baseline agree.
+1. The installed `99 - Jarvis/system/release-manifest.json` and
+   `.jarvis-update/state.json` form a coherent Jarvis Lite release manifest
+   and seed state. Use their actual JSON keys:
+   - Compare `schema_version`, `product`, `source_commit`, and
+     `contract_revision` for equality in both files. Require
+     `product` to be `jarvis-lite`. Compare manifest `release_version`
+     with state `accepted_release`. The package `jarvis-lite.json` must
+     agree on product, release version, and source commit too.
+   - Compute SHA-256 over the raw bytes of the manifest file and compare its
+     lowercase hex digest with state `manifest_sha256`.
+   - Require manifest `managed_files` to have unique, safe relative
+     `path` values. Compare state `baseline` with the map formed by each
+     managed-file entry keyed by its `path`; compare complete entry objects,
+     not only filenames or hashes.
+   The seed state does not use keys named `manifest_hash` or
+   `managed_baseline`. Their absence is not a failure; a missing or
+   mismatched actual key is.
 2. The manifest's `package_paths` is a sorted, duplicate-free list of safe
    relative regular-file paths and includes both metadata files.
 3. Build the actual regular-file inventory below the workspace, excluding only

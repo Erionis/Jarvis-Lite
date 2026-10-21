@@ -1,6 +1,9 @@
 from __future__ import annotations
 
+import hashlib
+import json
 import re
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -653,6 +656,60 @@ class FirstRunContractTest(unittest.TestCase):
             "do not expose author values, hook configuration, status output, or another Git choice",
         ]:
             self.assertIn(phrase, self.contract_flat)
+
+    def test_fresh_seed_reference_uses_the_built_package_schema(self):
+        from scripts.build_starter import build_starter
+
+        with tempfile.TemporaryDirectory() as temporary:
+            package = build_starter(
+                ROOT,
+                Path(temporary),
+                release_version="0.3.1",
+                source_commit="a" * 40,
+            )
+            manifest_path = package / "99 - Jarvis/system/release-manifest.json"
+            manifest = json.loads(manifest_path.read_text(encoding="utf-8"))
+            state = json.loads(
+                (package / ".jarvis-update/state.json").read_text(encoding="utf-8")
+            )
+            self.assertEqual(
+                state["manifest_sha256"],
+                hashlib.sha256(manifest_path.read_bytes()).hexdigest(),
+            )
+            self.assertEqual(
+                state["baseline"],
+                {entry["path"]: entry for entry in manifest["managed_files"]},
+            )
+            self.assertEqual(
+                state["accepted_release"], manifest["release_version"]
+            )
+
+        for key in (
+            "schema_version",
+            "product",
+            "source_commit",
+            "contract_revision",
+        ):
+            self.assertIn(key, manifest)
+            self.assertIn(key, state)
+            self.assertIn(f"`{key}`", self.git_text)
+        for key in ("release_version", "managed_files", "package_paths"):
+            self.assertIn(key, manifest)
+            self.assertIn(f"`{key}`", self.git_text)
+        for key in ("accepted_release", "manifest_sha256", "baseline"):
+            self.assertIn(key, state)
+            self.assertIn(f"`{key}`", self.git_text)
+        self.assertIn(
+            "The seed state does not use keys named `manifest_hash` or "
+            "`managed_baseline`",
+            " ".join(self.git_text.split()),
+        )
+        scenario = " ".join(
+            self.read_scenario("fresh-seed-schema.md").split()
+        )
+        self.assertIn("valid release package", scenario)
+        self.assertIn("continues to the file inventory", scenario)
+        self.assertIn("mismatched hash or baseline", scenario)
 
     def test_existing_repository_index_isolated_before_checkpoint(self):
         for phrase in [
