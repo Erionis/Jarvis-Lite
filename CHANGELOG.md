@@ -2,6 +2,19 @@
 
 This project uses Semantic Versioning.
 
+## 0.4.0 - 2026-10-21
+
+- First run now resumes the first unanswered interview stage after detours or
+  a new chat when the user accepted a temporary setup draft. The approval
+  recap shows the complete rendered Soul before writing it (#54).
+- The fresh-package restore point verifies the shipped seed schema before
+  creating local history, so an unexpected package shape stops safely (#55).
+- The Soul template now asks Jarvis to raise relevant risks, better approaches,
+  and useful next steps proactively. The core offers `save-session` once at a
+  natural stopping point after substantial work when continuity is useful;
+  saving still requires the user's acceptance (#57). Existing user-owned Soul
+  files are not rewritten by this release.
+
 ## 0.3.0 - 2026-10-19
 
 - Completing or superseding a handoff now archives the selected record, also
