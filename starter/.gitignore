@@ -42,6 +42,7 @@ dist/
 build/
 coverage/
 .jarvis-update/recovery/
+.first-run-draft.md
 *.tmp
 *.temp
 *~

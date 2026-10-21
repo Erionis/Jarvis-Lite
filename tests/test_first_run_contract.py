@@ -141,7 +141,7 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "Use a compact approval card",
             "names the standard Soul template, confirmed name, confirmed language",
-            "The complete rendered Soul appears only after an explicit preview request",
+            "show the complete rendered Soul as a readable preview",
             "names every other exact path and action",
         ]:
             self.assertIn(phrase, text)
@@ -175,12 +175,13 @@ class FirstRunContractTest(unittest.TestCase):
 
     def test_stages_cover_the_whole_journey_in_order(self):
         section = self.text[
-            self.text.index("## Stages and re-entry"):self.text.index("Make no personalized filesystem write")
+            self.text.index("## Stages and re-entry"):self.text.index("Make no authoritative personalized filesystem write")
         ]
         stages = re.findall(r"^\d+\. \*\*(.+?)\*\*", section, re.MULTILINE)
         self.assertEqual(
             stages,
             [
+                "Setup continuity",
                 "Use domain",
                 "Starting point",
                 "Identity",
@@ -287,6 +288,53 @@ class FirstRunContractTest(unittest.TestCase):
         ]:
             self.assertIn(phrase, declined)
 
+    def test_unfinished_interview_can_resume_from_an_opted_in_local_draft(self):
+        core = (ROOT / "starter/99 - Jarvis/system/core-instructions.md").read_text(
+            encoding="utf-8"
+        )
+        ignore = (ROOT / "starter/.gitignore").read_text(encoding="utf-8")
+        text = " ".join(self.text.split())
+        for requirement in (
+            "explicit consent",
+            "first open stage",
+            "new session",
+            "after each resolved stage",
+            "remove the draft",
+            "do not overwrite",
+        ):
+            self.assertIn(requirement, text)
+        self.assertIn(".first-run-draft.md", self.text)
+        self.assertIn(".first-run-draft.md", core)
+        self.assertIn(".first-run-draft.md", ignore)
+        scenario = " ".join(
+            self.read_scenario("interview-new-session.md").split()
+        )
+        for requirement in (
+            "explicitly approves",
+            "another session",
+            "does not ask again",
+            "first open stage",
+            "removes the draft",
+        ):
+            self.assertIn(requirement, scenario)
+        declined = " ".join(
+            self.read_scenario("interview-draft-declined.md").split()
+        )
+        self.assertIn("no draft is created", declined)
+        self.assertIn("new session", declined)
+        self.assertIn("never implies", declined)
+
+    def test_soul_is_previewed_without_a_special_request(self):
+        interview = " ".join(self.read_interview().split())
+        self.assertIn("complete rendered Soul", interview)
+        self.assertIn("before asking for approval", interview)
+        self.assertIn("exact approved rendering", interview)
+        self.assertNotIn("only after an explicit preview request", interview)
+        scenario = " ".join(self.read_scenario("soul-preview.md").split())
+        self.assertIn("without asking for a preview", scenario)
+        self.assertIn("complete rendered Soul", scenario)
+        self.assertIn("exact approved rendering", scenario)
+
     def test_soul_rendering_translates_the_complete_template(self):
         text = " ".join(self.text.split())
         self.assertIn(
@@ -348,7 +396,8 @@ class FirstRunContractTest(unittest.TestCase):
     def test_personal_writes_are_atomic_after_exact_recap_approval(self):
         text = " ".join(self.text.split())
         for phrase in [
-            "Make no personalized filesystem write before the user approves the final visible recap",
+            "Make no authoritative personalized filesystem write before the user approves the final visible recap",
+            "The separately consented temporary draft is the sole exception",
             "Approval covers only the literal personal paths, content summary, folders, templates, and local restore-point outcome displayed in that recap",
             "Create the single `98 - Archive/README.md` at the approved workspace root",
             "Create at most four approved numbered domain folders",
@@ -374,7 +423,7 @@ class FirstRunContractTest(unittest.TestCase):
         for phrase in [
             "Re-read every approved personal file and every created README or template",
             "verify that no onboarding placeholder remains",
-            "Remove `<!-- jarvis:onboarding-required -->` only after every verification passes",
+            "marker only after every verification passes",
             "Re-read `CLAUDE.md` and prove that the onboarding marker count is zero",
             "A failed or incomplete verification retains exactly one onboarding marker",
             "Do not claim that the workspace is ready",
@@ -418,7 +467,7 @@ class FirstRunContractTest(unittest.TestCase):
             "Use one coherent interaction at a time",
             "Treat semantic equivalents of `Start Jarvis` in any language as the same trigger",
             "For the default starter, if `99 - Jarvis/memory/soul.md` already exists, do not replace it",
-            "Remove `<!-- jarvis:onboarding-required -->` only after",
+            "marker only after every verification passes",
             "Preserve every non-marker line",
             "render the complete Soul template in the confirmed language",
         ]:
