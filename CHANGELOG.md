@@ -2,6 +2,16 @@
 
 This project uses Semantic Versioning.
 
+## Unreleased
+
+- Update checks and capability adoption can offer explicit personal-behavior
+  improvements adapted to existing instructions, with separate preview and
+  approval. Existing local curators are honored; a memory skill is not a
+  mandatory dependency. Equivalent behavior and recorded declines are skipped.
+- Approved adoption patches gain scoped original copies, read-only inspection,
+  exact-result verification and guarded rollback. Partial work is reported;
+  newer edits stop restoration. There is no automatic resume engine (#60).
+
 ## 0.4.0 - 2026-10-21
 
 - First run now resumes the first unanswered interview stage after detours or

@@ -45,6 +45,14 @@ name alone. Inventory both systems before assigning a label:
 Read every candidate skill card completely before classification. Do not infer
 equivalence or absence from a path or skill name.
 
+For a source that includes a personal-improvement catalog, also read
+[`personal-adoption.md`](../jarvis-update/personal-adoption.md) and
+[`personal-improvements.md`](../jarvis-update/personal-improvements.md) at that
+same immutable source revision. Evaluate useful personal behavior alongside
+functional candidates, including behavior already implemented by the current
+core. If the selected older source has no catalog, continue ordinary capability
+adoption without inventing personal candidates.
+
 ## Classification contract
 
 Each fully inspected candidate gets exactly one label:
@@ -117,14 +125,28 @@ After exact patch approval:
 - For `add`, create only the approved capability files.
 - For `already present`, make no capability write.
 - Never overwrite, redirect, or curate identity or memory content as part of
-  capability adoption.
+  a functional capability patch. Personal improvements use the separate exact
+  preview and authorized-writer route in `personal-adoption.md`: an existing
+  curator, an equivalent local workflow, or a minimal approved direct patch
+  only when no dedicated curator exists and local rules permit it.
 - Preserve local extensions, adapters, unrelated files,
   authoritative-source declarations, and user formatting unless the exact
   approved patch contains a compatible and safe adapter change.
 
+Before the first approved write, follow the scoped recovery procedure in
+[`personal-adoption.md`](../jarvis-update/personal-adoption.md) for both
+functional and personal adoption. Include the provenance/decision entry in
+the approved files, recheck reviewed hashes, and save originals. Use the
+source's `skills/jarvis-update/scripts/adoption_recovery.py` or an existing
+local mechanism with the same guarantees; Python 3 is needed for the helper,
+not for inspection or proposals. If no recovery is available, stop before
+mutation. Show the recovery path as part of the exact patch approval.
+
 Re-read every affected file and verify the approved patch scope. On partial
 failure, stop, disclose the exact state, and do not reset or discard unrelated
-work. Do not stage, commit, push, create a remote, or change Git configuration.
+work. Inspect actual file hashes against recovery before replanning or offering
+an approved rollback; never automatically continue an interrupted adoption.
+Do not stage, commit, push, create a remote, or change Git configuration.
 
 ## Provenance
 

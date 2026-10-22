@@ -22,6 +22,13 @@ Only release-managed paths, an explicitly approved migration overlay, and
 `.jarvis-update/state.json`. Recovery copies stay under
 `.jarvis-update/recovery/`. It never changes consumer Git.
 
+After the core result, the optional [personal-improvement workflow](personal-adoption.md)
+may propose changes to user-owned sources. Each needs its own exact preview
+and approval through the authorized local writer, with a decision/provenance
+entry and scoped recovery under `.jarvis-adoption/recovery/`. These optional
+changes are not authorized by core update approval. `jarvis-memory` or an
+equivalent curator is used when required locally; no new skill is mandatory.
+
 ## Adopting it into an existing Jarvis
 
 For a Lite consumer without this skill, verify and extract an official release

@@ -96,7 +96,7 @@ Focused verification checks release identity, canonical control-plane hashes,
 approved functional results, selected migrations, preserved overrides, and
 both runtime mirrors. It does not perform a whole-workspace audit.
 
-Report exactly one outcome: updated, updated with preserved overrides,
+Report exactly one outcome: already current, updated, updated with preserved overrides,
 postponed, blocked, or rolled back. Name the effective version, retained
 customizations, postponed items, verification result, recovery point, and any
 external staging directory that can now be removed.
@@ -108,6 +108,28 @@ consumer-owned or Git data. Before restoring anything, it verifies every
 in-scope path against the recorded pre-update or post-update hash. If a path
 was edited after the update, stop without mutation and ask how the user wants
 to preserve that newer edit.
+
+## 6. Offer optional personal improvements
+
+After reporting the core result, read [personal adoption](personal-adoption.md)
+and the selected release's [candidate catalog](personal-improvements.md).
+Also evaluate these candidates on an explicit update check when Lite is
+already current. Use the verified target reference after an update; do not
+infer personal changes from an arbitrary diff or a stale installed template.
+
+Compare meaning with the consumer's active instructions and prior decisions.
+Skip equivalent behavior and unchanged declined candidates. Show only useful,
+compatible improvements with exact contextualized previews. Route personal
+writes through the consumer's authorized curator, or the documented direct
+edit path when no curator exists and local rules permit it. `jarvis-memory`
+is not an installation prerequisite for this optional workflow.
+
+Personal-file approval is separate from release approval. Use the scoped
+recovery procedure in that reference, and keep its decision/provenance record
+outside `.jarvis-update/state.json`. A declined or pending personal proposal
+does not change the completed core update result. If a source release lacks
+the catalog, report that no curated personal candidates are available from
+that source; the ordinary update remains available.
 
 ## Common mistakes
 
