@@ -104,9 +104,10 @@ your workspace intact.
    capabilities. Jarvis proposes what to take, shows how each item is
    classified, and asks you to approve every change.
 
-Your workspace stays yours: identity, memory, Diary, handoffs, Inbox, local
-extensions, and Git history are never overwritten — at most Jarvis asks to *keep
-and adapt* where something overlaps.
+Your workspace stays yours: existing authorities, local choices and Git history
+are preserved. Jarvis asks to *keep and adapt* where behavior overlaps. Optional
+personal improvements get a separate exact preview and approval through your
+local editing rules, with scoped recovery; no additional memory skill is required.
 
 See [Updates and adoption](docs/updates.md) for the full `adopt-capability`
 walkthrough and its boundaries.

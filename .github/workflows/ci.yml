@@ -13,6 +13,20 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  adoption-recovery:
+    name: adoption-recovery (${{ matrix.os }})
+    strategy:
+      matrix:
+        os: [macos-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with:
+          python-version: "3.12"
+      - name: Check scoped recovery on the consumer platform
+        run: python -B -m unittest -v tests.test_adoption_recovery
+
   repository-contract:
     name: repository-contract
     runs-on: ubuntu-latest

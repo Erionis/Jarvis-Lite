@@ -46,6 +46,11 @@ The final report names the effective version and whether changes were updated,
 kept as overrides, postponed, blocked, or rolled back, with scoped recovery
 information when relevant.
 
+After the core result, Jarvis can offer improvements from the release's
+personal-behavior catalog. These are optional and separately approved; see
+[Personal improvements](#personal-improvements) below. An explicit update
+check can also offer them when the installed release is already current.
+
 ## Older Lite without `jarvis-update`
 
 Use this path only with an official immutable Lite artifact:
@@ -81,12 +86,56 @@ Copy-ready prompt for your existing Jarvis:
 > README.md beside it (its adoption card). If you cannot browse, ask me to clone
 > the repository at that tag and read the same files locally. Then walk me through
 > adopting the useful capabilities from that release: propose what to take,
-> classify each item, and ask my approval for every change. Don't touch my
-> identity, memory, Diary, handoffs, Inbox, local extensions, or Git history.
+> classify each item, and ask my approval for every change. Keep my existing
+> authorities and local choices. Present personal-behavior improvements
+> separately with an exact preview and follow my local rules before changing
+> identity or memory. Preserve my Diary, handoffs, Inbox and Git history.
 
 If your agent cannot browse the web, clone this repository at the release tag
 and point the agent at the same files in that local copy: the adoption contract
 above, and each candidate skill's `SKILL.md` with the `README.md` beside it.
+
+## Personal improvements
+
+An updated template does not replace your personalized Soul. Instead, both
+update and adoption can compare the selected release's explicit suggestions
+with your current instructions and propose a small contextualized change.
+For example:
+
+> This release encourages useful initiative. Your current instructions cover
+> concise answers but not raising risks proactively. I suggest adding:
+> "Point out relevant risks and useful next steps when they improve our work."
+
+Jarvis shows the exact text, destination, benefit, decision-record entry and
+recovery location. You can **Apply**, **Edit**, **Skip for now**, or **Decline and
+remember**. Core update approval does not approve a personal change. Skipping
+does not undo or invalidate a completed core update.
+
+If the behavior already exists in your Soul, core, or other authoritative
+instructions, Jarvis skips it. A checkpoint reminder already supplied by the
+updated core should not be duplicated in the Soul. Existing preferences and
+required local capabilities are checked before a suggestion is offered.
+
+`jarvis-memory` is not mandatory. Jarvis uses it when it owns your personal
+files, uses an equivalent local workflow when available, or makes a narrow
+approved direct edit when no dedicated curator exists and your rules allow
+it. An unclear destination or a rule prohibiting direct edits stops that
+change and leaves the proposal available for discussion.
+
+Accepted changes and choices you explicitly ask Jarvis to remember use one
+existing decision/provenance record. If there is none, Jarvis proposes its
+location and entry for approval. **Decline and remember** saves only that
+decision; ordinary refusal or **Skip for now** writes nothing. An unchanged
+recorded declined suggestion is not offered again just because a newer
+release appears. A later user edit is not silently reversed.
+
+The catalog and workflow ship with the updater in releases containing this
+feature; older releases cannot supply it. When upgrading from an older updater,
+ask the agent to read the new installed `jarvis-update` skill after the core
+update, then say: "Check the optional personal improvements from this release."
+For a non-Lite Jarvis, read the references from the same immutable source as
+the adoption skill. This is an agent-guided semantic comparison, not an
+automatic rewrite of personal files.
 
 ## Interruption, recovery, and rollback
 
@@ -101,6 +150,28 @@ recovery layer, but it is not a backup and no remote or push is implied.
 
 If Python 3 is unavailable, the update stops before changing your workspace.
 Ordinary Markdown-based Jarvis work remains available.
+
+Capability adoption and personal patches use a separate, small recovery scope.
+Before writing, Jarvis rechecks the reviewed versions and saves originals of
+only the approved files, including the decision/provenance record. It verifies
+the final content against the displayed proposal. The included helper needs
+Python 3; an existing local recovery mechanism with the same guarantees can
+also be used. Without either, Jarvis can inspect and propose but stops before
+applying a patch.
+
+If adoption is interrupted, ask: "Inspect the interrupted adoption and show
+what changed." Jarvis compares current files with the recovery evidence and
+offers a new reviewed completion patch or a scoped rollback. It does not
+automatically resume writes. A newer edit or a corrupt original copy blocks
+rollback before restoration, so later work can be preserved deliberately.
+Repeated verification of a completed adoption does not apply the change twice.
+
+Adoption recovery lives under `.jarvis-adoption/recovery/<operation-id>/` in
+the consumer and can contain private original content. It stays local until
+you approve cleanup; it is not disposable test residue. Do not publish or
+commit it. Each recovery directory ignores its own files during ordinary Git
+staging; do not force-add them. External preparation files can be removed after verification.
+Neither recovery mechanism is a disk backup or a lock against concurrent edits.
 
 ## Canonical mechanics
 

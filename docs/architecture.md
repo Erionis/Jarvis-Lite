@@ -34,6 +34,24 @@ semantic tag and never adds a timestamp or machine identity.
 
 ## Canonical owners
 
+The updater also ships a small personal-improvement catalog and its shared
+[adoption reference](../skills/jarvis-update/personal-adoption.md), used by the
+repository-only adoption skill at the same immutable source revision. These
+are optional suggestions for the local authorized writer; they do not make
+personal files release-managed. The helper `adoption_recovery.py` only saves
+approved preimages, inspects actual hashes, verifies results and performs
+guarded rollback. It does not apply new content or resume automatically.
+Decision/provenance entries belong in one consumer-owned record, outside the
+updater's state JSON. Recovery under `.jarvis-adoption/recovery/` is local
+consumer data, never part of a fresh package or a source build.
+
+The catalog is curated: each stable ID names one semantic revision, a source,
+destination role, benefit, equivalence criteria, constraints and dependencies.
+Keep unchanged IDs across releases to honor recorded declines; revise an ID
+only for a materially different proposal. Adding an entry requires checking
+its behavior against an existing customized consumer, not copying template
+paragraphs into personal sources.
+
 - Public promise and audience routes: [`README.md`](../README.md).
 - Acquisition and first run: [`docs/getting-started.md`](getting-started.md).
 - Daily user lifecycle: [`docs/daily-use.md`](daily-use.md).
