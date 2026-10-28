@@ -3,6 +3,7 @@ from __future__ import annotations
 import hashlib
 import importlib.util
 import json
+import re
 import shutil
 import subprocess
 import sys
@@ -237,6 +238,55 @@ class LiteUpdatePackageContractTest(unittest.TestCase):
                     release_version="1.0.0",
                     source_commit="ABC123",
                 )
+
+    def test_personal_improvement_catalog_entries_are_complete(self):
+        catalog = (ROOT / "skills/jarvis-update/personal-improvements.md").read_text(
+            encoding="utf-8"
+        )
+        entries = {
+            candidate: " ".join(body.split())
+            for candidate, body in re.findall(
+                r"(?ms)^## `([a-z0-9-]+-v[0-9]+)`\n(.*?)(?=^## |\Z)", catalog
+            )
+        }
+        for candidate in [
+            "soul-proactive-help-v1",
+            "session-checkpoint-offer-v1",
+            "soul-disagreement-first-v1",
+            "soul-anticipate-next-step-v1",
+        ]:
+            self.assertIn(candidate, entries)
+        for candidate, body in entries.items():
+            for field in [
+                "Introduced",
+                "Destination",
+                "Benefit",
+                "Equivalent behavior",
+                "Constraints",
+                "Adaptable example",
+            ]:
+                self.assertIn(f"- **{field}:**", body, f"{candidate}: {field}")
+
+        disagreement = entries["soul-disagreement-first-v1"]
+        for phrase in [
+            "in the first sentence",
+            "not only requested opinions",
+            "without saying where is not equivalent",
+            "Raise a disagreement once",
+            "never blocks the decision",
+        ]:
+            self.assertIn(phrase, disagreement)
+
+        anticipation = entries["soul-anticipate-next-step-v1"]
+        for phrase in [
+            "`soul-proactive-help-v1` alone is not equivalent",
+            "show the conflict in the preview",
+            "Only reads the consumer already allows without asking",
+            "keep their existing approval",
+            "one line at the end, without a question",
+            "No side quests",
+        ]:
+            self.assertIn(phrase, anticipation)
 
     def test_update_skill_defines_the_negotiated_control_plane(self):
         skill_path = ROOT / "skills/jarvis-update/SKILL.md"

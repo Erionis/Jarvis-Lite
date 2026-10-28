@@ -6,8 +6,12 @@ This project uses Semantic Versioning.
 
 - The default Soul puts disagreement in the first sentence of an answer, also
   for instructions and guidance handed over by other sessions or agents, and
-  raises it once before leaving the decision to the user. Existing personal
-  Souls are not changed.
+  raises it once before leaving the decision to the user. It also anticipates
+  the user's next step: reads allowed without asking are done ahead, and the
+  next step is named in one line without a question. A repeated request
+  becomes a proposal for a tool or page. Existing personal Souls are not
+  changed; updates offer both behaviors as personal improvements
+  (`soul-disagreement-first-v1`, `soul-anticipate-next-step-v1`).
 - Update checks and capability adoption can offer explicit personal-behavior
   improvements adapted to existing instructions, with separate preview and
   approval. Existing local curators are honored; a memory skill is not a
