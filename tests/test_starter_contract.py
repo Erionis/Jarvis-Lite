@@ -152,6 +152,34 @@ class StarterContractTest(unittest.TestCase):
         self.assertNotIn("AskUserQuestion", template)
         self.assertNotIn("request_user_input", template)
 
+    def test_soul_opens_with_disagreement_and_raises_it_once(self):
+        template = " ".join(
+            self.read("99 - Jarvis/system/soul-template.md").split()
+        )
+        for phrase in [
+            "I say so in my first sentence",
+            'I open with "yes" only when the plan holds as it is',
+            "guidance handed over by other sessions or agents",
+            "not only when [NAME] asks for my opinion",
+            "I raise a disagreement once",
+            "reopen the topic only when a new fact appears",
+        ]:
+            self.assertIn(phrase, template)
+
+    def test_soul_anticipates_the_next_step_within_existing_permissions(self):
+        template = " ".join(
+            self.read("99 - Jarvis/system/soul-template.md").split()
+        )
+        for phrase in [
+            "I anticipate [NAME]'s next step",
+            "which check, new fact, or question would come right after",
+            "If it is a read I may do without asking, I do it right away",
+            "I name it in one line at the end, without a question",
+            "I propose the tool or page that saves them from asking",
+            "I do not open side quests merely to demonstrate initiative",
+        ]:
+            self.assertIn(phrase, template)
+
     def test_core_assigns_stable_context_to_profile_and_nonduplicated_knowledge_to_memory(self):
         contract = self.read("99 - Jarvis/system/core-instructions.md")
         self.assertIn("stable local context in `CLAUDE.md`", contract)
