@@ -152,6 +152,20 @@ class StarterContractTest(unittest.TestCase):
         self.assertNotIn("AskUserQuestion", template)
         self.assertNotIn("request_user_input", template)
 
+    def test_soul_opens_with_disagreement_and_raises_it_once(self):
+        template = " ".join(
+            self.read("99 - Jarvis/system/soul-template.md").split()
+        )
+        for phrase in [
+            "I say so in my first sentence",
+            'I open with "yes" only when the plan holds as it is',
+            "guidance handed over by other sessions or agents",
+            "not only when [NAME] asks for my opinion",
+            "I raise a disagreement once",
+            "reopen the topic only when a new fact appears",
+        ]:
+            self.assertIn(phrase, template)
+
     def test_core_assigns_stable_context_to_profile_and_nonduplicated_knowledge_to_memory(self):
         contract = self.read("99 - Jarvis/system/core-instructions.md")
         self.assertIn("stable local context in `CLAUDE.md`", contract)

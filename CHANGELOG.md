@@ -4,6 +4,10 @@ This project uses Semantic Versioning.
 
 ## Unreleased
 
+- The default Soul puts disagreement in the first sentence of an answer, also
+  for instructions and guidance handed over by other sessions or agents, and
+  raises it once before leaving the decision to the user. Existing personal
+  Souls are not changed.
 - Update checks and capability adoption can offer explicit personal-behavior
   improvements adapted to existing instructions, with separate preview and
   approval. Existing local curators are honored; a memory skill is not a
